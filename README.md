@@ -1,2 +1,2 @@
-# swe-project
-Project for CSCI 3428 - Software Engineering at SMU
+# CSCI 3428 - Software Engineering Project
+## St. Margaret's Bay Area Woodland Conservation Site
