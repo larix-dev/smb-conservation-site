@@ -1,17 +1,49 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, {useEffect, useState} from 'react'
+import ReactDOM from 'react-dom/client'
+import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-dom'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Home from './pages/Home'
+import About from './pages/About'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
+import './index.css'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
-);
+)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function Layout() {
+  const location = useLocation()
+
+  useEffect(() => {
+    document.documentElement.scrollTo(0, 0)
+  }, [location.pathname])
+
+  const [bannerHeight, setBannerHeight] = useState(0)
+
+  return (
+    <>
+      <header>
+        {/*<Banner callback={height => setBannerHeight(height)} /> */}
+        <Navbar />
+      </header>
+      <main className="flex" style={{minHeight: `calc(100vh - 60px - ${bannerHeight}px)`}}>
+        <Outlet />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </>
+  )
+}
