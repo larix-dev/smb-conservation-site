@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-do
 
 import Home from './pages/Home'
 import About from './pages/About'
+import Gallery from './pages/Gallery'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="gallery" element={<Gallery />} />
         </Route>
       </Routes>
     </BrowserRouter>
