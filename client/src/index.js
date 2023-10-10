@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-dom'
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 
 import Home from './pages/Home'
 import About from './pages/About'
@@ -9,17 +10,24 @@ import Footer from './components/Footer'
 
 import './index.css'
 
+const apollo = new ApolloClient({
+  uri: process.env.REACT_APP_API_URL,
+  cache: new InMemoryCache()
+})
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ApolloProvider client={apollo}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ApolloProvider>
   </React.StrictMode>
 )
 
