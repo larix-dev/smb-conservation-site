@@ -43,7 +43,7 @@ var lists = {
       createdAt: (0, import_fields.timestamp)({
         defaultValue: { kind: "now" }
       }),
-      idAdmin: (0, import_fields.checkbox)()
+      isAdmin: (0, import_fields.checkbox)()
     }
   }),
   Announcement: (0, import_core.list)({

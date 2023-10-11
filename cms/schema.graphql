@@ -7,7 +7,7 @@ type User {
   email: String
   password: PasswordState
   createdAt: DateTime
-  idAdmin: Boolean
+  isAdmin: Boolean
 }
 
 type PasswordState {
@@ -29,7 +29,7 @@ input UserWhereInput {
   name: StringFilter
   email: StringFilter
   createdAt: DateTimeNullableFilter
-  idAdmin: BooleanFilter
+  isAdmin: BooleanFilter
 }
 
 input IDFilter {
@@ -92,7 +92,7 @@ input UserOrderByInput {
   name: OrderDirection
   email: OrderDirection
   createdAt: OrderDirection
-  idAdmin: OrderDirection
+  isAdmin: OrderDirection
 }
 
 enum OrderDirection {
@@ -105,7 +105,7 @@ input UserUpdateInput {
   email: String
   password: String
   createdAt: DateTime
-  idAdmin: Boolean
+  isAdmin: Boolean
 }
 
 input UserUpdateArgs {
@@ -118,7 +118,7 @@ input UserCreateInput {
   email: String
   password: String
   createdAt: DateTime
-  idAdmin: Boolean
+  isAdmin: Boolean
 }
 
 type Announcement {
