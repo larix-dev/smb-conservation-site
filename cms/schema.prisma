@@ -16,30 +16,18 @@ model User {
   name      String    @default("")
   email     String    @unique @default("")
   password  String
-  posts     Post[]    @relation("Post_author")
   createdAt DateTime? @default(now())
+  idAdmin   Boolean   @default(false)
 }
 
 model Announcement {
-  id      String  @id @default(cuid())
-  text    String  @default("")
-  color   String?
-  enabled Boolean @default(false)
+  id     String  @id @default(cuid())
+  text   String  @default("")
+  colour String  @default("blue")
+  active Boolean @default(true)
 }
 
-model Post {
-  id       String  @id @default(cuid())
-  title    String  @default("")
-  content  String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  author   User?   @relation("Post_author", fields: [authorId], references: [id])
-  authorId String? @map("author")
-  tags     Tag[]   @relation("Post_tags")
-
-  @@index([authorId])
-}
-
-model Tag {
-  id    String @id @default(cuid())
-  name  String @default("")
-  posts Post[] @relation("Post_tags")
+model About {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
