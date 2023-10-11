@@ -50,17 +50,20 @@ var lists = {
     access: import_access.allowAll,
     fields: {
       text: (0, import_fields.text)({ validation: { isRequired: true } }),
-      color: (0, import_fields.select)({
+      colour: (0, import_fields.select)({
+        type: "string",
         options: [
-          { label: "Red", value: "r" },
-          { label: "Green", value: "g" },
-          { label: "Blue", value: "b" },
-          { label: "Orange", value: "o" },
-          { label: "Yellow", value: "y" },
-          { label: "Violet", value: "v" }
-        ]
+          { label: "Red", value: "red" },
+          { label: "Orange", value: "orange" },
+          { label: "Yellow", value: "yellow" },
+          { label: "Green", value: "green" },
+          { label: "Blue", value: "blue" },
+          { label: "Violet", value: "violet" }
+        ],
+        defaultValue: "blue",
+        validation: { isRequired: true }
       }),
-      enabled: (0, import_fields.checkbox)()
+      active: (0, import_fields.checkbox)({ defaultValue: true })
     }
   }),
   About: (0, import_core.list)({

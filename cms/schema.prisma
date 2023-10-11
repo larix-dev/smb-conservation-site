@@ -21,10 +21,10 @@ model User {
 }
 
 model Announcement {
-  id      String  @id @default(cuid())
-  text    String  @default("")
-  color   String?
-  enabled Boolean @default(false)
+  id     String  @id @default(cuid())
+  text   String  @default("")
+  colour String  @default("blue")
+  active Boolean @default(true)
 }
 
 model About {

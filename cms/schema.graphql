@@ -124,8 +124,8 @@ input UserCreateInput {
 type Announcement {
   id: ID!
   text: String
-  color: String
-  enabled: Boolean
+  colour: String
+  active: Boolean
 }
 
 input AnnouncementWhereUniqueInput {
@@ -138,35 +138,21 @@ input AnnouncementWhereInput {
   NOT: [AnnouncementWhereInput!]
   id: IDFilter
   text: StringFilter
-  color: StringNullableFilter
-  enabled: BooleanFilter
-}
-
-input StringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: StringNullableFilter
+  colour: StringFilter
+  active: BooleanFilter
 }
 
 input AnnouncementOrderByInput {
   id: OrderDirection
   text: OrderDirection
-  color: OrderDirection
-  enabled: OrderDirection
+  colour: OrderDirection
+  active: OrderDirection
 }
 
 input AnnouncementUpdateInput {
   text: String
-  color: String
-  enabled: Boolean
+  colour: String
+  active: Boolean
 }
 
 input AnnouncementUpdateArgs {
@@ -176,8 +162,8 @@ input AnnouncementUpdateArgs {
 
 input AnnouncementCreateInput {
   text: String
-  color: String
-  enabled: Boolean
+  colour: String
+  active: Boolean
 }
 
 type About {

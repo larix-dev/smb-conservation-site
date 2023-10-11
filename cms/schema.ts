@@ -1,6 +1,6 @@
 import {list} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {text, relationship, password, timestamp, select, checkbox} from '@keystone-6/core/fields'
+import {text, password, timestamp, select, checkbox} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -25,17 +25,20 @@ export const lists: Lists = {
     access: allowAll,
     fields: {
       text: text({validation: {isRequired: true}}),
-      color: select({
+      colour: select({
+        type: 'string',
         options: [
-          {label: 'Red', value: 'r'},
-          {label: 'Green', value: 'g'},
-          {label: 'Blue', value: 'b'},
-          {label: 'Orange', value: 'o'},
-          {label: 'Yellow', value: 'y'},
-          {label: 'Violet', value: 'v'}
-        ]
+          {label: 'Red', value: 'red'},
+          {label: 'Orange', value: 'orange'},
+          {label: 'Yellow', value: 'yellow'},
+          {label: 'Green', value: 'green'},
+          {label: 'Blue', value: 'blue'},
+          {label: 'Violet', value: 'violet'}
+        ],
+        defaultValue: 'blue',
+        validation: {isRequired: true}
       }),
-      enabled: checkbox()
+      active: checkbox({defaultValue: true})
     }
   }),
   About: list({
