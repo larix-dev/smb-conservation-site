@@ -5,13 +5,10 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 
 import Home from './pages/Home'
 import About from './pages/About'
-<<<<<<< HEAD
 import Gallery from './pages/Gallery'
-=======
 
 import Page from './components/Page'
 import Banner from './components/Banner'
->>>>>>> origin/feat-about
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import './index.css'
@@ -24,7 +21,6 @@ const apollo = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-<<<<<<< HEAD
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -46,7 +42,6 @@ root.render(
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
->>>>>>> origin/feat-about
   </React.StrictMode>
 )
 
