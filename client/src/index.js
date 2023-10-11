@@ -7,7 +7,6 @@ import About from './pages/About'
 import Gallery from './pages/Gallery'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
 import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

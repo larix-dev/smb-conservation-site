@@ -1,6 +1,6 @@
 function Gallery() {
     return (
-      <div>About page gallery</div>
+      <div>Gallery page content</div>
     )
   }
   
