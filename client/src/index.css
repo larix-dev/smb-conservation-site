@@ -15,5 +15,5 @@ code {
 }
 
 .accent-button {
-  @apply px-4 py-2 leading-none border rounded text-white bg-teal-900 hover:bg-teal-800 w-fit;
+  @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
 }

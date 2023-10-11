@@ -14,7 +14,7 @@ function Home() {
         <br />
         Nature and Heritage
       </div>
-      <Link to="about" className="accent-button opacity-90">
+      <Link to="about" className="accent-button">
         Learn More&nbsp;
         <HiSparkles className="inline" />
       </Link>
