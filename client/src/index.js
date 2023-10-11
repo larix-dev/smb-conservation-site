@@ -21,16 +21,6 @@ const apollo = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="gallery" element={<Gallery />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-=======
     <ApolloProvider client={apollo}>
       <BrowserRouter>
         <Routes>

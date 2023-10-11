@@ -4,10 +4,6 @@ import {HiSparkles} from 'react-icons/hi2'
 import background from '../assets/images/home.jpg'
 
 function Home() {
-<<<<<<< HEAD
-  return(
-    <div>Home page content</div>
-=======
   return (
     <div
       className="w-full bg-cover bg-center flex flex-col justify-center items-center gap-4"
@@ -23,7 +19,6 @@ function Home() {
         <HiSparkles className="inline" />
       </Link>
     </div>
->>>>>>> origin/feat-about
   )
 }
 
