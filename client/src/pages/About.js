@@ -17,7 +17,7 @@ function About() {
   `
   const {loading, error, data} = useQuery(query)
 
-  if (loading || error) {
+  if (loading || error || !data) {
     return null
   }
 
