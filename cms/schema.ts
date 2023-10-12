@@ -49,5 +49,14 @@ export const lists: Lists = {
         formatting: true
       })
     }
+  }),
+  Burial: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
   })
 }
