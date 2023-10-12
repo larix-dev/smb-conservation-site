@@ -75,7 +75,7 @@ var lists = {
       })
     }
   }),
-  About_Burial: (0, import_core.list)({
+  Burial: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
     fields: {
