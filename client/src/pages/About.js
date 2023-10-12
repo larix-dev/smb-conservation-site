@@ -25,7 +25,7 @@ function About() {
 
   return (
     <Page name="About Us">
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
           <DocumentRenderer document={document} />
         </div>
