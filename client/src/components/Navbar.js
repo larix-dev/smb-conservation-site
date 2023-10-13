@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {Collapse} from 'react-collapse'
-import {Link, useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import cx from 'classnames'
 
 import Logo from './Logo'
+import NavLink from './NavLink'
 
 import './Navbar.css'
 
@@ -34,7 +35,12 @@ function Navbar() {
           <NavbarMenu isOpen={isOpen} windowSize={windowSize}>
             <div className="flex flex-col lg:flex-row gap-6 text-sm font-bold pt-8 pb-4 lg:p-0">
               <NavLink to="/" name="Home" />
-              <NavLink to="/about" name="About" />
+              <NavLink to="/about" name="About Us" />
+              <NavLink to="/map" name="Map" />
+              <NavLink to="/ecosystem" name="Ecosystem" />
+              <NavLink to="/products-services" name="Products & Services" />
+              <NavLink to="/green-burial" name="Green Burial" />
+              <NavLink to="/gallery" name="Gallery" />
             </div>
           </NavbarMenu>
         </div>
@@ -63,14 +69,6 @@ function NavbarToggle(props) {
       <span className={cx({'opacity-0': !props.isOpen, 'opacity-1 rotate-45': props.isOpen})}></span>
       <span className={cx({'opacity-0': !props.isOpen, 'opacity-1 -rotate-45': props.isOpen})}></span>
     </button>
-  )
-}
-
-function NavLink(props) {
-  return (
-    <Link to={props.to} className="text-white hover:underline">
-      {props.name}
-    </Link>
   )
 }
 
