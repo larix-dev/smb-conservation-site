@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 
-import logo_image from '../assets/forest_logo.svg'
+import logoImage from '../assets/forest_logo.svg'
 
 function Logo() {
   return (
