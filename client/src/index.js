@@ -13,6 +13,8 @@ import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Map from './pages/Map'
+
 import './index.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
@@ -33,8 +35,9 @@ root.render(
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
+            <Route path="map" element={<Map />} />
             <Route path="*" element={<PageNotFound />} />
-          </Route>
+        </Route>
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
