@@ -14,11 +14,8 @@ function Home() {
         <br />
         Nature and Heritage
       </div>
-<<<<<<< HEAD
-      <Link to="about" className="accent-button">
-=======
+
       <Link to="about" className="home-cta-button">
->>>>>>> origin/main
         Learn More&nbsp;
         <HiSparkles className="inline" />
       </Link>

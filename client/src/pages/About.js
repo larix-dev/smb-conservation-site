@@ -17,11 +17,7 @@ function About() {
   `
   const {loading, error, data} = useQuery(query)
 
-<<<<<<< HEAD
-  if (loading || error) {
-=======
   if (loading || error || !data) {
->>>>>>> origin/main
     return null
   }
 
@@ -29,11 +25,7 @@ function About() {
 
   return (
     <Page name="About Us">
-<<<<<<< HEAD
-      <div className="flex gap-8">
-=======
       <div className="flex flex-col lg:flex-row gap-8">
->>>>>>> origin/main
         <div className="flex-1 prose">
           <DocumentRenderer document={document} />
         </div>
