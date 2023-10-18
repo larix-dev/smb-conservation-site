@@ -27,6 +27,7 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="gallery" element={<Gallery />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
