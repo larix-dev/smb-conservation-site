@@ -17,7 +17,6 @@ model User {
   email     String    @unique @default("")
   password  String
   createdAt DateTime? @default(now())
-  idAdmin   Boolean   @default(false)
 }
 
 model Announcement {

@@ -5,7 +5,10 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 
 import Home from './pages/Home'
 import About from './pages/About'
+<<<<<<< HEAD
 import Gallery from './pages/Gallery'
+=======
+>>>>>>> origin/main
 
 import Page from './components/Page'
 import Banner from './components/Banner'
@@ -27,7 +30,10 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+<<<<<<< HEAD
             <Route path="gallery" element={<Gallery />} />
+=======
+>>>>>>> origin/main
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

@@ -18,7 +18,11 @@ export const lists: Lists = {
       createdAt: timestamp({
         defaultValue: {kind: 'now'}
       }),
+<<<<<<< HEAD
       idAdmin: checkbox()
+=======
+      isAdmin: checkbox()
+>>>>>>> origin/main
     }
   }),
   Announcement: list({
