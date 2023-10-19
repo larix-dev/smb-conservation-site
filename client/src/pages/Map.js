@@ -30,7 +30,8 @@ function Mapbox() {
     [lng + d, lat + d]
   ]
 
-  const [zoom, setZoom] = useState(15)
+  const minZoom = 15
+  const [zoom, setZoom] = useState(minZoom)
 
   useEffect(() => {
     if (map.current) {
@@ -42,7 +43,8 @@ function Mapbox() {
       center: [lng, lat],
       zoom: zoom,
       attributionControl: false,
-      maxBounds: bounds
+      maxBounds: bounds,
+      minZoom: minZoom
     })
     map.current.resize()
     map.current.addControl(new mapboxgl.FullscreenControl())
