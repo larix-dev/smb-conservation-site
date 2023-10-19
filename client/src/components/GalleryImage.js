@@ -1,4 +1,4 @@
-import placeholder from '../assets/images/placeholder.jpeg'
+import placeholder from '../assets/images/c_small.png'
 
 function GalleryImage() {
   return (
