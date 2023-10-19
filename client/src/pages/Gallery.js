@@ -4,7 +4,12 @@ import GalleryImage from '../components/GalleryImage'
 function Gallery() {
   return (
     <Page name="Gallery">
-      <div className="inline-grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-4">
+        <GalleryImage></GalleryImage>
+        <GalleryImage></GalleryImage>
+        <GalleryImage></GalleryImage>
+        <GalleryImage></GalleryImage>
+        <GalleryImage></GalleryImage>
         <GalleryImage></GalleryImage>
         <GalleryImage></GalleryImage>
         <GalleryImage></GalleryImage>
