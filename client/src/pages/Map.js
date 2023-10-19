@@ -48,6 +48,7 @@ function Mapbox() {
     })
     map.current.resize()
     map.current.addControl(new mapboxgl.FullscreenControl())
+    map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
   }, [])
 
   return <div ref={mapContainer} className="w-full aspect-video"></div>
