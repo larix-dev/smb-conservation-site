@@ -7,11 +7,7 @@ type User {
   email: String
   password: PasswordState
   createdAt: DateTime
-<<<<<<< HEAD
-  idAdmin: Boolean
-=======
   isAdmin: Boolean
->>>>>>> origin/main
 }
 
 type PasswordState {
@@ -33,11 +29,7 @@ input UserWhereInput {
   name: StringFilter
   email: StringFilter
   createdAt: DateTimeNullableFilter
-<<<<<<< HEAD
-  idAdmin: BooleanFilter
-=======
   isAdmin: BooleanFilter
->>>>>>> origin/main
 }
 
 input IDFilter {
@@ -100,11 +92,7 @@ input UserOrderByInput {
   name: OrderDirection
   email: OrderDirection
   createdAt: OrderDirection
-<<<<<<< HEAD
-  idAdmin: OrderDirection
-=======
   isAdmin: OrderDirection
->>>>>>> origin/main
 }
 
 enum OrderDirection {
@@ -117,11 +105,7 @@ input UserUpdateInput {
   email: String
   password: String
   createdAt: DateTime
-<<<<<<< HEAD
-  idAdmin: Boolean
-=======
   isAdmin: Boolean
->>>>>>> origin/main
 }
 
 input UserUpdateArgs {
@@ -134,11 +118,7 @@ input UserCreateInput {
   email: String
   password: String
   createdAt: DateTime
-<<<<<<< HEAD
-  idAdmin: Boolean
-=======
   isAdmin: Boolean
->>>>>>> origin/main
 }
 
 type Announcement {
