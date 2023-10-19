@@ -7,7 +7,6 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Gallery from './pages/Gallery'
 
-
 import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
