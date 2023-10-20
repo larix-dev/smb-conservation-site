@@ -1,6 +1,7 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import Signup from '../components/Signup'
 import {useQuery, gql} from '@apollo/client'
+import {useForm} from 'react-hook-form'
 
 import Page from '../components/Page'
 
@@ -37,11 +38,39 @@ function Burial() {
           </div>
           <div className="flex-1 bg-stone-300 p-4">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
-            <Signup />
+            <BurialForm />
           </div>
         </div>
       </div>
     </Page>
+  )
+}
+
+function BurialForm() {
+  const {register, handleSubmit} = useForm()
+  const onSubmit = data => console.log(data)
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col gap-4">
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" placeholder="Your Name" {...register('name', {required: true, maxLength: 40})} />
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="your.name@example.com" {...register('email', {required: true})} />
+          <label htmlFor="phone">Phone number</label>
+          <input type="tel" id="phone" placeholder="(902) 555-5555" {...register('phone')} />
+          <label htmlFor="message">Message</label>
+          <textarea
+            rows="6"
+            id="message"
+            placeholder="Ask us about our green burial services."
+            {...register('message')}
+          ></textarea>
+        </div>
+        <input type="submit" value="Send" className="accent-button" />
+      </div>
+    </form>
   )
 }
 
