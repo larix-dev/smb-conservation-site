@@ -1,19 +1,20 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
-import {Link} from 'react-router-dom'
-import {HiSparkles} from 'react-icons/hi2'
+import Signup from '../components/Signup'
 import {useQuery, gql} from '@apollo/client'
 
 import Page from '../components/Page'
 
+import burial from '../assets/images/burial.jpg'
+
 function Burial() {
   const query = gql`
-  query Query {
-    Burial {
-      content {
-        document
+    query Query {
+      burial {
+        content {
+          document
+        }
       }
     }
-  }
   `
 
   const {loading, error, data} = useQuery(query)
@@ -22,28 +23,28 @@ function Burial() {
     return null
   }
 
-  const document = data.about_Burial.content.document
+  const document = data.burial.content.document
 
-
-    return (
-      <Page name="Green Burial: Resting in Nature's Embrace">
+  return (
+    <Page name="Green Burial: Resting in Nature's Embrace">
+      <div className="prose w-full">
+      <DocumentRenderer document={document} />
+      </div>
       <div className="flex gap-8">
         <div className="flex-1 prose">
-          <DocumentRenderer document={document} />
-          <div className="inline" >
-          <Link to="home" className="accent-button">
-            Learn More&nbsp;
-            <HiSparkles className="inline" />
-          </Link>
-          <Link to="home" className="accent-button">
-            Login&nbsp;
-          </Link>
+          <div className="inline">
+            <div className="flex-1">
+              <img src={burial} alt="Burial" />
+              <div>
+                <h1 className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Inquery form:</h1>
+                <Signup />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </Page>
-    )
-  }
-  
-  export default Burial
-  
+  )
+}
+
+export default Burial

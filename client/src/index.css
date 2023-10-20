@@ -17,3 +17,9 @@ body {
 .accent-button {
   @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
 }
+
+input[type='text'],
+input[type='email'],
+input[type='tel'] {
+  @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+}
