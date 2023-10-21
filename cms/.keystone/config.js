@@ -74,6 +74,21 @@ var lists = {
         formatting: true
       })
     }
+  }),
+  GalleryTag: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      tagName: (0, import_fields.text)()
+    }
+  }),
+  Gallery: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      //image: image(),
+      caption: (0, import_fields.text)(),
+      description: (0, import_fields.text)(),
+      tags: (0, import_fields.relationship)({ ref: "GalleryTag", many: true })
+    }
   })
 };
 
