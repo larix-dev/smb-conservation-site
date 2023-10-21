@@ -203,6 +203,135 @@ input AboutCreateInput {
   content: JSON
 }
 
+type ProductCategory {
+  id: ID!
+  title: String
+  tags(where: ProductWhereInput! = {}, orderBy: [ProductOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductWhereUniqueInput): [Product!]
+  tagsCount(where: ProductWhereInput! = {}): Int
+}
+
+input ProductCategoryWhereUniqueInput {
+  id: ID
+}
+
+input ProductCategoryWhereInput {
+  AND: [ProductCategoryWhereInput!]
+  OR: [ProductCategoryWhereInput!]
+  NOT: [ProductCategoryWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  tags: ProductManyRelationFilter
+}
+
+input ProductManyRelationFilter {
+  every: ProductWhereInput
+  some: ProductWhereInput
+  none: ProductWhereInput
+}
+
+input ProductCategoryOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+}
+
+input ProductCategoryUpdateInput {
+  title: String
+  tags: ProductRelateToManyForUpdateInput
+}
+
+input ProductRelateToManyForUpdateInput {
+  disconnect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  create: [ProductCreateInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+input ProductCategoryUpdateArgs {
+  where: ProductCategoryWhereUniqueInput!
+  data: ProductCategoryUpdateInput!
+}
+
+input ProductCategoryCreateInput {
+  title: String
+  tags: ProductRelateToManyForCreateInput
+}
+
+input ProductRelateToManyForCreateInput {
+  create: [ProductCreateInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+type Product {
+  id: ID!
+  title: String
+  image: ImageFieldOutput
+  description: String
+  available: Boolean
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+input ProductWhereUniqueInput {
+  id: ID
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  description: StringFilter
+  available: BooleanFilter
+}
+
+input ProductOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  description: OrderDirection
+  available: OrderDirection
+}
+
+input ProductUpdateInput {
+  title: String
+  image: ImageFieldInput
+  description: String
+  available: Boolean
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input ProductUpdateArgs {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateInput!
+}
+
+input ProductCreateInput {
+  title: String
+  image: ImageFieldInput
+  description: String
+  available: Boolean
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -227,6 +356,18 @@ type Mutation {
   updateAbouts(data: [AboutUpdateArgs!]!): [About]
   deleteAbout(where: AboutWhereUniqueInput! = {id: 1}): About
   deleteAbouts(where: [AboutWhereUniqueInput!]!): [About]
+  createProductCategory(data: ProductCategoryCreateInput!): ProductCategory
+  createProductCategories(data: [ProductCategoryCreateInput!]!): [ProductCategory]
+  updateProductCategory(where: ProductCategoryWhereUniqueInput!, data: ProductCategoryUpdateInput!): ProductCategory
+  updateProductCategories(data: [ProductCategoryUpdateArgs!]!): [ProductCategory]
+  deleteProductCategory(where: ProductCategoryWhereUniqueInput!): ProductCategory
+  deleteProductCategories(where: [ProductCategoryWhereUniqueInput!]!): [ProductCategory]
+  createProduct(data: ProductCreateInput!): Product
+  createProducts(data: [ProductCreateInput!]!): [Product]
+  updateProduct(where: ProductWhereUniqueInput!, data: ProductUpdateInput!): Product
+  updateProducts(data: [ProductUpdateArgs!]!): [Product]
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -259,6 +400,12 @@ type Query {
   abouts(where: AboutWhereInput! = {id: {equals: 1}}, orderBy: [AboutOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: AboutWhereUniqueInput): [About!]
   about(where: AboutWhereUniqueInput! = {id: 1}): About
   aboutsCount(where: AboutWhereInput! = {id: {equals: 1}}): Int
+  productCategories(where: ProductCategoryWhereInput! = {}, orderBy: [ProductCategoryOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductCategoryWhereUniqueInput): [ProductCategory!]
+  productCategory(where: ProductCategoryWhereUniqueInput!): ProductCategory
+  productCategoriesCount(where: ProductCategoryWhereInput! = {}): Int
+  products(where: ProductWhereInput! = {}, orderBy: [ProductOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductWhereUniqueInput): [Product!]
+  product(where: ProductWhereUniqueInput!): Product
+  productsCount(where: ProductWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

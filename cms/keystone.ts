@@ -11,6 +11,16 @@ export default withAuth(
     },
     lists,
     session,
+    storage: {
+      localImages: {
+        kind: 'local',
+        type: 'image',
+        generateUrl: path => `${'http://localhost:5050'}/images${path}`,
+        serverRoute: {
+          path: '/images',
+        },
+        storagePath: 'storage/localImages',
+      }},
     server: {
       cors: {origin: [process.env.CLIENT_URL!], credentials: true},
       port: process.env.PORT ? parseInt(process.env.PORT) : 3000
