@@ -1,5 +1,4 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
-import Signup from '../components/Signup'
 import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
 
@@ -68,7 +67,7 @@ function BurialForm() {
             {...register('message')}
           ></textarea>
         </div>
-        <input type="submit" value="Send" className="accent-button" />
+        <input type="submit" value="Send" className="send-button" />
       </div>
     </form>
   )
