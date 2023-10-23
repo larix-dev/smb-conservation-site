@@ -14,6 +14,7 @@ import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Map from './pages/Map'
+import InterMap from './pages/InterMap'
 
 import './index.css'
 
@@ -30,6 +31,7 @@ root.render(
     <ApolloProvider client={apollo}>
       <BrowserRouter>
         <Routes>
+          <Route path="interactive-map" element={<InterMap />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
