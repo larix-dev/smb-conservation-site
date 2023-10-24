@@ -240,7 +240,6 @@ input GalleryTagCreateInput {
 
 type Gallery {
   id: ID!
-  image: String
   caption: String
   description: String
   tags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
@@ -256,7 +255,6 @@ input GalleryWhereInput {
   OR: [GalleryWhereInput!]
   NOT: [GalleryWhereInput!]
   id: IDFilter
-  image: StringFilter
   caption: StringFilter
   description: StringFilter
   tags: GalleryTagManyRelationFilter
@@ -270,13 +268,11 @@ input GalleryTagManyRelationFilter {
 
 input GalleryOrderByInput {
   id: OrderDirection
-  image: OrderDirection
   caption: OrderDirection
   description: OrderDirection
 }
 
 input GalleryUpdateInput {
-  image: String
   caption: String
   description: String
   tags: GalleryTagRelateToManyForUpdateInput
@@ -295,7 +291,6 @@ input GalleryUpdateArgs {
 }
 
 input GalleryCreateInput {
-  image: String
   caption: String
   description: String
   tags: GalleryTagRelateToManyForCreateInput

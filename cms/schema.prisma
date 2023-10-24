@@ -40,7 +40,6 @@ model GalleryTag {
 
 model Gallery {
   id          String       @id @default(cuid())
-  image       String       @default("")
   caption     String       @default("")
   description String       @default("")
   tags        GalleryTag[] @relation("Gallery_tags")
