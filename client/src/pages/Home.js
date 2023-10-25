@@ -3,6 +3,11 @@ import {HiSparkles} from 'react-icons/hi2'
 
 import background from '../assets/images/home.jpg'
 
+import {Link} from 'react-router-dom'
+import {HiSparkles} from 'react-icons/hi2'
+
+import background from '../assets/images/home.jpg'
+
 function Home() {
   return (
     <div
@@ -14,7 +19,7 @@ function Home() {
         <br />
         Nature and Heritage
       </div>
-      <Link to="about" className="accent-button">
+      <Link to="about" className="home-cta-button">
         Learn More&nbsp;
         <HiSparkles className="inline" />
       </Link>

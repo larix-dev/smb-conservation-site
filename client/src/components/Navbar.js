@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {Collapse} from 'react-collapse'
 import {useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import cx from 'classnames'
 
 import Logo from './Logo'
+import NavLink from './NavLink'
 import NavLink from './NavLink'
 
 import './Navbar.css'
@@ -39,7 +41,7 @@ function Navbar() {
               <NavLink to="/map" name="Map" />
               <NavLink to="/ecosystem" name="Ecosystem" />
               <NavLink to="/products-services" name="Products & Services" />
-              <NavLink to="/burial" name="Green Burial" />
+              <NavLink to="/green-burial" name="Green Burial" />
               <NavLink to="/gallery" name="Gallery" />
             </div>
           </NavbarMenu>
