@@ -32,6 +32,10 @@ model About {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
+model Burial {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
 model GalleryTag {
   id                     String         @id @default(cuid())
   tagName                String         @default("")

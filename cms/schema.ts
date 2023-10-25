@@ -50,6 +50,15 @@ export const lists: Lists = {
       })
     }
   }),
+  Burial: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
   GalleryTag: list({
     access: allowAll,
     fields: {

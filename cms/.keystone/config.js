@@ -75,6 +75,15 @@ var lists = {
       })
     }
   }),
+  Burial: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
   GalleryTag: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {

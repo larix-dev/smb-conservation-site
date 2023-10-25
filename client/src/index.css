@@ -13,3 +13,14 @@ body {
 .home-cta-button {
   @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
 }
+
+.send-button {
+  @apply px-4 py-2 leading-none border rounded text-white bg-teal-900 hover:bg-teal-800 w-fit min-w-[100px];
+}
+
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+textarea {
+  @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0;
+}

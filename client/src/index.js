@@ -5,6 +5,7 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 
 import Home from './pages/Home'
 import About from './pages/About'
+import Burial from './pages/Burial'
 import Gallery from './pages/Gallery'
 
 import Page from './components/Page'
@@ -27,6 +28,7 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
