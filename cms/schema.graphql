@@ -239,6 +239,7 @@ input BurialUpdateArgs {
 input BurialCreateInput {
   content: JSON
 }
+
 type GalleryTag {
   id: ID!
   tagName: String
