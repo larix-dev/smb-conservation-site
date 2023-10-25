@@ -39,7 +39,7 @@ function Navbar() {
               <NavLink to="/map" name="Map" />
               <NavLink to="/ecosystem" name="Ecosystem" />
               <NavLink to="/products-services" name="Products & Services" />
-              <NavLink to="/green-burial" name="Green Burial" />
+              <NavLink to="/burial" name="Green Burial" />
               <NavLink to="/gallery" name="Gallery" />
             </div>
           </NavbarMenu>
