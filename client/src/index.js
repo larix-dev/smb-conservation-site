@@ -6,13 +6,12 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 import Home from './pages/Home'
 import About from './pages/About'
 import Burial from './pages/Burial'
-
+import Gallery from './pages/Gallery'
 
 import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
 import './index.css'
 
 const apollo = new ApolloClient({
@@ -30,6 +29,7 @@ root.render(
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
+            <Route path="gallery" element={<Gallery />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

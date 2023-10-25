@@ -14,7 +14,7 @@ function Banner(props) {
   const {loading, error, data} = useQuery(query)
 
   const bannerRef = useRef(null)
-  
+
   useEffect(() => {
     if (data) {
       props.callback(bannerRef.current.offsetHeight)

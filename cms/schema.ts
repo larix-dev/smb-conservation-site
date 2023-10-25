@@ -1,6 +1,6 @@
 import {list} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {text, password, timestamp, select, checkbox} from '@keystone-6/core/fields'
+import {relationship, image, text, password, timestamp, select, checkbox} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -56,6 +56,27 @@ export const lists: Lists = {
     fields: {
       content: document({
         formatting: true
+      })
+    }
+  }),
+  GalleryTag: list({
+    access: allowAll,
+    fields: {
+      tagName: text({validation: {isRequired: true}})
+    }
+  }),
+  GalleryImage: list({
+    access: allowAll,
+    fields: {
+      image: image({storage: 'localImages'}),
+      caption: text({validation: {isRequired: true}}),
+      description: text({validation: {isRequired: true}}),
+      tags: relationship({
+        ref: 'GalleryTag',
+        many: true,
+        ui: {
+          labelField: 'tagName'
+        }
       })
     }
   })
