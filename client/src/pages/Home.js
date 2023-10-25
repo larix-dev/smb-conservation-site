@@ -3,11 +3,6 @@ import {HiSparkles} from 'react-icons/hi2'
 
 import background from '../assets/images/home.jpg'
 
-import {Link} from 'react-router-dom'
-import {HiSparkles} from 'react-icons/hi2'
-
-import background from '../assets/images/home.jpg'
-
 function Home() {
   return (
     <div
