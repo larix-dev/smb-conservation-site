@@ -33,14 +33,19 @@ model About {
 }
 
 model GalleryTag {
-  id                String    @id @default(cuid())
-  tagName           String    @default("")
-  from_Gallery_tags Gallery[] @relation("Gallery_tags")
+  id                     String         @id @default(cuid())
+  tagName                String         @default("")
+  from_GalleryImage_tags GalleryImage[] @relation("GalleryImage_tags")
 }
 
-model Gallery {
-  id          String       @id @default(cuid())
-  caption     String       @default("")
-  description String       @default("")
-  tags        GalleryTag[] @relation("Gallery_tags")
+model GalleryImage {
+  id              String       @id @default(cuid())
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  caption         String       @default("")
+  description     String       @default("")
+  tags            GalleryTag[] @relation("GalleryImage_tags")
 }

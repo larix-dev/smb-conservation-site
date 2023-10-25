@@ -78,16 +78,22 @@ var lists = {
   GalleryTag: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
-      tagName: (0, import_fields.text)()
+      tagName: (0, import_fields.text)({ validation: { isRequired: true } })
     }
   }),
-  Gallery: (0, import_core.list)({
+  GalleryImage: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
-      //image: image(),
-      caption: (0, import_fields.text)(),
-      description: (0, import_fields.text)(),
-      tags: (0, import_fields.relationship)({ ref: "GalleryTag", many: true })
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      caption: (0, import_fields.text)({ validation: { isRequired: true } }),
+      description: (0, import_fields.text)({ validation: { isRequired: true } }),
+      tags: (0, import_fields.relationship)({
+        ref: "GalleryTag",
+        many: true,
+        ui: {
+          labelField: "tagName"
+        }
+      })
     }
   })
 };
@@ -127,6 +133,7 @@ var session = (0, import_session.statelessSessions)({
 
 // keystone.ts
 var import_config = require("dotenv/config");
+var port = process.env.PORT ? parseInt(process.env.PORT) : 3e3;
 var keystone_default = withAuth(
   (0, import_core2.config)({
     db: {
@@ -135,9 +142,21 @@ var keystone_default = withAuth(
     },
     lists,
     session,
+    storage: {
+      localImages: {
+        kind: "local",
+        type: "image",
+        generateUrl: (path) => `http://localhost:${port}/images${path}`,
+        // add external url env var
+        serverRoute: {
+          path: "/images"
+        },
+        storagePath: "storage/localImages"
+      }
+    },
     server: {
       cors: { origin: [process.env.CLIENT_URL], credentials: true },
-      port: process.env.PORT ? parseInt(process.env.PORT) : 3e3
+      port
     }
   })
 );

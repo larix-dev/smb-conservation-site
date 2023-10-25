@@ -53,16 +53,22 @@ export const lists: Lists = {
   GalleryTag: list({
     access: allowAll,
     fields: {
-      tagName: text()
+      tagName: text({validation: {isRequired: true}})
     }
   }),
-  Gallery: list({
+  GalleryImage: list({
     access: allowAll,
     fields: {
-      //image: image(),
-      caption: text(),
-      description: text(),
-      tags: relationship({ref: 'GalleryTag', many: true})
+      image: image({storage: 'localImages'}),
+      caption: text({validation: {isRequired: true}}),
+      description: text({validation: {isRequired: true}}),
+      tags: relationship({
+        ref: 'GalleryTag',
+        many: true,
+        ui: {
+          labelField: 'tagName'
+        }
+      })
     }
   })
 }
