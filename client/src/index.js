@@ -29,7 +29,7 @@ root.render(
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="burial" element={<Burial />} />
+            <Route path="green-burial" element={<Burial />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

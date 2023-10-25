@@ -14,18 +14,13 @@ body {
   @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
 }
 
-.accent-button {
-  @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
-}
-
 .send-button {
-  @apply px-4 py-2 leading-none border rounded  border-teal-700 shadow-sm text-teal-900 bg-opacity-90 bg-gray-300 hover:ring hover:ring-teal-800 hover:ring-opacity-50 w-fit;
+  @apply px-4 py-2 leading-none border rounded text-white bg-teal-900 hover:bg-teal-800 w-fit min-w-[100px];
 }
-
 
 input[type='text'],
 input[type='email'],
 input[type='tel'],
 textarea {
-  @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0;
 }

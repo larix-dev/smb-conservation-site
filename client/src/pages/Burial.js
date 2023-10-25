@@ -35,7 +35,7 @@ function Burial() {
           <div className="flex-1">
             <img src={burial} alt="Burial" />
           </div>
-          <div className="flex-1 bg-stone-300 p-4">
+          <div className="flex-1">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
             <BurialForm />
           </div>
@@ -52,22 +52,31 @@ function BurialForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
-        <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" placeholder="Your Name" {...register('name', {required: true, maxLength: 40})} />
-          <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="your.name@example.com" {...register('email', {required: true})} />
-          <label htmlFor="phone">Phone number</label>
-          <input type="tel" id="phone" placeholder="(902) 555-5555" {...register('phone')} />
-          <label htmlFor="message">Message</label>
-          <textarea
-            rows="6"
-            id="message"
-            placeholder="Ask us about our green burial services."
-            {...register('message')}
-          ></textarea>
+        <div className="flex flex-col gap-2">
+          <div>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" placeholder="Your Name" {...register('name', {required: true, maxLength: 40})} />
+          </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" placeholder="yourname@example.com" {...register('email', {required: true})} />
+          </div>
+          <div>
+            <label htmlFor="phone">Phone number</label>
+            <input type="tel" id="phone" placeholder="(902) 555-1234" {...register('phone')} />
+          </div>
+          <div>
+            <label htmlFor="message">Message</label>
+            <textarea
+              rows="6"
+              id="message"
+              className="resize-none"
+              placeholder="Ask us about our green burial services."
+              {...register('message')}
+            ></textarea>
+          </div>
         </div>
-        <input type="submit" value="Send" className="send-button" />
+        <input type="submit" value="Send" className="send-button cursor-pointer" />
       </div>
     </form>
   )
