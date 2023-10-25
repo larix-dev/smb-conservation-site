@@ -31,3 +31,21 @@ model About {
   id      Int    @id
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
+
+model GalleryTag {
+  id                     String         @id @default(cuid())
+  tagName                String         @default("")
+  from_GalleryImage_tags GalleryImage[] @relation("GalleryImage_tags")
+}
+
+model GalleryImage {
+  id              String       @id @default(cuid())
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  caption         String       @default("")
+  description     String       @default("")
+  tags            GalleryTag[] @relation("GalleryImage_tags")
+}

@@ -17,7 +17,7 @@ function Navbar() {
   useEffect(() => {
     setIsOpen(false)
   }, [location])
-  
+
   useEffect(() => {
     const handleResize = () => setWindowSize(window.innerWidth)
     window.addEventListener('resize', handleResize)
