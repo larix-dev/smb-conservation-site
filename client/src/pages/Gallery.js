@@ -1,5 +1,5 @@
 import {useQuery, gql} from '@apollo/client'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import cx from 'classnames'
 
