@@ -16,7 +16,7 @@ function MailTest() {
       subject: 'Feedback Received',
       text: text
     }
-    await axios.post('http://localhost:5051/send-message', body)
+    await axios.post('http://localhost:5050/send-message', body)
   }
 
   return (

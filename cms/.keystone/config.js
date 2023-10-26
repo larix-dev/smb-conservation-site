@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // keystone.ts
@@ -142,6 +152,45 @@ var session = (0, import_session.statelessSessions)({
 
 // keystone.ts
 var import_config = require("dotenv/config");
+
+// extensions.ts
+var import_nodemailer = __toESM(require("nodemailer"));
+var import_body_parser = __toESM(require("body-parser"));
+var import_cors = __toESM(require("cors"));
+function extendApp(app) {
+  app.use(import_body_parser.default.json());
+  const transport = import_nodemailer.default.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD
+    }
+  });
+  const corsOpts = {
+    origin: (origin, callback) => {
+      if (origin === process.env.CLIENT_URL) {
+        callback(null, true);
+      } else {
+        callback("Error: origin not allowed by CORS");
+      }
+    }
+  };
+  app.post("/send-message", (0, import_cors.default)(corsOpts), async (req, res) => {
+    const { to, subject, text: text2 } = req.body;
+    const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
+    const mail = { from, to, subject, text: text2 };
+    transport.sendMail(mail, (error) => {
+      if (error) {
+        console.log(error);
+        return res.sendStatus(500);
+      }
+      console.log(`Message sent to ${to}`);
+    });
+    return res.sendStatus(200);
+  });
+}
+
+// keystone.ts
 var port = process.env.PORT ? parseInt(process.env.PORT) : 3e3;
 var keystone_default = withAuth(
   (0, import_core2.config)({
@@ -165,7 +214,8 @@ var keystone_default = withAuth(
     },
     server: {
       cors: { origin: [process.env.CLIENT_URL], credentials: true },
-      port
+      port,
+      extendExpressApp: (app) => extendApp(app)
     }
   })
 );
