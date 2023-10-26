@@ -1,5 +1,5 @@
 import {useQuery, gql} from '@apollo/client'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import cx from 'classnames'
 
@@ -15,7 +15,8 @@ function Gallery() {
       }
       galleryImages {
         caption
-        description
+        author
+        dateTaken
         image {
           url
         }
@@ -35,7 +36,7 @@ function Gallery() {
   return (
     <Page name="Media Gallery">
       <div className="mb-4">
-        Saw something interesting at our site?&nbsp;
+        Did you take an interesting photo during your visit?&nbsp;
         <Link className="underline" to="/feedback">
           Send us some feedback with your image attached
         </Link>
@@ -50,7 +51,14 @@ function Gallery() {
         {data.galleryImages
           .filter(image => filter === null || image.tags.map(tag => tag.tagName).includes(filter))
           .map((image, i) => (
-            <GalleryImage key={i} url={image.image.url} caption={image.caption} desc={image.description} />
+            <GalleryImage
+              key={i}
+              url={image.image.url}
+              caption={image.caption}
+              author={image.author}
+              date={image.dateTaken}
+              filter={filter}
+            />
           ))}
       </div>
     </Page>
@@ -75,11 +83,12 @@ function Filter(props) {
 
 function GalleryImage(props) {
   return (
-    <div className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden">
+    <div key={props.filter} className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden animate-expand">
       <img src={props.url} alt={props.caption} />
-      <div className="p-2">
-        <div className="text-lg font-bold">{props.caption}</div>
-        <div className="prose">{props.desc}</div>
+      <div className="px-2 py-4 prose">
+        <div className="text-md font-bold hyphens-auto break-words" lang="en">{props.caption}</div>
+        <div>{props.author}</div>
+        <div className="text-sm">{new Date(props.date).toLocaleDateString('en-US', {dateStyle: 'long'})}</div>
       </div>
     </div>
   )
