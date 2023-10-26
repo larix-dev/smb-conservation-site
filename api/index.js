@@ -11,9 +11,8 @@ const app = express()
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-const whitelist = ['http://localhost:3000']
 const originRule = (origin, callback) => {
-  if (whitelist.includes(origin)) {
+  if (origin === process.env.CLIENT_URL) {
     callback(null, true)
   } else {
     callback('Error: origin not allowed by CORS')
@@ -35,22 +34,16 @@ const transport = nodemailer.createTransport({
 })
 
 app.post('/send-message', async (req, res) => {
-  const {name, email, phone, message} = req.body
+  const {to, subject, text} = req.body
+  const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`
+  const mail = {from, to, subject, text}
 
-  const recipient = 'yorkejohn02@gmail.com' // set to yourself
-
-  const mail = {
-    from: 'SMB Woodland Conservation <smbc@larix.dev>',
-    to: recipient,
-    subject: `Test Message`,
-    //html: html, <-- rendered html here
-    text: `Feedback received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
-  }
-  
-  transport.sendMail(mail, (error) => {
-    if(error) {
+  transport.sendMail(mail, error => {
+    if (error) {
+      console.log(error)
       return res.send(500)
     }
+    console.log(`Message sent to ${to}`)
   })
 
   return res.send(200)
