@@ -8,7 +8,6 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Burial from './pages/Burial'
 import Gallery from './pages/Gallery'
-import MailTest from './pages/MailTest'
 
 import Page from './components/Page'
 import Banner from './components/Banner'
@@ -34,7 +33,6 @@ root.render(
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
-            <Route path="mail-test" element={<MailTest />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
