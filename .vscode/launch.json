@@ -28,26 +28,12 @@
       ],
       "type": "node",
       "cwd": "${workspaceFolder}/client"
-    },
-    {
-      "name": "Run API",
-      "request": "launch",
-      "runtimeArgs": [
-        "run-script",
-        "dev"
-      ],
-      "runtimeExecutable": "npm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "node",
-      "cwd": "${workspaceFolder}/api"
     }
   ],
   "compounds": [
     {
       "name": "Run All",
-      "configurations": ["Run Client", "Run CMS", "Run API"]
+      "configurations": ["Run Client", "Run CMS"]
     }
   ]
 }
