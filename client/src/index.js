@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-dom'
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
+import axios from 'axios'
 
 import Home from './pages/Home'
 import About from './pages/About'
 import Burial from './pages/Burial'
 import Gallery from './pages/Gallery'
-import MailTest from './pages/MailTest'
 
 import Page from './components/Page'
 import Banner from './components/Banner'
@@ -15,8 +15,10 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import './index.css'
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
+
 const apollo = new ApolloClient({
-  uri: process.env.REACT_APP_API_URL,
+  uri: `${process.env.REACT_APP_API_URL}/api/graphql`,
   cache: new InMemoryCache()
 })
 
@@ -31,7 +33,6 @@ root.render(
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
-            <Route path="mail-test" element={<MailTest />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

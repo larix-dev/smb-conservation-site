@@ -1,6 +1,8 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
+import {useState} from 'react'
+import axios from 'axios'
 
 import Page from '../components/Page'
 
@@ -46,8 +48,24 @@ function Burial() {
 }
 
 function BurialForm() {
-  const {register, handleSubmit} = useForm()
-  const onSubmit = data => console.log(data)
+  const [submitted, setSubmitted] = useState(false)
+
+  const {register, handleSubmit, reset} = useForm()
+
+  const onSubmit = async data => {
+    const {name, email, phone, message} = data
+    /* construct the message (later via an API call to render the HTML) */
+    const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
+
+    const body = {
+      to: 'John.Yorke@smu.ca', // business email
+      subject: `Green Burial Inquery from ${name}`,
+      text: text
+    }
+    await axios.post('/send-message', body)
+    reset()
+    setSubmitted(true)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,11 +73,21 @@ function BurialForm() {
         <div className="flex flex-col gap-2">
           <div>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" placeholder="Your Name" {...register('name', {required: true, maxLength: 40})} />
+            <input
+              type="text"
+              id="name"
+              placeholder="Your Name"
+              {...register('name', {required: true, maxLength: 40})}
+            />
           </div>
           <div>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="yourname@example.com" {...register('email', {required: true})} />
+            <input
+              type="email"
+              id="email"
+              placeholder="yourname@example.com"
+              {...register('email', {required: true})}
+            />
           </div>
           <div>
             <label htmlFor="phone">Phone number</label>
@@ -76,6 +104,11 @@ function BurialForm() {
             ></textarea>
           </div>
         </div>
+        {submitted && (
+          <div className="text-sm text-green-800">
+            Thank you for your message. We will get back to you as soon as possible.
+          </div>
+        )}
         <input type="submit" value="Send" className="send-button cursor-pointer" />
       </div>
     </form>
