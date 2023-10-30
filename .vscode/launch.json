@@ -29,5 +29,11 @@
       "type": "node",
       "cwd": "${workspaceFolder}/client"
     }
+  ],
+  "compounds": [
+    {
+      "name": "Run All",
+      "configurations": ["Run Client", "Run CMS"]
+    }
   ]
 }
