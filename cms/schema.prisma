@@ -51,6 +51,7 @@ model GalleryImage {
   image_height    Int?
   image_id        String?
   caption         String       @default("")
-  description     String       @default("")
+  author          String       @default("")
+  dateTaken       String
   tags            GalleryTag[] @relation("GalleryImage_tags")
 }

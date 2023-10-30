@@ -104,8 +104,9 @@ var lists = {
     access: import_access.allowAll,
     fields: {
       image: (0, import_fields.image)({ storage: "localImages" }),
-      caption: (0, import_fields.text)({ validation: { isRequired: true } }),
-      description: (0, import_fields.text)({ validation: { isRequired: true } }),
+      caption: (0, import_fields.text)({ validation: { isRequired: true, length: { max: 100 } } }),
+      author: (0, import_fields.text)({ validation: { isRequired: true } }),
+      dateTaken: (0, import_fields.calendarDay)({ validation: { isRequired: true } }),
       tags: (0, import_fields.relationship)({
         ref: "GalleryTag",
         many: true,
