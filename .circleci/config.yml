@@ -26,7 +26,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "65:87:2c:51:eb:a3:13:a8:86:ae:89:56:17:a0:09:e3"
+            - "1f:76:d2:e6:25:23:cc:b5:f6:96:ff:d8:ea:52:c4:9c"
       - run:
           name: Run CMS deploy script
           command: bash ~/project/scripts/deploy_cms.sh
@@ -44,7 +44,7 @@ jobs:
           working_directory: ~/project/client
       - add_ssh_keys:
           fingerprints:
-            - "65:87:2c:51:eb:a3:13:a8:86:ae:89:56:17:a0:09:e3"
+            - "1f:76:d2:e6:25:23:cc:b5:f6:96:ff:d8:ea:52:c4:9c"
       - run:
           name: Run client deploy script
           command: bash ~/project/scripts/deploy_client.sh
