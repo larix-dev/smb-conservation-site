@@ -1,0 +1,77 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-s3: circleci/aws-s3@3.1.1
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+  node:
+    docker:
+      - image: cimg/node:lts
+
+jobs:
+  build-and-push-cms:
+    executor: aws-ecr/default
+    steps:
+      - aws-ecr/build-and-push-image:
+          repo: swe-project-cms
+          path: ~/project/cms
+          tag: latest,$CIRCLE_SHA1
+  deploy-cms:
+    executor: base
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "65:87:2c:51:eb:a3:13:a8:86:ae:89:56:17:a0:09:e3"
+      - run:
+          name: Run CMS deploy script
+          command: bash ~/project/scripts/deploy_cms.sh
+  build-and-sync-client:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Install client
+          command: npm ci
+          working_directory: ~/project/client
+      - run:
+          name: Build client
+          command: npm run build
+          working_directory: ~/project/client
+      - add_ssh_keys:
+          fingerprints:
+            - "65:87:2c:51:eb:a3:13:a8:86:ae:89:56:17:a0:09:e3"
+      - run:
+          name: Run client deploy script
+          command: bash ~/project/scripts/deploy_client.sh
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - build-and-push-cms:
+          context:
+            - swe-project
+          filters:
+            branches:
+              only:
+                - main
+      - deploy-cms:
+          context:
+            - swe-project
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - build-and-push-cms
+      - build-and-sync-client:
+          context:
+            - swe-project
+          filters:
+            branches:
+              only:
+                - main
