@@ -11,7 +11,7 @@ export default withAuth(
   config({
     db: {
       provider: 'sqlite',
-      url: 'file:./keystone.db'
+      url: process.env.DB_URL!
     },
     lists,
     session,
