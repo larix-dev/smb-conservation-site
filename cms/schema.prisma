@@ -32,26 +32,13 @@ model About {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
-model Burial {
-  id      Int    @id
-  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-}
-
-model GalleryTag {
-  id                     String         @id @default(cuid())
-  tagName                String         @default("")
-  from_GalleryImage_tags GalleryImage[] @relation("GalleryImage_tags")
-}
-
-model GalleryImage {
-  id              String       @id @default(cuid())
-  image_filesize  Int?
-  image_extension String?
-  image_width     Int?
-  image_height    Int?
-  image_id        String?
-  caption         String       @default("")
-  author          String       @default("")
-  dateTaken       String
-  tags            GalleryTag[] @relation("GalleryImage_tags")
+model Map {
+  id           Int @id
+  longitudeDeg Int
+  longitudeMin Int
+  longitudeSec Int
+  latitudeDeg  Int
+  latitudeMin  Int
+  latitudeSec  Int
+  zoom         Int
 }

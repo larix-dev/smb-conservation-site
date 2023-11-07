@@ -113,7 +113,20 @@ var lists = {
         ui: {
           labelField: "tagName"
         }
-      })
+      }),
+    }
+  }),
+  Map: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      longitudeDeg: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      longitudeMin: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      longitudeSec: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      latitudeDeg: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      latitudeMin: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      latitudeSec: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      zoom: (0, import_fields.integer)({ validation: { isRequired: true } })
     }
   })
 };

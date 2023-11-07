@@ -380,6 +380,80 @@ input GalleryImageCreateInput {
 input GalleryTagRelateToManyForCreateInput {
   create: [GalleryTagCreateInput!]
   connect: [GalleryTagWhereUniqueInput!]
+type Map {
+  id: ID!
+  longitudeDeg: Int
+  longitudeMin: Int
+  longitudeSec: Int
+  latitudeDeg: Int
+  latitudeMin: Int
+  latitudeSec: Int
+  zoom: Int
+}
+
+input MapWhereUniqueInput {
+  id: ID
+}
+
+input MapWhereInput {
+  AND: [MapWhereInput!]
+  OR: [MapWhereInput!]
+  NOT: [MapWhereInput!]
+  id: IDFilter
+  longitudeDeg: IntFilter
+  longitudeMin: IntFilter
+  longitudeSec: IntFilter
+  latitudeDeg: IntFilter
+  latitudeMin: IntFilter
+  latitudeSec: IntFilter
+  zoom: IntFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input MapOrderByInput {
+  id: OrderDirection
+  longitudeDeg: OrderDirection
+  longitudeMin: OrderDirection
+  longitudeSec: OrderDirection
+  latitudeDeg: OrderDirection
+  latitudeMin: OrderDirection
+  latitudeSec: OrderDirection
+  zoom: OrderDirection
+}
+
+input MapUpdateInput {
+  longitudeDeg: Int
+  longitudeMin: Int
+  longitudeSec: Int
+  latitudeDeg: Int
+  latitudeMin: Int
+  latitudeSec: Int
+  zoom: Int
+}
+
+input MapUpdateArgs {
+  where: MapWhereUniqueInput! = {id: 1}
+  data: MapUpdateInput!
+}
+
+input MapCreateInput {
+  longitudeDeg: Int
+  longitudeMin: Int
+  longitudeSec: Int
+  latitudeDeg: Int
+  latitudeMin: Int
+  latitudeSec: Int
+  zoom: Int
 }
 
 """
@@ -424,6 +498,12 @@ type Mutation {
   updateGalleryImages(data: [GalleryImageUpdateArgs!]!): [GalleryImage]
   deleteGalleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   deleteGalleryImages(where: [GalleryImageWhereUniqueInput!]!): [GalleryImage]
+  createMap(data: MapCreateInput!): Map
+  createMaps(data: [MapCreateInput!]!): [Map]
+  updateMap(where: MapWhereUniqueInput! = {id: 1}, data: MapUpdateInput!): Map
+  updateMaps(data: [MapUpdateArgs!]!): [Map]
+  deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
+  deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -465,6 +545,9 @@ type Query {
   galleryImages(where: GalleryImageWhereInput! = {}, orderBy: [GalleryImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryImageWhereUniqueInput): [GalleryImage!]
   galleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   galleryImagesCount(where: GalleryImageWhereInput! = {}): Int
+  maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
+  map(where: MapWhereUniqueInput! = {id: 1}): Map
+  mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

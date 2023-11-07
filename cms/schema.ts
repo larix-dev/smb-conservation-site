@@ -1,6 +1,6 @@
 import {list} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {relationship, image, text, password, timestamp, select, checkbox, calendarDay} from '@keystone-6/core/fields'
+import {relationship, image, calendarDay, text, password, timestamp, select, checkbox, integer} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -79,6 +79,19 @@ export const lists: Lists = {
           labelField: 'tagName'
         }
       })
+    }
+  }),
+  Map: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      longitudeDeg: integer({validation: {isRequired: true}}),
+      longitudeMin: integer({validation: {isRequired: true}}),
+      longitudeSec: integer({validation: {isRequired: true}}),
+      latitudeDeg: integer({validation: {isRequired: true}}),
+      latitudeMin: integer({validation: {isRequired: true}}),
+      latitudeSec: integer({validation: {isRequired: true}}),
+      zoom: integer({validation: {isRequired: true}})
     }
   })
 }

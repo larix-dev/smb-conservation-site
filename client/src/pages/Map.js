@@ -1,14 +1,34 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {FaMap} from 'react-icons/fa'
 import {Link} from 'react-router-dom'
+import {useQuery, gql} from '@apollo/client'
 
 import Page from '../components/Page'
 
 function Map() {
 
-  const lon = -63.9196
-  const lat = 44.6247
-  const zoom = 14.92
+  const query = gql`
+    query Query {
+      map {
+        latitudeDeg
+        latitudeMin
+        latitudeSec
+        longitudeDeg
+        longitudeMin
+        longitudeSec
+        zoom
+      }
+    }`
+
+  const {loading, error, data} = useQuery(query)
+
+  if (loading || error || !data) {
+    return null
+  }
+// coordinates should be converted to decimal for the mapbox url
+  const lon = (data.map.longitudeDeg + data.map.longitudeMin / 60 + data.map.longitudeSec / 3600) * -1 
+  const lat = data.map.latitudeDeg + data.map.latitudeMin / 60 + data.map.latitudeSec / 3600
+  const zoom = data.map.zoom 
 
   // this should be built based on the CMS. see https://docs.mapbox.com/api/maps/static-images/
   const mapSrc =
