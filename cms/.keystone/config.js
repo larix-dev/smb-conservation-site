@@ -94,6 +94,19 @@ var lists = {
       })
     }
   }),
+  Footer: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      addressLine1: (0, import_fields.text)({ validation: { isRequired: true } }),
+      addressLine2: (0, import_fields.text)({ validation: { isRequired: true } }),
+      Phone: (0, import_fields.text)({ validation: { isRequired: true } }),
+      socialMediaHandle1: (0, import_fields.text)({ validation: { isRequired: true } }),
+      socialMediaHandle2: (0, import_fields.text)({ validation: { isRequired: true } }),
+      socialMediaLink1: (0, import_fields.text)({ validation: { isRequired: true } }),
+      socialMediaLink2: (0, import_fields.text)({ validation: { isRequired: true } })
+    }
+  }),
   GalleryTag: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {

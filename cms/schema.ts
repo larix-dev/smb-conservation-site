@@ -59,6 +59,19 @@ export const lists: Lists = {
       })
     }
   }),
+  Footer: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      addressLine1: text({validation: {isRequired: true}}),
+      addressLine2: text({validation: {isRequired: true}}),
+      Phone: text({validation: {isRequired: true}}),
+      socialMediaHandle1: text({validation: {isRequired: true}}),
+      socialMediaHandle2: text({validation: {isRequired: true}}),
+      socialMediaLink1: text({validation: {isRequired: true}}),
+      socialMediaLink2: text({validation: {isRequired: true}}),
+    }
+  }),
   GalleryTag: list({
     access: allowAll,
     fields: {

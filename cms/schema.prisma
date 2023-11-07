@@ -37,6 +37,17 @@ model Burial {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
+model Footer {
+  id                 Int    @id
+  addressLine1       String @default("")
+  addressLine2       String @default("")
+  Phone              String @default("")
+  socialMediaHandle1 String @default("")
+  socialMediaHandle2 String @default("")
+  socialMediaLink1   String @default("")
+  socialMediaLink2   String @default("")
+}
+
 model GalleryTag {
   id                     String         @id @default(cuid())
   tagName                String         @default("")

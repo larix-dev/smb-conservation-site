@@ -1,9 +1,39 @@
 import {FaMap, FaPhone, FaInstagram, FaFacebook} from 'react-icons/fa'
+import {useQuery, gql} from '@apollo/client'
 
 import Logo from './Logo'
 import NavLink from './NavLink'
 
 function Footer() {
+  const query = gql`
+    query Query {
+      footer {
+        Phone
+        addressLine1
+        addressLine2
+        socialMediaLink1
+        socialMediaLink2
+        socialMediaHandle1
+        socialMediaHandle2
+      }
+    }
+  `
+  const {loading, error, data} = useQuery(query)
+
+  console.log(data)
+
+  if (loading || error || !data) {
+    return null
+  }
+
+  const addressLine1 = data.footer.addressLine1
+  const addressLine2 = data.footer.addressLine2
+  const Phone = data.footer.Phone
+  const socialMediaLink1 = data.footer.socialMediaLink1
+  const socialMediaLink2 = data.footer.socialMediaLink2
+  const socialMediaHandle1 = data.footer.socialMediaHandle1
+  const socialMediaHandle2 = data.footer.socialMediaHandle2
+
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-0 p-8 pb-6 max-w-screen-lg">
@@ -11,9 +41,9 @@ function Footer() {
           <Logo />
           <div>
             <FaMap className="inline" />
-            &nbsp;100 Conservation Road
+            &nbsp; {addressLine1}
             <br />
-            St. Margaret's Bay, NS B1A 1A1
+            {addressLine2}
           </div>
         </div>
         <div className="flex-1 flex flex-col lg:text-center">
@@ -27,20 +57,20 @@ function Footer() {
           <div>
             <FaPhone className="inline" />
             &nbsp;
-            <a href="tel:+19025551234">(902) 555-1234</a>
+            <a href={`tel:${Phone}`}>{Phone}</a>
           </div>
           <div>
             <FaInstagram className="inline" />
             &nbsp;
-            <a href="http://instagram.com/smbconservation" target="_blank" rel="noopener noreferrer">
-              smbconservation
+            <a href={`${socialMediaLink1}`} target="_blank" rel="noopener noreferrer">
+              {socialMediaHandle1}
             </a>
           </div>
           <div>
             <FaFacebook className="inline" />
             &nbsp;
-            <a href="http://facebook.com/smbconservation" target="_blank" rel="noopener noreferrer">
-              smbconservation
+            <a href={`${socialMediaLink2}`} target="_blank" rel="noopener noreferrer">
+              {socialMediaHandle2}
             </a>
           </div>
         </div>
