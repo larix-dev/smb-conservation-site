@@ -240,6 +240,71 @@ input BurialCreateInput {
   content: JSON
 }
 
+type Footer {
+  id: ID!
+  addressLine1: String
+  addressLine2: String
+  Phone: String
+  socialMediaHandle1: String
+  socialMediaHandle2: String
+  socialMediaLink1: String
+  socialMediaLink2: String
+}
+
+input FooterWhereUniqueInput {
+  id: ID
+}
+
+input FooterWhereInput {
+  AND: [FooterWhereInput!]
+  OR: [FooterWhereInput!]
+  NOT: [FooterWhereInput!]
+  id: IDFilter
+  addressLine1: StringFilter
+  addressLine2: StringFilter
+  Phone: StringFilter
+  socialMediaHandle1: StringFilter
+  socialMediaHandle2: StringFilter
+  socialMediaLink1: StringFilter
+  socialMediaLink2: StringFilter
+}
+
+input FooterOrderByInput {
+  id: OrderDirection
+  addressLine1: OrderDirection
+  addressLine2: OrderDirection
+  Phone: OrderDirection
+  socialMediaHandle1: OrderDirection
+  socialMediaHandle2: OrderDirection
+  socialMediaLink1: OrderDirection
+  socialMediaLink2: OrderDirection
+}
+
+input FooterUpdateInput {
+  addressLine1: String
+  addressLine2: String
+  Phone: String
+  socialMediaHandle1: String
+  socialMediaHandle2: String
+  socialMediaLink1: String
+  socialMediaLink2: String
+}
+
+input FooterUpdateArgs {
+  where: FooterWhereUniqueInput! = {id: 1}
+  data: FooterUpdateInput!
+}
+
+input FooterCreateInput {
+  addressLine1: String
+  addressLine2: String
+  Phone: String
+  socialMediaHandle1: String
+  socialMediaHandle2: String
+  socialMediaLink1: String
+  socialMediaLink2: String
+}
+
 type GalleryTag {
   id: ID!
   tagName: String
@@ -412,6 +477,12 @@ type Mutation {
   updateBurials(data: [BurialUpdateArgs!]!): [Burial]
   deleteBurial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   deleteBurials(where: [BurialWhereUniqueInput!]!): [Burial]
+  createFooter(data: FooterCreateInput!): Footer
+  createFooters(data: [FooterCreateInput!]!): [Footer]
+  updateFooter(where: FooterWhereUniqueInput! = {id: 1}, data: FooterUpdateInput!): Footer
+  updateFooters(data: [FooterUpdateArgs!]!): [Footer]
+  deleteFooter(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  deleteFooters(where: [FooterWhereUniqueInput!]!): [Footer]
   createGalleryTag(data: GalleryTagCreateInput!): GalleryTag
   createGalleryTags(data: [GalleryTagCreateInput!]!): [GalleryTag]
   updateGalleryTag(where: GalleryTagWhereUniqueInput!, data: GalleryTagUpdateInput!): GalleryTag
@@ -459,6 +530,9 @@ type Query {
   burials(where: BurialWhereInput! = {id: {equals: 1}}, orderBy: [BurialOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BurialWhereUniqueInput): [Burial!]
   burial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   burialsCount(where: BurialWhereInput! = {id: {equals: 1}}): Int
+  footers(where: FooterWhereInput! = {id: {equals: 1}}, orderBy: [FooterOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FooterWhereUniqueInput): [Footer!]
+  footer(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  footersCount(where: FooterWhereInput! = {id: {equals: 1}}): Int
   galleryTags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
   galleryTag(where: GalleryTagWhereUniqueInput!): GalleryTag
   galleryTagsCount(where: GalleryTagWhereInput! = {}): Int
