@@ -19,5 +19,8 @@
   "devDependencies": {
     "@types/cors": "^2.8.15",
     "@types/nodemailer": "^6.4.13"
+  },
+  "overrides": { 
+    "next": "13.4.12" 
   }
 }
