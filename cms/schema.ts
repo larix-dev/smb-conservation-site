@@ -85,6 +85,9 @@ export const lists: Lists = {
     access: allowAll,
     isSingleton: true,
     fields: {
+      content: document({
+        formatting: true
+      }),
       longitudeDeg: integer({validation: {isRequired: true}}),
       longitudeMin: integer({validation: {isRequired: true}}),
       longitudeSec: integer({validation: {isRequired: true}}),

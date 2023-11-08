@@ -120,6 +120,9 @@ var lists = {
     access: import_access.allowAll,
     isSingleton: true,
     fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      }),
       longitudeDeg: (0, import_fields.integer)({ validation: { isRequired: true } }),
       longitudeMin: (0, import_fields.integer)({ validation: { isRequired: true } }),
       longitudeSec: (0, import_fields.integer)({ validation: { isRequired: true } }),

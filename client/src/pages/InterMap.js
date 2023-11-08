@@ -1,5 +1,6 @@
 import mapboxgl from 'mapbox-gl'
 import {useEffect, useRef, useState} from 'react'
+import {useQuery, gql} from '@apollo/client'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -9,8 +10,8 @@ function InterMap() {
   const mapContainer = useRef(null)
   const map = useRef(null)
 
-  const [lng, setLng] = useState(-63.916881)
-  const [lat, setLat] = useState(44.624944)
+  const [lng, setLng] = useState(-63.5805555556)
+  const [lat, setLat] = useState(44.6316666667)
 
   const d = 0.01
   const bounds = [

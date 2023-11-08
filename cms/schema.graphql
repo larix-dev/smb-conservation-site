@@ -382,6 +382,7 @@ input GalleryTagRelateToManyForCreateInput {
   connect: [GalleryTagWhereUniqueInput!]
 type Map {
   id: ID!
+  content: Map_content_Document
   longitudeDeg: Int
   longitudeMin: Int
   longitudeSec: Int
@@ -389,6 +390,10 @@ type Map {
   latitudeMin: Int
   latitudeSec: Int
   zoom: Int
+}
+
+type Map_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input MapWhereUniqueInput {
@@ -432,6 +437,7 @@ input MapOrderByInput {
 }
 
 input MapUpdateInput {
+  content: JSON
   longitudeDeg: Int
   longitudeMin: Int
   longitudeSec: Int
@@ -447,6 +453,7 @@ input MapUpdateArgs {
 }
 
 input MapCreateInput {
+  content: JSON
   longitudeDeg: Int
   longitudeMin: Int
   longitudeSec: Int

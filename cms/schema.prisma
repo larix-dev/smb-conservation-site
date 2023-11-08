@@ -33,7 +33,8 @@ model About {
 }
 
 model Map {
-  id           Int @id
+  id           Int    @id
+  content      String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   longitudeDeg Int
   longitudeMin Int
   longitudeSec Int
