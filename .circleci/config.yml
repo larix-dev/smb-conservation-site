@@ -2,15 +2,11 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@7.3.0
-  aws-s3: circleci/aws-s3@3.1.1
 
 executors:
   base:
     docker:
       - image: cimg/base:stable
-  node:
-    docker:
-      - image: cimg/node:lts
 
 jobs:
   build-and-push-cms:
@@ -20,7 +16,14 @@ jobs:
           repo: swe-project-cms
           path: ~/project/cms
           tag: latest,$CIRCLE_SHA1
-  deploy-cms:
+  build-and-push-client:
+    executor: aws-ecr/default
+    steps:
+      - aws-ecr/build-and-push-image:
+          repo: swe-project-client
+          path: ~/project/client
+          tag: latest,$CIRCLE_SHA1
+  deploy:
     executor: base
     steps:
       - checkout
@@ -28,26 +31,8 @@ jobs:
           fingerprints:
             - "1f:76:d2:e6:25:23:cc:b5:f6:96:ff:d8:ea:52:c4:9c"
       - run:
-          name: Run CMS deploy script
-          command: bash ~/project/scripts/deploy_cms.sh
-  build-and-sync-client:
-    executor: node
-    steps:
-      - checkout
-      - run:
-          name: Install client
-          command: npm ci
-          working_directory: ~/project/client
-      - run:
-          name: Build client
-          command: npm run build
-          working_directory: ~/project/client
-      - add_ssh_keys:
-          fingerprints:
-            - "1f:76:d2:e6:25:23:cc:b5:f6:96:ff:d8:ea:52:c4:9c"
-      - run:
-          name: Run client deploy script
-          command: bash ~/project/scripts/deploy_client.sh
+          name: Run deploy script
+          command: bash ~/project/scripts/deploy.sh
 
 workflows:
   build-and-deploy:
@@ -59,7 +44,14 @@ workflows:
             branches:
               only:
                 - main
-      - deploy-cms:
+      - build-and-push-client:
+          context:
+            - swe-project
+          filters:
+            branches:
+              only:
+                - main      
+      - deploy:
           context:
             - swe-project
           filters:
@@ -68,10 +60,4 @@ workflows:
                 - main
           requires:
             - build-and-push-cms
-      - build-and-sync-client:
-          context:
-            - swe-project
-          filters:
-            branches:
-              only:
-                - main
+            - build-and-push-client
