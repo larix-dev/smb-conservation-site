@@ -7,6 +7,8 @@ import extendApp from './extensions'
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000
 
+const apiUrl = process.env.API_URL || `http://localhost:${port}`
+
 export default withAuth(
   config({
     db: {
@@ -19,7 +21,7 @@ export default withAuth(
       localImages: {
         kind: 'local',
         type: 'image',
-        generateUrl: path => `/images${path}`,
+        generateUrl: path => `${apiUrl}/images${path}`,
         serverRoute: {
           path: '/images'
         },
