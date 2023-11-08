@@ -19,7 +19,7 @@ export default withAuth(
       localImages: {
         kind: 'local',
         type: 'image',
-        generateUrl: path => `http://localhost:${port}/images${path}`, // add external url env var
+        generateUrl: path => `/images${path}`,
         serverRoute: {
           path: '/images'
         },
