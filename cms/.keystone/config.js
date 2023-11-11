@@ -123,12 +123,38 @@ var lists = {
       content: (0, import_fields_document.document)({
         formatting: true
       }),
-      longitudeDeg: (0, import_fields.integer)({ validation: { isRequired: true } }),
-      longitudeMin: (0, import_fields.integer)({ validation: { isRequired: true } }),
-      longitudeSec: (0, import_fields.integer)({ validation: { isRequired: true } }),
-      latitudeDeg: (0, import_fields.integer)({ validation: { isRequired: true } }),
-      latitudeMin: (0, import_fields.integer)({ validation: { isRequired: true } }),
-      latitudeSec: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      ...(0, import_core.group)({
+        label: "Map Centre Coordinates",
+        fields: {
+          latitude: (0, import_fields.text)({
+            validation: {
+              isRequired: true,
+              match: {
+                regex: /^([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]$/,
+                explanation: "Latitude coordinate must be in DMS format e.g. 44:48:54.123N"
+              }
+            }
+          }),
+          longitude: (0, import_fields.text)({
+            validation: {
+              isRequired: true,
+              match: {
+                regex: /^(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]$/,
+                explanation: "Longitude coordinate must be in DMS format e.g. 63:38:18.123W"
+              }
+            }
+          })
+        }
+      }),
+      trailCoordsTest: (0, import_fields.text)({
+        ui: {
+          displayMode: "textarea",
+          description: "Coordinates representing a trail. Each set of coordinates should be on a new line."
+        },
+        validation: {
+          isRequired: true
+        }
+      }),
       zoom: (0, import_fields.integer)({ validation: { isRequired: true } })
     }
   })

@@ -33,13 +33,10 @@ model About {
 }
 
 model Map {
-  id           Int    @id
-  content      String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  longitudeDeg Int
-  longitudeMin Int
-  longitudeSec Int
-  latitudeDeg  Int
-  latitudeMin  Int
-  latitudeSec  Int
-  zoom         Int
+  id              Int    @id
+  content         String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  latitude        String @default("")
+  longitude       String @default("")
+  trailCoordsTest String @default("")
+  zoom            Int
 }

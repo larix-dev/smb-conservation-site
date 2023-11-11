@@ -1,6 +1,6 @@
-import {list} from '@keystone-6/core'
+import {list, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {relationship, image, calendarDay, text, password, timestamp, select, checkbox, integer} from '@keystone-6/core/fields'
+import {relationship, image, calendarDay, text, password, timestamp, select, checkbox, integer, json} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -88,12 +88,39 @@ export const lists: Lists = {
       content: document({
         formatting: true
       }),
-      longitudeDeg: integer({validation: {isRequired: true}}),
-      longitudeMin: integer({validation: {isRequired: true}}),
-      longitudeSec: integer({validation: {isRequired: true}}),
-      latitudeDeg: integer({validation: {isRequired: true}}),
-      latitudeMin: integer({validation: {isRequired: true}}),
-      latitudeSec: integer({validation: {isRequired: true}}),
+      ...group({
+        label: 'Map Centre Coordinates',
+        fields: {
+          latitude: text({
+            validation: {
+              isRequired: true,
+              match: {
+                regex: /^([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]$/,
+                explanation: 'Latitude coordinate must be in DMS format e.g. 44:48:54.123N'
+              }
+            }
+          }),
+          longitude: text({
+            validation: {
+              isRequired: true,
+              match: {
+                regex: /^(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]$/,
+                explanation: 'Longitude coordinate must be in DMS format e.g. 63:38:18.123W'
+              }
+            }
+          })
+        }
+      }),
+      trailCoordsTest: text({
+        ui: {
+          displayMode: 'textarea',
+          description: 'Coordinates representing a trail. Each set of coordinates should be on a new line.'
+        },
+        validation: {
+          isRequired: true,
+         
+        }
+      }),
       zoom: integer({validation: {isRequired: true}})
     }
   })

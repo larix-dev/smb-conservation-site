@@ -40,7 +40,14 @@ function InterMap() {
     map.current.addControl(new ExitControl(), 'top-right')
   }, [])
 
-  return <div ref={mapContainer} className="w-screen h-screen"></div>
+  return (
+  <div className="w-screen h-screen flex flex-col">
+    <div ref={mapContainer} className='flex-1'></div>
+    <div className="bg-stone-200 p-4">
+      <button className="bg-stone-300 px-4 rounded">Test Button</button>
+    </div>
+  </div>
+  )
 }
 
 class ExitControl {

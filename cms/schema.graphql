@@ -383,12 +383,9 @@ input GalleryTagRelateToManyForCreateInput {
 type Map {
   id: ID!
   content: Map_content_Document
-  longitudeDeg: Int
-  longitudeMin: Int
-  longitudeSec: Int
-  latitudeDeg: Int
-  latitudeMin: Int
-  latitudeSec: Int
+  latitude: String
+  longitude: String
+  trailCoordsTest: String
   zoom: Int
 }
 
@@ -405,12 +402,9 @@ input MapWhereInput {
   OR: [MapWhereInput!]
   NOT: [MapWhereInput!]
   id: IDFilter
-  longitudeDeg: IntFilter
-  longitudeMin: IntFilter
-  longitudeSec: IntFilter
-  latitudeDeg: IntFilter
-  latitudeMin: IntFilter
-  latitudeSec: IntFilter
+  latitude: StringFilter
+  longitude: StringFilter
+  trailCoordsTest: StringFilter
   zoom: IntFilter
 }
 
@@ -427,23 +421,17 @@ input IntFilter {
 
 input MapOrderByInput {
   id: OrderDirection
-  longitudeDeg: OrderDirection
-  longitudeMin: OrderDirection
-  longitudeSec: OrderDirection
-  latitudeDeg: OrderDirection
-  latitudeMin: OrderDirection
-  latitudeSec: OrderDirection
+  latitude: OrderDirection
+  longitude: OrderDirection
+  trailCoordsTest: OrderDirection
   zoom: OrderDirection
 }
 
 input MapUpdateInput {
   content: JSON
-  longitudeDeg: Int
-  longitudeMin: Int
-  longitudeSec: Int
-  latitudeDeg: Int
-  latitudeMin: Int
-  latitudeSec: Int
+  latitude: String
+  longitude: String
+  trailCoordsTest: String
   zoom: Int
 }
 
@@ -454,12 +442,9 @@ input MapUpdateArgs {
 
 input MapCreateInput {
   content: JSON
-  longitudeDeg: Int
-  longitudeMin: Int
-  longitudeSec: Int
-  latitudeDeg: Int
-  latitudeMin: Int
-  latitudeSec: Int
+  latitude: String
+  longitude: String
+  trailCoordsTest: String
   zoom: Int
 }
 
