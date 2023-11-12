@@ -40,6 +40,8 @@ var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
+var latitudeRegex = /^([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]$/;
+var longitudeRegex = /^(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]$/;
 var lists = {
   User: (0, import_core.list)({
     access: import_access.allowAll,
@@ -130,7 +132,7 @@ var lists = {
             validation: {
               isRequired: true,
               match: {
-                regex: /^([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]$/,
+                regex: latitudeRegex,
                 explanation: "Latitude coordinate must be in DMS format e.g. 44:48:54.123N"
               }
             }
@@ -139,7 +141,7 @@ var lists = {
             validation: {
               isRequired: true,
               match: {
-                regex: /^(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]$/,
+                regex: longitudeRegex,
                 explanation: "Longitude coordinate must be in DMS format e.g. 63:38:18.123W"
               }
             }
