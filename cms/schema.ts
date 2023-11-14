@@ -1,6 +1,16 @@
-import {list} from '@keystone-6/core'
+import {list, graphql, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {relationship, image, text, password, timestamp, select, checkbox, calendarDay} from '@keystone-6/core/fields'
+import {
+  relationship,
+  image,
+  text,
+  password,
+  timestamp,
+  select,
+  checkbox,
+  calendarDay,
+  virtual
+} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -62,14 +72,34 @@ export const lists: Lists = {
   Footer: list({
     access: allowAll,
     isSingleton: true,
+    ui: {
+      labelField: 'Address'
+    },
+
     fields: {
-      addressLine1: text({validation: {isRequired: true}}),
-      addressLine2: text({validation: {isRequired: true}}),
-      Phone: text({validation: {isRequired: true}}),
-      socialMediaHandle1: text({validation: {isRequired: true}}),
-      socialMediaHandle2: text({validation: {isRequired: true}}),
-      socialMediaLink1: text({validation: {isRequired: true}}),
-      socialMediaLink2: text({validation: {isRequired: true}}),
+      address: text({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          displayMode: 'textarea'
+        }
+      }),
+      phone: text({validation: {isRequired: true}}),
+      ...group({
+        label: 'Instagram',
+        fields: {
+          instagramHandle: text({validation: {isRequired: true}}),
+          instagramLink: text({validation: {isRequired: true}})
+        }
+      }),
+      ...group({
+        label: 'Facebook',
+        fields: {
+          facebookHandle: text({validation: {isRequired: true}}),
+          facebookLink: text({validation: {isRequired: true}})
+        }
+      })
     }
   }),
   GalleryTag: list({

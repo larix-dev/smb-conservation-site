@@ -38,14 +38,13 @@ model Burial {
 }
 
 model Footer {
-  id                 Int    @id
-  addressLine1       String @default("")
-  addressLine2       String @default("")
-  Phone              String @default("")
-  socialMediaHandle1 String @default("")
-  socialMediaHandle2 String @default("")
-  socialMediaLink1   String @default("")
-  socialMediaLink2   String @default("")
+  id              Int    @id
+  address         String @default("")
+  phone           String @default("")
+  instagramHandle String @default("")
+  instagramLink   String @default("")
+  facebookHandle  String @default("")
+  facebookLink    String @default("")
 }
 
 model GalleryTag {
