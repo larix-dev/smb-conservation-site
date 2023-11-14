@@ -8,13 +8,12 @@ function Footer() {
   const query = gql`
     query Query {
       footer {
-        Phone
-        addressLine1
-        addressLine2
-        socialMediaLink1
-        socialMediaLink2
-        socialMediaHandle1
-        socialMediaHandle2
+        address
+        phone
+        facebookHandle
+        facebookLink
+        instagramHandle
+        instagramLink
       }
     }
   `
@@ -26,13 +25,12 @@ function Footer() {
     return null
   }
 
-  const addressLine1 = data.footer.addressLine1
-  const addressLine2 = data.footer.addressLine2
+  const address = data?.footer?.address
   const Phone = data.footer.Phone
-  const socialMediaLink1 = data.footer.socialMediaLink1
-  const socialMediaLink2 = data.footer.socialMediaLink2
-  const socialMediaHandle1 = data.footer.socialMediaHandle1
-  const socialMediaHandle2 = data.footer.socialMediaHandle2
+  const instagramHandle = data.footer.instagramHandle
+  const instagramLink = data.footer.instagramLink
+  const facebookHandle = data.footer.facebookHandle
+  const facebookLink = data.footer.facebookLink
 
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
@@ -41,9 +39,7 @@ function Footer() {
           <Logo />
           <div>
             <FaMap className="inline" />
-            &nbsp; {addressLine1}
-            <br />
-            {addressLine2}
+            &nbsp;<span className="whitespace-pre-line">{address}</span>
           </div>
         </div>
         <div className="flex-1 flex flex-col lg:text-center">
@@ -62,15 +58,15 @@ function Footer() {
           <div>
             <FaInstagram className="inline" />
             &nbsp;
-            <a href={`${socialMediaLink1}`} target="_blank" rel="noopener noreferrer">
-              {socialMediaHandle1}
+            <a href={`${instagramLink}`} target="_blank" rel="noopener noreferrer">
+              {instagramHandle}
             </a>
           </div>
           <div>
             <FaFacebook className="inline" />
             &nbsp;
-            <a href={`${socialMediaLink2}`} target="_blank" rel="noopener noreferrer">
-              {socialMediaHandle2}
+            <a href={`${facebookLink}`} target="_blank" rel="noopener noreferrer">
+              {facebookHandle}
             </a>
           </div>
         </div>

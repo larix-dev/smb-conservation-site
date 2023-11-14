@@ -97,14 +97,33 @@ var lists = {
   Footer: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
+    ui: {
+      labelField: "Address"
+    },
     fields: {
-      addressLine1: (0, import_fields.text)({ validation: { isRequired: true } }),
-      addressLine2: (0, import_fields.text)({ validation: { isRequired: true } }),
-      Phone: (0, import_fields.text)({ validation: { isRequired: true } }),
-      socialMediaHandle1: (0, import_fields.text)({ validation: { isRequired: true } }),
-      socialMediaHandle2: (0, import_fields.text)({ validation: { isRequired: true } }),
-      socialMediaLink1: (0, import_fields.text)({ validation: { isRequired: true } }),
-      socialMediaLink2: (0, import_fields.text)({ validation: { isRequired: true } })
+      address: (0, import_fields.text)({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          displayMode: "textarea"
+        }
+      }),
+      phone: (0, import_fields.text)({ validation: { isRequired: true } }),
+      ...(0, import_core.group)({
+        label: "Instagram",
+        fields: {
+          instagramHandle: (0, import_fields.text)({ validation: { isRequired: true } }),
+          instagramLink: (0, import_fields.text)({ validation: { isRequired: true } })
+        }
+      }),
+      ...(0, import_core.group)({
+        label: "Facebook",
+        fields: {
+          facebookHandle: (0, import_fields.text)({ validation: { isRequired: true } }),
+          facebookLink: (0, import_fields.text)({ validation: { isRequired: true } })
+        }
+      })
     }
   }),
   GalleryTag: (0, import_core.list)({

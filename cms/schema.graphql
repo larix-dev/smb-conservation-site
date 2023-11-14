@@ -242,13 +242,12 @@ input BurialCreateInput {
 
 type Footer {
   id: ID!
-  addressLine1: String
-  addressLine2: String
-  Phone: String
-  socialMediaHandle1: String
-  socialMediaHandle2: String
-  socialMediaLink1: String
-  socialMediaLink2: String
+  address: String
+  phone: String
+  instagramHandle: String
+  instagramLink: String
+  facebookHandle: String
+  facebookLink: String
 }
 
 input FooterWhereUniqueInput {
@@ -260,34 +259,31 @@ input FooterWhereInput {
   OR: [FooterWhereInput!]
   NOT: [FooterWhereInput!]
   id: IDFilter
-  addressLine1: StringFilter
-  addressLine2: StringFilter
-  Phone: StringFilter
-  socialMediaHandle1: StringFilter
-  socialMediaHandle2: StringFilter
-  socialMediaLink1: StringFilter
-  socialMediaLink2: StringFilter
+  address: StringFilter
+  phone: StringFilter
+  instagramHandle: StringFilter
+  instagramLink: StringFilter
+  facebookHandle: StringFilter
+  facebookLink: StringFilter
 }
 
 input FooterOrderByInput {
   id: OrderDirection
-  addressLine1: OrderDirection
-  addressLine2: OrderDirection
-  Phone: OrderDirection
-  socialMediaHandle1: OrderDirection
-  socialMediaHandle2: OrderDirection
-  socialMediaLink1: OrderDirection
-  socialMediaLink2: OrderDirection
+  address: OrderDirection
+  phone: OrderDirection
+  instagramHandle: OrderDirection
+  instagramLink: OrderDirection
+  facebookHandle: OrderDirection
+  facebookLink: OrderDirection
 }
 
 input FooterUpdateInput {
-  addressLine1: String
-  addressLine2: String
-  Phone: String
-  socialMediaHandle1: String
-  socialMediaHandle2: String
-  socialMediaLink1: String
-  socialMediaLink2: String
+  address: String
+  phone: String
+  instagramHandle: String
+  instagramLink: String
+  facebookHandle: String
+  facebookLink: String
 }
 
 input FooterUpdateArgs {
@@ -296,13 +292,12 @@ input FooterUpdateArgs {
 }
 
 input FooterCreateInput {
-  addressLine1: String
-  addressLine2: String
-  Phone: String
-  socialMediaHandle1: String
-  socialMediaHandle2: String
-  socialMediaLink1: String
-  socialMediaLink2: String
+  address: String
+  phone: String
+  instagramHandle: String
+  instagramLink: String
+  facebookHandle: String
+  facebookLink: String
 }
 
 type GalleryTag {
