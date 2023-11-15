@@ -1,4 +1,4 @@
-import {list, graphql, group} from '@keystone-6/core'
+import {list, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
 import {
   relationship,
@@ -9,7 +9,6 @@ import {
   select,
   checkbox,
   calendarDay,
-  virtual
 } from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
