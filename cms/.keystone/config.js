@@ -97,9 +97,6 @@ var lists = {
   Footer: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
-    ui: {
-      labelField: "Address"
-    },
     fields: {
       address: (0, import_fields.text)({
         validation: {

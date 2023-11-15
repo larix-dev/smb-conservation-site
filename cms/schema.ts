@@ -71,10 +71,6 @@ export const lists: Lists = {
   Footer: list({
     access: allowAll,
     isSingleton: true,
-    ui: {
-      labelField: 'Address'
-    },
-
     fields: {
       address: text({
         validation: {
