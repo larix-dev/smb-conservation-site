@@ -18,7 +18,7 @@ function Burial() {
       }
     }
   `
-
+  
   const {loading, error, data} = useQuery(query)
 
   if (loading || error || !data) {
