@@ -124,7 +124,14 @@ export const lists: Lists = {
           })
         }
       }),
-      trailCoordsTest: text({
+      zoom: integer({validation: {isRequired: true}})
+    }
+  }),
+  Trail: list({
+    access: allowAll,
+    fields: {
+      name: text({validation: {isRequired: true}}),
+      trailCoords: text({
         ui: {
           displayMode: 'textarea',
           description: 'Coordinates representing a trail. Each set of coordinates should be on a new line.'
@@ -132,8 +139,7 @@ export const lists: Lists = {
         validation: {
           isRequired: true
         }
-      }),
-      zoom: integer({validation: {isRequired: true}})
+      })
     }
   })
 }

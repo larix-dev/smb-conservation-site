@@ -57,10 +57,15 @@ model GalleryImage {
 }
 
 model Map {
-  id              Int    @id
-  content         String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  latitude        String @default("")
-  longitude       String @default("")
-  trailCoordsTest String @default("")
-  zoom            Int
+  id        Int    @id
+  content   String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  latitude  String @default("")
+  longitude String @default("")
+  zoom      Int
+}
+
+model Trail {
+  id          String @id @default(cuid())
+  name        String @default("")
+  trailCoords String @default("")
 }

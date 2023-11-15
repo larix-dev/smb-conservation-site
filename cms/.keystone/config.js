@@ -148,7 +148,14 @@ var lists = {
           })
         }
       }),
-      trailCoordsTest: (0, import_fields.text)({
+      zoom: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  Trail: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      name: (0, import_fields.text)({ validation: { isRequired: true } }),
+      trailCoords: (0, import_fields.text)({
         ui: {
           displayMode: "textarea",
           description: "Coordinates representing a trail. Each set of coordinates should be on a new line."
@@ -156,8 +163,7 @@ var lists = {
         validation: {
           isRequired: true
         }
-      }),
-      zoom: (0, import_fields.integer)({ validation: { isRequired: true } })
+      })
     }
   })
 };

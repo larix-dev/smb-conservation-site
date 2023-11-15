@@ -387,7 +387,6 @@ type Map {
   content: Map_content_Document
   latitude: String
   longitude: String
-  trailCoordsTest: String
   zoom: Int
 }
 
@@ -406,7 +405,6 @@ input MapWhereInput {
   id: IDFilter
   latitude: StringFilter
   longitude: StringFilter
-  trailCoordsTest: StringFilter
   zoom: IntFilter
 }
 
@@ -425,7 +423,6 @@ input MapOrderByInput {
   id: OrderDirection
   latitude: OrderDirection
   longitude: OrderDirection
-  trailCoordsTest: OrderDirection
   zoom: OrderDirection
 }
 
@@ -433,7 +430,6 @@ input MapUpdateInput {
   content: JSON
   latitude: String
   longitude: String
-  trailCoordsTest: String
   zoom: Int
 }
 
@@ -446,8 +442,47 @@ input MapCreateInput {
   content: JSON
   latitude: String
   longitude: String
-  trailCoordsTest: String
   zoom: Int
+}
+
+type Trail {
+  id: ID!
+  name: String
+  trailCoords: String
+}
+
+input TrailWhereUniqueInput {
+  id: ID
+}
+
+input TrailWhereInput {
+  AND: [TrailWhereInput!]
+  OR: [TrailWhereInput!]
+  NOT: [TrailWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  trailCoords: StringFilter
+}
+
+input TrailOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  trailCoords: OrderDirection
+}
+
+input TrailUpdateInput {
+  name: String
+  trailCoords: String
+}
+
+input TrailUpdateArgs {
+  where: TrailWhereUniqueInput!
+  data: TrailUpdateInput!
+}
+
+input TrailCreateInput {
+  name: String
+  trailCoords: String
 }
 
 """
@@ -498,6 +533,12 @@ type Mutation {
   updateMaps(data: [MapUpdateArgs!]!): [Map]
   deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
   deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
+  createTrail(data: TrailCreateInput!): Trail
+  createTrails(data: [TrailCreateInput!]!): [Trail]
+  updateTrail(where: TrailWhereUniqueInput!, data: TrailUpdateInput!): Trail
+  updateTrails(data: [TrailUpdateArgs!]!): [Trail]
+  deleteTrail(where: TrailWhereUniqueInput!): Trail
+  deleteTrails(where: [TrailWhereUniqueInput!]!): [Trail]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -542,6 +583,9 @@ type Query {
   maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
   map(where: MapWhereUniqueInput! = {id: 1}): Map
   mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
+  trails(where: TrailWhereInput! = {}, orderBy: [TrailOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailWhereUniqueInput): [Trail!]
+  trail(where: TrailWhereUniqueInput!): Trail
+  trailsCount(where: TrailWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
