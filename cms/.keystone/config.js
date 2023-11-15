@@ -168,9 +168,9 @@ function extendApp(app) {
     }
   };
   app.post("/send-message", (0, import_cors.default)(corsOpts), async (req, res) => {
-    const { to, subject, text: text2 } = req.body;
+    const { to, subject, html } = req.body;
     const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
-    const mail = { from, to, subject, text: text2 };
+    const mail = { from, to, subject, html };
     transport.sendMail(mail, (error) => {
       if (error) {
         console.log(error);
