@@ -1,6 +1,16 @@
 import {list, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {relationship, image, calendarDay, text, password, timestamp, select, checkbox, integer, json} from '@keystone-6/core/fields'
+import {
+  relationship,
+  image,
+  calendarDay,
+  text,
+  password,
+  timestamp,
+  select,
+  checkbox,
+  integer
+} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -120,8 +130,7 @@ export const lists: Lists = {
           description: 'Coordinates representing a trail. Each set of coordinates should be on a new line.'
         },
         validation: {
-          isRequired: true,
-         
+          isRequired: true
         }
       }),
       zoom: integer({validation: {isRequired: true}})

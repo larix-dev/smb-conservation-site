@@ -115,7 +115,7 @@ var lists = {
         ui: {
           labelField: "tagName"
         }
-      }),
+      })
     }
   }),
   Map: (0, import_core.list)({

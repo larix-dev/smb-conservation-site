@@ -380,6 +380,8 @@ input GalleryImageCreateInput {
 input GalleryTagRelateToManyForCreateInput {
   create: [GalleryTagCreateInput!]
   connect: [GalleryTagWhereUniqueInput!]
+}
+
 type Map {
   id: ID!
   content: Map_content_Document
