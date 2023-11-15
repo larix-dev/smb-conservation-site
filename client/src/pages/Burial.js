@@ -2,9 +2,12 @@ import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
 import {useState} from 'react'
+import {render} from '@react-email/render'
 import axios from 'axios'
 
 import Page from '../components/Page'
+
+import BurialMail from '../templates/BurialMail'
 
 import burial from '../assets/images/burial.jpg'
 
@@ -53,14 +56,12 @@ function BurialForm() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async data => {
-    const {name, email, phone, message} = data
-    /* construct the message (later via an API call to render the HTML) */
-    const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
+    const html = render(<BurialMail data={data} />, {pretty: true})
 
     const body = {
       to: 'John.Yorke@smu.ca', // business email
-      subject: `Green Burial Inquery from ${name}`,
-      text: text
+      subject: `Green Burial Inquery from ${data.name}`,
+      html: html
     }
     await axios.post('/send-message', body)
     reset()
