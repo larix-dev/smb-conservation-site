@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "keystone dev",
-    "start": "keystone start",
+    "start": "keystone start --with-migrations",
     "build": "keystone build",
-    "postinstall": "keystone build --no-ui --frozen"
+    "postinstall": "keystone build --no-ui --frozen",
+    "migrate-dev": "keystone prisma migrate dev"
   },
   "dependencies": {
     "@keystone-6/auth": "^7.0.0",
-    "@keystone-6/core": "^5.0.0",
+    "@keystone-6/core": "5.5.1",
     "@keystone-6/fields-document": "^7.0.0",
     "nodemailer": "^6.9.7",
     "typescript": "^4.9.5"
@@ -18,5 +19,8 @@
   "devDependencies": {
     "@types/cors": "^2.8.15",
     "@types/nodemailer": "^6.4.13"
+  },
+  "overrides": { 
+    "next": "13.4.12" 
   }
 }

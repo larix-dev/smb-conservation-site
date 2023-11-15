@@ -16,13 +16,9 @@ function Footer() {
       }
     }
   `
-  const {loading, error, data} = useQuery(query)
+  const {data} = useQuery(query)
 
-  if (loading || error || !data) {
-    return null
-  }
-
-  const {address, phone, instagramHandle, instagramLink, facebookHandle, facebookLink} = data?.footer
+  const {address, phone, instagramHandle, instagramLink, facebookHandle, facebookLink} = data?.footer || {}
 
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">

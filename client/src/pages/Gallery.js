@@ -57,6 +57,7 @@ function Gallery() {
               caption={image.caption}
               author={image.author}
               date={image.dateTaken}
+              tags={image.tags}
               filter={filter}
             />
           ))}
@@ -83,10 +84,20 @@ function Filter(props) {
 
 function GalleryImage(props) {
   return (
-    <div key={props.filter} className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden animate-expand">
+    <div
+      key={props.filter}
+      className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden animate-expand"
+    >
       <img src={props.url} alt={props.caption} />
       <div className="px-2 py-4 prose">
-        <div className="text-md font-bold hyphens-auto break-words" lang="en">{props.caption}</div>
+        <div className="text-xs flex flex-wrap gap-1">
+          {props.tags.map((tag, i) => (
+            <span className="bg-stone-400 rounded px-1" key={i}>{tag.tagName}</span>
+          ))}
+        </div>
+        <div className="text-md font-bold hyphens-auto break-words" lang="en">
+          {props.caption}
+        </div>
         <div>{props.author}</div>
         <div className="text-sm">{new Date(props.date).toLocaleDateString('en-US', {dateStyle: 'long'})}</div>
       </div>
