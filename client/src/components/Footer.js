@@ -1,6 +1,5 @@
 import {FaMap, FaPhone, FaInstagram, FaFacebook} from 'react-icons/fa'
 import {useQuery, gql} from '@apollo/client'
-
 import Logo from './Logo'
 import NavLink from './NavLink'
 
@@ -19,18 +18,11 @@ function Footer() {
   `
   const {loading, error, data} = useQuery(query)
 
-  console.log(data)
-
   if (loading || error || !data) {
     return null
   }
 
-  const address = data?.footer?.address
-  const Phone = data.footer.Phone
-  const instagramHandle = data.footer.instagramHandle
-  const instagramLink = data.footer.instagramLink
-  const facebookHandle = data.footer.facebookHandle
-  const facebookLink = data.footer.facebookLink
+  const {address, phone, instagramHandle, instagramLink, facebookHandle, facebookLink} = data?.footer
 
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
@@ -53,7 +45,7 @@ function Footer() {
           <div>
             <FaPhone className="inline" />
             &nbsp;
-            <a href={`tel:${Phone}`}>{Phone}</a>
+            <a href={`tel:${phone}`}>{phone}</a>
           </div>
           <div>
             <FaInstagram className="inline" />
