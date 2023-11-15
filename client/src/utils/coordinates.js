@@ -1,4 +1,4 @@
-class Coordinate {
+class Coord {
   constructor(deg, min, sec, direction) {
     this.deg = deg
     this.min = min
@@ -7,22 +7,19 @@ class Coordinate {
   }
 
   static fromString(coordString) {
-    const [deg, min, sec, direction] = coordString.match(/\d+(\.\d{1,3})?|[NSEW]/g) || []
-    return new Coordinate(deg, min, sec, direction)
+    const [deg, min, sec, direction] = coordString?.match(/\d+(\.\d{1,3})?|[NSEW]/g) || []
+    return new Coord(parseInt(deg), parseInt(min), parseFloat(sec), direction)
   }
 
   toDecimal() {
-    if (this.direction === "S" || this.direction === "W") {
-      return -1 * (this.deg + this.min / 60 + this.sec / 3600)
-    }
-    return this.deg + this.min / 60 + this.sec / 3600
+    return (this.deg + this.min / 60 + this.sec / 3600) * (['S', 'W'].includes(this.direction) ? -1 : 1)
   }
 }
 
 class CoordPair {
   constructor(latitude, longitude) {
-    this.latitude = latitude
-    this.longitude = longitude
+    this.lat = latitude
+    this.lng = longitude
   }
 }
-export {Coordinate, CoordPair}
+export {Coord, CoordPair}
