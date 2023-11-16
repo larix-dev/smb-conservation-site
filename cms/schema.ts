@@ -50,19 +50,15 @@ export const lists: Lists = {
       })
     }
   }),
-  ProductCategory: list({
-    access: allowAll,
-    fields: {
-      title: text({validation: {isRequired: true}}),
-      tags: relationship({ref: 'Product', many: true})
-      
-  }}),
   Product: list({
     access: allowAll,
     fields: {
       title: text({validation: {isRequired: true}}),
-      image: image({ storage: 'local_images' }),
-      description: text({validation: {isRequired: true}}),
-      available: checkbox({defaultValue: true})
-  }})
+      previewImage: image({ storage: 'localImages' }),
+      description: document({
+        formatting: true
+      }),
+      image: image({ storage: 'localImages' }),
+  }
+})
 }

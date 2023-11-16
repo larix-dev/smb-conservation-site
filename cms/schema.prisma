@@ -32,21 +32,18 @@ model About {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
-model ProductCategory {
-  id    String    @id @default(cuid())
-  title String    @default("")
-  tags  Product[] @relation("ProductCategory_tags")
-}
-
 model Product {
-  id                        String            @id @default(cuid())
-  title                     String            @default("")
-  image_filesize            Int?
-  image_extension           String?
-  image_width               Int?
-  image_height              Int?
-  image_id                  String?
-  description               String            @default("")
-  available                 Boolean           @default(true)
-  from_ProductCategory_tags ProductCategory[] @relation("ProductCategory_tags")
+  id                     String  @id @default(cuid())
+  title                  String  @default("")
+  previewImage_filesize  Int?
+  previewImage_extension String?
+  previewImage_width     Int?
+  previewImage_height    Int?
+  previewImage_id        String?
+  description            String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  image_filesize         Int?
+  image_extension        String?
+  image_width            Int?
+  image_height           Int?
+  image_id               String?
 }

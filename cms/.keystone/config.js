@@ -75,20 +75,15 @@ var lists = {
       })
     }
   }),
-  ProductCategory: (0, import_core.list)({
-    access: import_access.allowAll,
-    fields: {
-      title: (0, import_fields.text)({ validation: { isRequired: true } }),
-      tags: (0, import_fields.relationship)({ ref: "Product", many: true })
-    }
-  }),
   Product: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
-      image: (0, import_fields.image)({ storage: "local_images" }),
-      description: (0, import_fields.text)({ validation: { isRequired: true } }),
-      available: (0, import_fields.checkbox)({ defaultValue: true })
+      previewImage: (0, import_fields.image)({ storage: "localImages" }),
+      description: (0, import_fields_document.document)({
+        formatting: true
+      }),
+      image: (0, import_fields.image)({ storage: "localImages" })
     }
   })
 };
@@ -137,14 +132,14 @@ var keystone_default = withAuth(
     lists,
     session,
     storage: {
-      local_images: {
+      localImages: {
         kind: "local",
         type: "image",
         generateUrl: (path) => `${"http://localhost:5050"}/images${path}`,
         serverRoute: {
           path: "/images"
         },
-        storagePath: "public/images"
+        storagePath: "storage/localImages"
       }
     },
     server: {
