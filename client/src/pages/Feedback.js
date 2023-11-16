@@ -25,7 +25,7 @@ function Feedback() {
   }
 
   const document = data.feedback.content.document
-  const image = data.feedback.image.url
+  const image = data?.feedback?.image?.url
 
   return (
     <Page name="Feedback Page">
