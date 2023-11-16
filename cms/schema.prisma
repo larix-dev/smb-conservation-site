@@ -37,6 +37,16 @@ model Burial {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
+model Feedback {
+  id              Int     @id
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
 model GalleryTag {
   id                     String         @id @default(cuid())
   tagName                String         @default("")

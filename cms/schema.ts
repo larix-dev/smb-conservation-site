@@ -59,6 +59,16 @@ export const lists: Lists = {
       })
     }
   }),
+  Feedback: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      image: image({storage: 'localImages'}),
+      content: document({
+        formatting: true
+      })
+    }
+  }),
   GalleryTag: list({
     access: allowAll,
     fields: {

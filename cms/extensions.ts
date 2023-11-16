@@ -26,7 +26,9 @@ export default function extendApp(app: express.Express) {
 
   /* nodemailer message endpoint */
   app.post('/send-message', cors(corsOpts), async (req, res) => {
-    const {to, subject, text} = req.body
+    console.log(req.body.images)
+
+    const {to, subject, text} = req.body.data
     const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`
     const mail: nodemailer.SendMailOptions = {from, to, subject, text}
 

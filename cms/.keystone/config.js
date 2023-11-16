@@ -94,6 +94,16 @@ var lists = {
       })
     }
   }),
+  Feedback: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
   GalleryTag: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
@@ -168,7 +178,8 @@ function extendApp(app) {
     }
   };
   app.post("/send-message", (0, import_cors.default)(corsOpts), async (req, res) => {
-    const { to, subject, text: text2 } = req.body;
+    console.log(req.body.images);
+    const { to, subject, text: text2 } = req.body.data;
     const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
     const mail = { from, to, subject, text: text2 };
     transport.sendMail(mail, (error) => {

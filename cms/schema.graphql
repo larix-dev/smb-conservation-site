@@ -240,6 +240,69 @@ input BurialCreateInput {
   content: JSON
 }
 
+type Feedback {
+  id: ID!
+  image: ImageFieldOutput
+  content: Feedback_content_Document
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+type Feedback_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input FeedbackWhereUniqueInput {
+  id: ID
+}
+
+input FeedbackWhereInput {
+  AND: [FeedbackWhereInput!]
+  OR: [FeedbackWhereInput!]
+  NOT: [FeedbackWhereInput!]
+  id: IDFilter
+}
+
+input FeedbackOrderByInput {
+  id: OrderDirection
+}
+
+input FeedbackUpdateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input FeedbackUpdateArgs {
+  where: FeedbackWhereUniqueInput! = {id: 1}
+  data: FeedbackUpdateInput!
+}
+
+input FeedbackCreateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
 type GalleryTag {
   id: ID!
   tagName: String
@@ -283,22 +346,6 @@ type GalleryImage {
   dateTaken: CalendarDay
   tags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
   tagsCount(where: GalleryTagWhereInput! = {}): Int
-}
-
-type ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  url: String!
-}
-
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
 }
 
 scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
@@ -349,13 +396,6 @@ input GalleryImageUpdateInput {
   dateTaken: CalendarDay
   tags: GalleryTagRelateToManyForUpdateInput
 }
-
-input ImageFieldInput {
-  upload: Upload!
-}
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 input GalleryTagRelateToManyForUpdateInput {
   disconnect: [GalleryTagWhereUniqueInput!]
@@ -412,6 +452,12 @@ type Mutation {
   updateBurials(data: [BurialUpdateArgs!]!): [Burial]
   deleteBurial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   deleteBurials(where: [BurialWhereUniqueInput!]!): [Burial]
+  createFeedback(data: FeedbackCreateInput!): Feedback
+  createFeedbacks(data: [FeedbackCreateInput!]!): [Feedback]
+  updateFeedback(where: FeedbackWhereUniqueInput! = {id: 1}, data: FeedbackUpdateInput!): Feedback
+  updateFeedbacks(data: [FeedbackUpdateArgs!]!): [Feedback]
+  deleteFeedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  deleteFeedbacks(where: [FeedbackWhereUniqueInput!]!): [Feedback]
   createGalleryTag(data: GalleryTagCreateInput!): GalleryTag
   createGalleryTags(data: [GalleryTagCreateInput!]!): [GalleryTag]
   updateGalleryTag(where: GalleryTagWhereUniqueInput!, data: GalleryTagUpdateInput!): GalleryTag
@@ -459,6 +505,9 @@ type Query {
   burials(where: BurialWhereInput! = {id: {equals: 1}}, orderBy: [BurialOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BurialWhereUniqueInput): [Burial!]
   burial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   burialsCount(where: BurialWhereInput! = {id: {equals: 1}}): Int
+  feedbacks(where: FeedbackWhereInput! = {id: {equals: 1}}, orderBy: [FeedbackOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FeedbackWhereUniqueInput): [Feedback!]
+  feedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  feedbacksCount(where: FeedbackWhereInput! = {id: {equals: 1}}): Int
   galleryTags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
   galleryTag(where: GalleryTagWhereUniqueInput!): GalleryTag
   galleryTagsCount(where: GalleryTagWhereInput! = {}): Int
