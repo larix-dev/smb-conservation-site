@@ -10,15 +10,15 @@ function Footer() {
         address
         phone
         facebookHandle
-        facebookLink
         instagramHandle
-        instagramLink
       }
     }
   `
   const {data} = useQuery(query)
 
-  const {address, phone, instagramHandle, instagramLink, facebookHandle, facebookLink} = data?.footer || {}
+  const {address, phone, instagramHandle, facebookHandle} = data?.footer || {}
+  const instagramLink = `https://instagram.com/${instagramHandle}`
+  const facebookLink = `https://facebook.com/${facebookHandle}`
 
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
