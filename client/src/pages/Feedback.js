@@ -50,29 +50,20 @@ function FeedbackForm() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async data => {
-    const {name, email, phone, message, image} = data
+    const {name, email, phone, message, images} = data
 
-    /* construct the message (later via an API call to render the HTML) */
-    const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\nImage:${image}`
+    const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\n`
 
     const body = {
-      to: 'John.Yorke@smu.ca', // business email
+      to: 'yorkejohn02@gmail.com',
       subject: `Feedback from ${name}`,
       text: text
     }
 
-    const formData = new FormData()
-    formData.append('data', JSON.stringify(body))
+    await axios.postForm('/send-multipart-message', {message: body, images})
 
-    try {
-      await axios.post('/send-message', formData, {
-        headers: {'Content-Type': 'multipart/form-data'}
-      })
-      reset()
-      setSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting feedback:', error)
-    }
+    reset()
+    setSubmitted(true)
   }
 
   return (
@@ -118,7 +109,7 @@ function FeedbackForm() {
             name="image"
             accept="image/*"
             multiple
-            {...register('image', {required: false})}
+            {...register('images', {required: false})}
           />
           <div>{/* Display validation errors here */}</div>
         </div>
