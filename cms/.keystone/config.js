@@ -110,15 +110,13 @@ var lists = {
       ...(0, import_core.group)({
         label: "Instagram",
         fields: {
-          instagramHandle: (0, import_fields.text)({ validation: { isRequired: true } }),
-          instagramLink: (0, import_fields.text)({ validation: { isRequired: true } })
+          instagramHandle: (0, import_fields.text)({ validation: { isRequired: true } })
         }
       }),
       ...(0, import_core.group)({
         label: "Facebook",
         fields: {
-          facebookHandle: (0, import_fields.text)({ validation: { isRequired: true } }),
-          facebookLink: (0, import_fields.text)({ validation: { isRequired: true } })
+          facebookHandle: (0, import_fields.text)({ validation: { isRequired: true } })
         }
       })
     }

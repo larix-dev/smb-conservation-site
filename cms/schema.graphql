@@ -245,9 +245,7 @@ type Footer {
   address: String
   phone: String
   instagramHandle: String
-  instagramLink: String
   facebookHandle: String
-  facebookLink: String
 }
 
 input FooterWhereUniqueInput {
@@ -262,9 +260,7 @@ input FooterWhereInput {
   address: StringFilter
   phone: StringFilter
   instagramHandle: StringFilter
-  instagramLink: StringFilter
   facebookHandle: StringFilter
-  facebookLink: StringFilter
 }
 
 input FooterOrderByInput {
@@ -272,18 +268,14 @@ input FooterOrderByInput {
   address: OrderDirection
   phone: OrderDirection
   instagramHandle: OrderDirection
-  instagramLink: OrderDirection
   facebookHandle: OrderDirection
-  facebookLink: OrderDirection
 }
 
 input FooterUpdateInput {
   address: String
   phone: String
   instagramHandle: String
-  instagramLink: String
   facebookHandle: String
-  facebookLink: String
 }
 
 input FooterUpdateArgs {
@@ -295,9 +287,7 @@ input FooterCreateInput {
   address: String
   phone: String
   instagramHandle: String
-  instagramLink: String
   facebookHandle: String
-  facebookLink: String
 }
 
 type GalleryTag {

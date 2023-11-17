@@ -42,9 +42,7 @@ model Footer {
   address         String @default("")
   phone           String @default("")
   instagramHandle String @default("")
-  instagramLink   String @default("")
   facebookHandle  String @default("")
-  facebookLink    String @default("")
 }
 
 model GalleryTag {

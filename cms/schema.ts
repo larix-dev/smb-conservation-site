@@ -85,14 +85,12 @@ export const lists: Lists = {
         label: 'Instagram',
         fields: {
           instagramHandle: text({validation: {isRequired: true}}),
-          instagramLink: text({validation: {isRequired: true}})
         }
       }),
       ...group({
         label: 'Facebook',
         fields: {
           facebookHandle: text({validation: {isRequired: true}}),
-          facebookLink: text({validation: {isRequired: true}})
         }
       })
     }
