@@ -89,6 +89,7 @@ var lists = {
     access: import_access.allowAll,
     isSingleton: true,
     fields: {
+      image: (0, import_fields.image)({ storage: "localImages" }),
       content: (0, import_fields_document.document)({
         formatting: true
       })

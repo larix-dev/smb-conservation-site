@@ -205,7 +205,24 @@ input AboutCreateInput {
 
 type Burial {
   id: ID!
+  image: ImageFieldOutput
   content: Burial_content_Document
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 type Burial_content_Document {
@@ -228,8 +245,16 @@ input BurialOrderByInput {
 }
 
 input BurialUpdateInput {
+  image: ImageFieldInput
   content: JSON
 }
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input BurialUpdateArgs {
   where: BurialWhereUniqueInput! = {id: 1}
@@ -237,6 +262,7 @@ input BurialUpdateArgs {
 }
 
 input BurialCreateInput {
+  image: ImageFieldInput
   content: JSON
 }
 
@@ -335,22 +361,6 @@ type GalleryImage {
   tagsCount(where: GalleryTagWhereInput! = {}): Int
 }
 
-type ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  url: String!
-}
-
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
-}
-
 scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 input GalleryImageWhereUniqueInput {
@@ -399,13 +409,6 @@ input GalleryImageUpdateInput {
   dateTaken: CalendarDay
   tags: GalleryTagRelateToManyForUpdateInput
 }
-
-input ImageFieldInput {
-  upload: Upload!
-}
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 input GalleryTagRelateToManyForUpdateInput {
   disconnect: [GalleryTagWhereUniqueInput!]

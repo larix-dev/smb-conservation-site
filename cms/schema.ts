@@ -1,15 +1,6 @@
 import {list, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
-import {
-  relationship,
-  image,
-  text,
-  password,
-  timestamp,
-  select,
-  checkbox,
-  calendarDay,
-} from '@keystone-6/core/fields'
+import {relationship, image, text, password, timestamp, select, checkbox, calendarDay} from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
 import type {Lists} from '.keystone/types'
@@ -63,6 +54,7 @@ export const lists: Lists = {
     access: allowAll,
     isSingleton: true,
     fields: {
+      image: image({storage: 'localImages'}),
       content: document({
         formatting: true
       })
@@ -84,13 +76,13 @@ export const lists: Lists = {
       ...group({
         label: 'Instagram',
         fields: {
-          instagramHandle: text({validation: {isRequired: true}}),
+          instagramHandle: text({validation: {isRequired: true}})
         }
       }),
       ...group({
         label: 'Facebook',
         fields: {
-          facebookHandle: text({validation: {isRequired: true}}),
+          facebookHandle: text({validation: {isRequired: true}})
         }
       })
     }
