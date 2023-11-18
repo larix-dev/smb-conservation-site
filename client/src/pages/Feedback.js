@@ -24,20 +24,20 @@ function Feedback() {
     return null
   }
 
-  const document = data.feedback.content.document
+  const document = data?.feedback?.content.document
   const image = data?.feedback?.image?.url
 
   return (
-    <Page name="Feedback Page">
+    <Page name="Feedback">
       <div className="prose max-w-none">
         <DocumentRenderer document={document} />
       </div>
       <div className="flex flex-col lg:flex-row gap-8">
-        <div className="flex-1 prose">
+        <div className="flex-1">
           <FeedbackForm />
         </div>
         <div className="flex-1">
-          <img src={image} alt={'image'} />
+          <img className="w-full" src={image} alt={'image'} />
         </div>
       </div>
     </Page>
@@ -102,7 +102,7 @@ function FeedbackForm() {
               {...register('message')}
             ></textarea>
           </div>
-          <label htmlFor="image">Upload Image</label>
+          <label htmlFor="image">Upload images (optional)</label>
           <input
             type="file"
             id="image"
@@ -111,7 +111,6 @@ function FeedbackForm() {
             multiple
             {...register('images', {required: false})}
           />
-          <div>{/* Display validation errors here */}</div>
         </div>
         {submitted && (
           <div className="text-sm text-green-800">

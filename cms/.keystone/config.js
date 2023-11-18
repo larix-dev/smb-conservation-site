@@ -179,7 +179,7 @@ function extendApp(app) {
       }
       console.log(`Message sent to ${message.to}`);
     });
-    return 500;
+    return 200;
   };
   const corsOpts = {
     origin: (origin, callback) => {
