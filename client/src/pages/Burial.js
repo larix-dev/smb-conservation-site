@@ -6,19 +6,20 @@ import axios from 'axios'
 
 import Page from '../components/Page'
 
-import burial from '../assets/images/burial.jpg'
-
 function Burial() {
   const query = gql`
-    query Query {
+    query Burial {
       burial {
+        image {
+          url
+        }
         content {
           document
         }
       }
     }
   `
-  
+
   const {loading, error, data} = useQuery(query)
 
   if (loading || error || !data) {
@@ -26,6 +27,7 @@ function Burial() {
   }
 
   const document = data.burial.content.document
+  const image = data?.burial?.image?.url
 
   return (
     <Page name="Green Burial: Resting in Nature's Embrace">
@@ -35,7 +37,7 @@ function Burial() {
         </div>
         <div className="flex flex-col md:flex-row gap-8">
           <div className="flex-1">
-            <img src={burial} alt="Burial" />
+            <img src={image} alt="Burial page" />
           </div>
           <div className="flex-1">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
