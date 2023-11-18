@@ -37,7 +37,7 @@ function Burial() {
         </div>
         <div className="flex flex-col md:flex-row gap-8">
           <div className="flex-1">
-            <img src={image} alt="image" />
+            <img src={image} alt="Burial page" />
           </div>
           <div className="flex-1">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
