@@ -17,7 +17,8 @@ import type {Lists} from '.keystone/types'
 
 const latitudeRegex = new RegExp(/([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/)
 const longitudeRegex = new RegExp(/(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/)
-const trailList = /^(([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]\, (\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]\n?)*$/
+const trailList =
+  /^(([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]\, (\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]\n?)*$/
 //const trailList = new RegExp(`(${latitudeRegex.source}, ${longitudeRegex.source}\n)+`)
 console.log(trailList)
 export const lists: Lists = {
@@ -136,15 +137,30 @@ export const lists: Lists = {
       trailCoords: text({
         ui: {
           displayMode: 'textarea',
-          description: 'Coordinates representing a trail. Each set of coordinates should be on a new line. Must include at least 2 coordinates.'
+          description:
+            'Coordinates representing a trail. Each set of coordinates should be on a new line. Must include at least 2 coordinates.'
         },
         validation: {
           isRequired: true,
           match: {
             regex: trailList,
-            explanation: 'Coordinates must be given in DMS format, each on their own line. Example coordinate: 44:37:54.004N, 63:34:49.997W'
+            explanation:
+              'Coordinates must be given in DMS format, each on their own line. Example coordinate: 44:37:54.004N, 63:34:49.997W'
           }
         }
+      }),
+      colour: select({
+        type: 'string',
+        options: [
+          {label: 'Red', value: '#dc2626'},
+          {label: 'Orange', value: '#f97316'},
+          {label: 'Yellow', value: '#eab308'},
+          {label: 'Green', value: '#22c55e'},
+          {label: 'Blue', value: '#3b82f6'},
+          {label: 'Violet', value: '#8b5cf6'}
+        ],
+        defaultValue: 'blue',
+        validation: {isRequired: true}
       })
     }
   })

@@ -68,4 +68,5 @@ model Trail {
   id          String @id @default(cuid())
   name        String @default("")
   trailCoords String @default("")
+  colour      String @default("blue")
 }

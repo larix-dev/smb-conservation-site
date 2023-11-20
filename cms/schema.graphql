@@ -449,6 +449,7 @@ type Trail {
   id: ID!
   name: String
   trailCoords: String
+  colour: String
 }
 
 input TrailWhereUniqueInput {
@@ -462,17 +463,20 @@ input TrailWhereInput {
   id: IDFilter
   name: StringFilter
   trailCoords: StringFilter
+  colour: StringFilter
 }
 
 input TrailOrderByInput {
   id: OrderDirection
   name: OrderDirection
   trailCoords: OrderDirection
+  colour: OrderDirection
 }
 
 input TrailUpdateInput {
   name: String
   trailCoords: String
+  colour: String
 }
 
 input TrailUpdateArgs {
@@ -483,6 +487,7 @@ input TrailUpdateArgs {
 input TrailCreateInput {
   name: String
   trailCoords: String
+  colour: String
 }
 
 """

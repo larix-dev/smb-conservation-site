@@ -169,6 +169,19 @@ var lists = {
             explanation: "Coordinates must be given in DMS format, each on their own line. Example coordinate: 44:37:54.004N, 63:34:49.997W"
           }
         }
+      }),
+      colour: (0, import_fields.select)({
+        type: "string",
+        options: [
+          { label: "Red", value: "#dc2626" },
+          { label: "Orange", value: "#f97316" },
+          { label: "Yellow", value: "#eab308" },
+          { label: "Green", value: "#22c55e" },
+          { label: "Blue", value: "#3b82f6" },
+          { label: "Violet", value: "#8b5cf6" }
+        ],
+        defaultValue: "blue",
+        validation: { isRequired: true }
       })
     }
   })

@@ -5,6 +5,66 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {Coord, CoordPair} from '../utils/coordinates'
 
+const toCoordPair = coord => {
+  const [lat, lng] = coord.split(/, /)
+  return new CoordPair(Coord.fromString(lat), Coord.fromString(lng))
+}
+
+const toCoordArray = coords => {
+  return coords
+    .trim()
+    .split('\n')
+    .map(toCoordPair)
+    .map(pair => pair.toInvArray())
+}
+
+const buildGeoJson = trail => ({
+  type: 'Feature',
+  geometry: {
+    type: 'LineString',
+    coordinates: toCoordArray(trail.trailCoords)
+  },
+  properties: {
+    name: trail.name,
+    description: trail.name
+  }
+})
+
+const addLayers = (trail, map) => {
+  map.addSource(trail.id, {
+    type: 'geojson',
+    data: buildGeoJson(trail)
+  })
+
+  map.addLayer({
+    id: trail.name,
+    source: trail.id,
+    type: 'line',
+    layout: {
+      'line-join': 'round',
+      'line-cap': 'round'
+    },
+    paint: {
+      'line-color': trail.colour,
+      'line-width': 8
+    }
+  })
+
+  map.addLayer({
+    id: `${trail.name}_symbols`,
+    type: 'symbol',
+    source: trail.id,
+    layout: {
+      'symbol-placement': 'line',
+      'text-field': trail.name
+    },
+    paint: {
+      'text-halo-color': '#fff',
+      'text-halo-width': 2
+    }
+  })
+}
+
 function Mapbox(props) {
   mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 
@@ -18,6 +78,8 @@ function Mapbox(props) {
       trails {
         name
         trailCoords
+        id
+        colour
       }
     }
   `
@@ -36,13 +98,6 @@ function Mapbox(props) {
     const zoom = data?.map?.zoom
     const trails = data?.trails
 
-    const toCoordPair = coord => {
-      const [lat, lng] = coord.split(/, /)
-      return new CoordPair(Coord.fromString(lat), Coord.fromString(lng))
-    }
-
-    trails.forEach(trail => (trail.trailCoords = trail.trailCoords.trim().split('\n').map(toCoordPair)))
-
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
@@ -52,12 +107,15 @@ function Mapbox(props) {
       minZoom: zoom,
       interactive: props.interactive
     })
+
     map.current.resize()
 
     if (props.interactive) {
       map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
       map.current.addControl(new ExitControl(), 'top-right')
     }
+
+    map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
   }, [data])
 
   return <div ref={mapContainer} className="w-full h-full"></div>

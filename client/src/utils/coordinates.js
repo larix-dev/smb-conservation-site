@@ -21,6 +21,10 @@ class CoordPair {
     this.lat = latitude
     this.lng = longitude
   }
+
+  toInvArray() {
+    return [this.lng.toDecimal(), this.lat.toDecimal()]
+  }
 }
 
 export {Coord, CoordPair}
