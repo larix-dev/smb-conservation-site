@@ -60,6 +60,15 @@ export const lists: Lists = {
       })
     }
   }),
+  Disclaimer: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
   Footer: list({
     access: allowAll,
     isSingleton: true,
@@ -108,5 +117,14 @@ export const lists: Lists = {
         }
       })
     }
-  })
+  }),
+  Privacy: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
 }

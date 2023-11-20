@@ -266,6 +266,43 @@ input BurialCreateInput {
   content: JSON
 }
 
+type Disclaimer {
+  id: ID!
+  content: Disclaimer_content_Document
+}
+
+type Disclaimer_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input DisclaimerWhereUniqueInput {
+  id: ID
+}
+
+input DisclaimerWhereInput {
+  AND: [DisclaimerWhereInput!]
+  OR: [DisclaimerWhereInput!]
+  NOT: [DisclaimerWhereInput!]
+  id: IDFilter
+}
+
+input DisclaimerOrderByInput {
+  id: OrderDirection
+}
+
+input DisclaimerUpdateInput {
+  content: JSON
+}
+
+input DisclaimerUpdateArgs {
+  where: DisclaimerWhereUniqueInput! = {id: 1}
+  data: DisclaimerUpdateInput!
+}
+
+input DisclaimerCreateInput {
+  content: JSON
+}
+
 type Footer {
   id: ID!
   address: String
@@ -435,6 +472,43 @@ input GalleryTagRelateToManyForCreateInput {
   connect: [GalleryTagWhereUniqueInput!]
 }
 
+type Privacy {
+  id: ID!
+  content: Privacy_content_Document
+}
+
+type Privacy_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input PrivacyWhereUniqueInput {
+  id: ID
+}
+
+input PrivacyWhereInput {
+  AND: [PrivacyWhereInput!]
+  OR: [PrivacyWhereInput!]
+  NOT: [PrivacyWhereInput!]
+  id: IDFilter
+}
+
+input PrivacyOrderByInput {
+  id: OrderDirection
+}
+
+input PrivacyUpdateInput {
+  content: JSON
+}
+
+input PrivacyUpdateArgs {
+  where: PrivacyWhereUniqueInput! = {id: 1}
+  data: PrivacyUpdateInput!
+}
+
+input PrivacyCreateInput {
+  content: JSON
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -465,6 +539,12 @@ type Mutation {
   updateBurials(data: [BurialUpdateArgs!]!): [Burial]
   deleteBurial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   deleteBurials(where: [BurialWhereUniqueInput!]!): [Burial]
+  createDisclaimer(data: DisclaimerCreateInput!): Disclaimer
+  createDisclaimers(data: [DisclaimerCreateInput!]!): [Disclaimer]
+  updateDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}, data: DisclaimerUpdateInput!): Disclaimer
+  updateDisclaimers(data: [DisclaimerUpdateArgs!]!): [Disclaimer]
+  deleteDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  deleteDisclaimers(where: [DisclaimerWhereUniqueInput!]!): [Disclaimer]
   createFooter(data: FooterCreateInput!): Footer
   createFooters(data: [FooterCreateInput!]!): [Footer]
   updateFooter(where: FooterWhereUniqueInput! = {id: 1}, data: FooterUpdateInput!): Footer
@@ -483,6 +563,12 @@ type Mutation {
   updateGalleryImages(data: [GalleryImageUpdateArgs!]!): [GalleryImage]
   deleteGalleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   deleteGalleryImages(where: [GalleryImageWhereUniqueInput!]!): [GalleryImage]
+  createPrivacy(data: PrivacyCreateInput!): Privacy
+  createPrivacies(data: [PrivacyCreateInput!]!): [Privacy]
+  updatePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}, data: PrivacyUpdateInput!): Privacy
+  updatePrivacies(data: [PrivacyUpdateArgs!]!): [Privacy]
+  deletePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  deletePrivacies(where: [PrivacyWhereUniqueInput!]!): [Privacy]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -518,6 +604,9 @@ type Query {
   burials(where: BurialWhereInput! = {id: {equals: 1}}, orderBy: [BurialOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BurialWhereUniqueInput): [Burial!]
   burial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   burialsCount(where: BurialWhereInput! = {id: {equals: 1}}): Int
+  disclaimers(where: DisclaimerWhereInput! = {id: {equals: 1}}, orderBy: [DisclaimerOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: DisclaimerWhereUniqueInput): [Disclaimer!]
+  disclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  disclaimersCount(where: DisclaimerWhereInput! = {id: {equals: 1}}): Int
   footers(where: FooterWhereInput! = {id: {equals: 1}}, orderBy: [FooterOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FooterWhereUniqueInput): [Footer!]
   footer(where: FooterWhereUniqueInput! = {id: 1}): Footer
   footersCount(where: FooterWhereInput! = {id: {equals: 1}}): Int
@@ -527,6 +616,9 @@ type Query {
   galleryImages(where: GalleryImageWhereInput! = {}, orderBy: [GalleryImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryImageWhereUniqueInput): [GalleryImage!]
   galleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   galleryImagesCount(where: GalleryImageWhereInput! = {}): Int
+  privacies(where: PrivacyWhereInput! = {id: {equals: 1}}, orderBy: [PrivacyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PrivacyWhereUniqueInput): [Privacy!]
+  privacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  privaciesCount(where: PrivacyWhereInput! = {id: {equals: 1}}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

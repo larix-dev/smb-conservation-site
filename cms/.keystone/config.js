@@ -95,6 +95,15 @@ var lists = {
       })
     }
   }),
+  Disclaimer: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
   Footer: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
@@ -141,6 +150,15 @@ var lists = {
         ui: {
           labelField: "tagName"
         }
+      })
+    }
+  }),
+  Privacy: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
       })
     }
   })
