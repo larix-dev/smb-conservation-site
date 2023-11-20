@@ -40,8 +40,10 @@ var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
-var latitudeRegex = /^([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]$/;
-var longitudeRegex = /^(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]$/;
+var latitudeRegex = new RegExp(/([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/);
+var longitudeRegex = new RegExp(/(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/);
+var trailList = /^(([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]\, (\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]\n?)*$/;
+console.log(trailList);
 var lists = {
   User: (0, import_core.list)({
     access: import_access.allowAll,
@@ -158,10 +160,14 @@ var lists = {
       trailCoords: (0, import_fields.text)({
         ui: {
           displayMode: "textarea",
-          description: "Coordinates representing a trail. Each set of coordinates should be on a new line."
+          description: "Coordinates representing a trail. Each set of coordinates should be on a new line. Must include at least 2 coordinates."
         },
         validation: {
-          isRequired: true
+          isRequired: true,
+          match: {
+            regex: trailList,
+            explanation: "Coordinates must be given in DMS format, each on their own line. Example coordinate: 44:37:54.004N, 63:34:49.997W"
+          }
         }
       })
     }

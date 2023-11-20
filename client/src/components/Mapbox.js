@@ -15,6 +15,10 @@ function Mapbox(props) {
         longitude
         zoom
       }
+      trails {
+        name
+        trailCoords
+      }
     }
   `
 
@@ -30,6 +34,15 @@ function Mapbox(props) {
 
     const center = new CoordPair(Coord.fromString(data?.map?.latitude), Coord.fromString(data?.map?.longitude))
     const zoom = data?.map?.zoom
+    const trails = data?.trails
+
+    const toCoordPair = coord => {
+      const [lat, lng] = coord.split(/, /)
+      return new CoordPair(Coord.fromString(lat), Coord.fromString(lng))
+    }
+
+    trails.forEach(trail => (trail.trailCoords = trail.trailCoords.trim().split('\n').map(toCoordPair)))
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',

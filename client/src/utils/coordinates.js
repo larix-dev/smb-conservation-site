@@ -22,4 +22,5 @@ class CoordPair {
     this.lng = longitude
   }
 }
+
 export {Coord, CoordPair}
