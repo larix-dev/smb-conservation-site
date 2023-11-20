@@ -126,5 +126,5 @@ export const lists: Lists = {
         formatting: true
       })
     }
-  }),
+  })
 }
