@@ -39,7 +39,7 @@ root.render(
             <Route path="gallery" element={<Gallery />} />
             <Route path="map" element={<Map />} />
             <Route path="*" element={<PageNotFound />} />
-        </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
