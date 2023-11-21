@@ -22,7 +22,7 @@ function Privacy() {
   const document = data.privacy.content.document
 
   return (
-    <Page name="Privacy">
+    <Page name="Privacy Policy">
       <div className="flex flex-col gap-8">
         <div className="prose max-w-none">
           <DocumentRenderer document={document} />
