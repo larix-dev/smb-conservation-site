@@ -36,7 +36,7 @@ root.render(
             <Route path="green-burial" element={<Burial />} />
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="gallery" element={<Gallery />} />
-            <Route path="privacy" element={<Privacy />} />
+            <Route path="privacy-policy" element={<Privacy />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

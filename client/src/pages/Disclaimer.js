@@ -23,11 +23,7 @@ function Disclaimer() {
 
   return (
     <Page name="Disclaimer">
-      <div className="flex flex-col gap-8">
-        <div className="prose max-w-none">
-          <DocumentRenderer document={document} />
-        </div>
-      </div>
+      <DocumentRenderer document={document} />
     </Page>
   )
 }
