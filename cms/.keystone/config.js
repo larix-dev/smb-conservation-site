@@ -153,6 +153,24 @@ var lists = {
         }
       })
     }
+  }),
+  Privacy: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
+  Disclaimer: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
   })
 };
 

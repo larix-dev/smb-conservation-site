@@ -7,7 +7,9 @@ import axios from 'axios'
 import Home from './pages/Home'
 import About from './pages/About'
 import Burial from './pages/Burial'
+import Disclaimer from './pages/Disclaimer'
 import Gallery from './pages/Gallery'
+import Privacy from './pages/Privacy'
 import Feedback from './pages/Feedback'
 
 import Page from './components/Page'
@@ -35,6 +37,8 @@ root.render(
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
             <Route path="feedback" element={<Feedback />} />
+            <Route path="disclaimer" element={<Disclaimer />} />
+            <Route path="privacy-policy" element={<Privacy />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

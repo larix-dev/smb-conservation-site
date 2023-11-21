@@ -118,5 +118,23 @@ export const lists: Lists = {
         }
       })
     }
+  }),
+  Privacy: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Disclaimer: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
   })
 }

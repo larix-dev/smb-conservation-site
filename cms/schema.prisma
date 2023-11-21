@@ -78,3 +78,13 @@ model GalleryImage {
   dateTaken       String
   tags            GalleryTag[] @relation("GalleryImage_tags")
 }
+
+model Privacy {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Disclaimer {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
