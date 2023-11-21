@@ -3,12 +3,7 @@ import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import {Coord, CoordPair} from '../utils/coordinates'
-
-const toCoordPair = coord => {
-  const [lat, lng] = coord.split(/, /)
-  return new CoordPair(Coord.fromString(lat), Coord.fromString(lng))
-}
+import {CoordPair} from '../utils/coordinates'
 
 const toCoordArray = coords => {
   return coords
