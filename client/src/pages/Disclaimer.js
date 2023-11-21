@@ -23,7 +23,9 @@ function Disclaimer() {
 
   return (
     <Page name="Disclaimer">
-      <DocumentRenderer document={document} />
+      <div prose max-w-none>
+        <DocumentRenderer document={document} />
+      </div>
     </Page>
   )
 }
