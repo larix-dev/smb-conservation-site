@@ -29,15 +29,17 @@ function Feedback() {
 
   return (
     <Page name="Feedback">
-      <div className="prose max-w-none">
-        <DocumentRenderer document={document} />
-      </div>
-      <div className="flex flex-col lg:flex-row gap-8">
-        <div className="flex-1">
-          <FeedbackForm />
+      <div className="flex flex-col gap-8">
+        <div className="prose max-w-none">
+          <DocumentRenderer document={document} />
         </div>
-        <div className="flex-1">
-          <img className="w-full" src={image} alt={'image'} />
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1">
+            <FeedbackForm />
+          </div>
+          <div className="flex-1">
+            <img className="w-full" src={image} alt="Feedback page" />
+          </div>
         </div>
       </div>
     </Page>
