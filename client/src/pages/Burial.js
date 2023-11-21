@@ -54,15 +54,16 @@ function BurialForm() {
 
   const onSubmit = async data => {
     const {name, email, phone, message} = data
-    /* construct the message (later via an API call to render the HTML) */
     const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
 
     const body = {
-      to: 'John.Yorke@smu.ca', // business email
+      to: 'John.Yorke@smu.ca',
       subject: `Green Burial Inquery from ${name}`,
       text: text
     }
+    
     await axios.post('/send-message', body)
+
     reset()
     setSubmitted(true)
   }

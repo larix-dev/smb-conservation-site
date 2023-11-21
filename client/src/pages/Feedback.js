@@ -24,20 +24,20 @@ function Feedback() {
     return null
   }
 
-  const document = data.feedback.content.document
-  const image = data.feedback.image.url
+  const document = data?.feedback?.content.document
+  const image = data?.feedback?.image?.url
 
   return (
-    <Page name="Feedback Page">
+    <Page name="Feedback">
       <div className="prose max-w-none">
         <DocumentRenderer document={document} />
       </div>
       <div className="flex flex-col lg:flex-row gap-8">
-        <div className="flex-1 prose">
+        <div className="flex-1">
           <FeedbackForm />
         </div>
         <div className="flex-1">
-          <img src={image} alt={'image'} />
+          <img className="w-full" src={image} alt={'image'} />
         </div>
       </div>
     </Page>
@@ -50,29 +50,20 @@ function FeedbackForm() {
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async data => {
-    const {name, email, phone, message, image} = data
+    const {name, email, phone, message, images} = data
 
-    /* construct the message (later via an API call to render the HTML) */
-    const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\nImage:${image}`
+    const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\n`
 
     const body = {
-      to: 'John.Yorke@smu.ca', // business email
+      to: 'yorkejohn02@gmail.com',
       subject: `Feedback from ${name}`,
       text: text
     }
 
-    const formData = new FormData()
-    formData.append('data', JSON.stringify(body))
+    await axios.postForm('/send-multipart-message', {message: body, images})
 
-    try {
-      await axios.post('/send-message', formData, {
-        headers: {'Content-Type': 'multipart/form-data'}
-      })
-      reset()
-      setSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting feedback:', error)
-    }
+    reset()
+    setSubmitted(true)
   }
 
   return (
@@ -111,16 +102,15 @@ function FeedbackForm() {
               {...register('message')}
             ></textarea>
           </div>
-          <label htmlFor="image">Upload Image</label>
+          <label htmlFor="image">Upload images (optional)</label>
           <input
             type="file"
             id="image"
             name="image"
             accept="image/*"
             multiple
-            {...register('image', {required: false})}
+            {...register('images', {required: false})}
           />
-          <div>{/* Display validation errors here */}</div>
         </div>
         {submitted && (
           <div className="text-sm text-green-800">

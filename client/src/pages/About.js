@@ -30,7 +30,7 @@ function About() {
           <DocumentRenderer document={document} />
         </div>
         <div className="flex-1">
-          <img src={forest} alt="Forest" />
+          <img className="w-full" src={forest} alt="Forest" />
         </div>
       </div>
     </Page>
