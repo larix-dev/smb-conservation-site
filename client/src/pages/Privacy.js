@@ -23,7 +23,7 @@ function Privacy() {
 
   return (
     <Page name="Privacy Policy">
-      <div prose max-w-none>
+      <div className="prose max-w-none">
         <DocumentRenderer document={document} />
       </div>
     </Page>
