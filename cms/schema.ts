@@ -60,6 +60,16 @@ export const lists: Lists = {
       })
     }
   }),
+  Feedback: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      image: image({storage: 'localImages'}),
+      content: document({
+        formatting: true
+      })
+    }
+  }),
   Footer: list({
     access: allowAll,
     isSingleton: true,

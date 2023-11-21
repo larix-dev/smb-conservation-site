@@ -95,6 +95,16 @@ var lists = {
       })
     }
   }),
+  Feedback: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
   Footer: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
@@ -177,6 +187,7 @@ var import_config = require("dotenv/config");
 var import_nodemailer = __toESM(require("nodemailer"));
 var import_body_parser = __toESM(require("body-parser"));
 var import_cors = __toESM(require("cors"));
+var import_multer = __toESM(require("multer"));
 function extendApp(app) {
   app.use(import_body_parser.default.json());
   const transport = import_nodemailer.default.createTransport({
@@ -186,6 +197,18 @@ function extendApp(app) {
       pass: process.env.SMTP_PASSWORD
     }
   });
+  const sendMail = async (message) => {
+    const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
+    const mail = { from, ...message };
+    transport.sendMail(mail, (error) => {
+      if (error) {
+        console.log(error);
+        return 500;
+      }
+      console.log(`Message sent to ${message.to}`);
+    });
+    return 200;
+  };
   const corsOpts = {
     origin: (origin, callback) => {
       if (origin === process.env.CLIENT_URL) {
@@ -195,18 +218,26 @@ function extendApp(app) {
       }
     }
   };
+  const upload = (0, import_multer.default)();
+  const mailFields = upload.fields([
+    { name: "message", maxCount: 1 },
+    { name: "images[]", maxCount: 10 }
+  ]);
+  app.post("/send-multipart-message", (0, import_cors.default)(corsOpts), mailFields, async (req, res) => {
+    const files = req.files;
+    const attachments = [];
+    if (files && files["images[]"]) {
+      files["images[]"].map(
+        (file) => attachments.push({
+          filename: file.originalname,
+          content: file.buffer
+        })
+      );
+    }
+    return res.sendStatus(await sendMail({ ...req.body.message, attachments }));
+  });
   app.post("/send-message", (0, import_cors.default)(corsOpts), async (req, res) => {
-    const { to, subject, text: text2 } = req.body;
-    const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
-    const mail = { from, to, subject, text: text2 };
-    transport.sendMail(mail, (error) => {
-      if (error) {
-        console.log(error);
-        return res.sendStatus(500);
-      }
-      console.log(`Message sent to ${to}`);
-    });
-    return res.sendStatus(200);
+    return res.sendStatus(await sendMail(req.body));
   });
 }
 
