@@ -40,10 +40,10 @@ var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
-var latitudeRegex = new RegExp(/([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/);
-var longitudeRegex = new RegExp(/(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/);
-var trailList = /^(([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]\, (\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]\n?)*$/;
-console.log(trailList);
+var latRegex = /([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/;
+var lngRegex = /(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/;
+var coordRegex = new RegExp(`^${latRegex.source},\\s*${lngRegex.source}\\s*\\n?$`);
+var trailRegex = new RegExp(`^(${latRegex.source},\\s*${lngRegex.source}\\s*\\n?){2,}$`);
 var lists = {
   User: (0, import_core.list)({
     access: import_access.allowAll,
@@ -127,46 +127,42 @@ var lists = {
       content: (0, import_fields_document.document)({
         formatting: true
       }),
-      ...(0, import_core.group)({
-        label: "Map Centre Coordinates",
-        fields: {
-          latitude: (0, import_fields.text)({
-            validation: {
-              isRequired: true,
-              match: {
-                regex: latitudeRegex,
-                explanation: "Latitude coordinate must be in DMS format e.g. 44:48:54.123N"
-              }
-            }
-          }),
-          longitude: (0, import_fields.text)({
-            validation: {
-              isRequired: true,
-              match: {
-                regex: longitudeRegex,
-                explanation: "Longitude coordinate must be in DMS format e.g. 63:38:18.123W"
-              }
-            }
-          })
+      centreCoordinates: (0, import_fields.text)({
+        ui: {
+          description: "Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W"
+        },
+        validation: {
+          isRequired: true,
+          match: { regex: coordRegex, explanation: "Coordinate pair must be in valid DMS format (see above)" }
         }
       }),
-      zoom: (0, import_fields.integer)({ validation: { isRequired: true } })
+      zoom: (0, import_fields.integer)({
+        ui: {
+          description: "The initial and maximum zoom factor of the map"
+        },
+        validation: { isRequired: true }
+      })
     }
   }),
   Trail: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
-      name: (0, import_fields.text)({ validation: { isRequired: true } }),
+      name: (0, import_fields.text)({
+        ui: {
+          description: "Trail name that will be displayed on the map"
+        },
+        validation: { isRequired: true }
+      }),
       trailCoords: (0, import_fields.text)({
         ui: {
           displayMode: "textarea",
-          description: "Coordinates representing a trail. Each set of coordinates should be on a new line. Must include at least 2 coordinates."
+          description: "A list of coordinates representing a trail\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W\nEach coordinate pair must be on its own line\nAt least two points are required to create a trail"
         },
         validation: {
           isRequired: true,
           match: {
-            regex: trailList,
-            explanation: "Coordinates must be given in DMS format, each on their own line. Example coordinate: 44:37:54.004N, 63:34:49.997W"
+            regex: trailRegex,
+            explanation: "Coordinate pairs must be in valid DMS format (see above), each on their own line"
           }
         }
       }),

@@ -385,8 +385,7 @@ input GalleryTagRelateToManyForCreateInput {
 type Map {
   id: ID!
   content: Map_content_Document
-  latitude: String
-  longitude: String
+  centreCoordinates: String
   zoom: Int
 }
 
@@ -403,8 +402,7 @@ input MapWhereInput {
   OR: [MapWhereInput!]
   NOT: [MapWhereInput!]
   id: IDFilter
-  latitude: StringFilter
-  longitude: StringFilter
+  centreCoordinates: StringFilter
   zoom: IntFilter
 }
 
@@ -421,15 +419,13 @@ input IntFilter {
 
 input MapOrderByInput {
   id: OrderDirection
-  latitude: OrderDirection
-  longitude: OrderDirection
+  centreCoordinates: OrderDirection
   zoom: OrderDirection
 }
 
 input MapUpdateInput {
   content: JSON
-  latitude: String
-  longitude: String
+  centreCoordinates: String
   zoom: Int
 }
 
@@ -440,8 +436,7 @@ input MapUpdateArgs {
 
 input MapCreateInput {
   content: JSON
-  latitude: String
-  longitude: String
+  centreCoordinates: String
   zoom: Int
 }
 

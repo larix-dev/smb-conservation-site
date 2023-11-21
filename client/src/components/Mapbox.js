@@ -116,7 +116,7 @@ function Mapbox(props) {
     }
 
     map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
-  }, [data])
+  }, [data, props.interactive])
 
   return <div ref={mapContainer} className="w-full h-full"></div>
 }
