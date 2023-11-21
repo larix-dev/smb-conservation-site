@@ -2,6 +2,7 @@ import express from 'express'
 import nodemailer from 'nodemailer'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import multer from 'multer'
 
 export default function extendApp(app: express.Express) {
   app.use(bodyParser.json())
@@ -14,6 +15,23 @@ export default function extendApp(app: express.Express) {
     }
   })
 
+  type Attachment = {filename: string; content: Buffer}
+  type Message = {to: string; subject: string; text: string; attachments?: Attachment[]}
+
+  const sendMail = async (message: Message): Promise<number> => {
+    const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`
+    const mail: nodemailer.SendMailOptions = {from, ...message}
+
+    transport.sendMail(mail, error => {
+      if (error) {
+        console.log(error)
+        return 500
+      }
+      console.log(`Message sent to ${message.to}`)
+    })
+    return 200
+  }
+
   const corsOpts: cors.CorsOptions = {
     origin: (origin: string | undefined, callback: Function) => {
       if (origin === process.env.CLIENT_URL) {
@@ -24,20 +42,32 @@ export default function extendApp(app: express.Express) {
     }
   }
 
-  /* nodemailer message endpoint */
+  const upload: multer.Multer = multer()
+  const mailFields: express.RequestHandler = upload.fields([
+    {name: 'message', maxCount: 1},
+    {name: 'images[]', maxCount: 10}
+  ])
+
+  app.post('/send-multipart-message', cors(corsOpts), mailFields, async (req, res) => {
+    interface Files {
+      [fieldname: string]: Express.Multer.File[] | undefined
+    }
+    const files = req.files as Files
+
+    const attachments: Attachment[] = []
+    if (files && files['images[]']) {
+      files['images[]'].map(file =>
+        attachments.push({
+          filename: file.originalname,
+          content: file.buffer
+        })
+      )
+    }
+
+    return res.sendStatus(await sendMail({...req.body.message, attachments}))
+  })
+
   app.post('/send-message', cors(corsOpts), async (req, res) => {
-    const {to, subject, text} = req.body
-    const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`
-    const mail: nodemailer.SendMailOptions = {from, to, subject, text}
-
-    transport.sendMail(mail, error => {
-      if (error) {
-        console.log(error)
-        return res.sendStatus(500)
-      }
-      console.log(`Message sent to ${to}`)
-    })
-
-    return res.sendStatus(200)
+    return res.sendStatus(await sendMail(req.body))
   })
 }

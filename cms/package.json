@@ -13,14 +13,16 @@
     "@keystone-6/auth": "^7.0.0",
     "@keystone-6/core": "5.5.1",
     "@keystone-6/fields-document": "^7.0.0",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.15",
+    "@types/multer": "^1.4.10",
     "@types/nodemailer": "^6.4.13"
   },
-  "overrides": { 
-    "next": "13.4.12" 
+  "overrides": {
+    "next": "13.4.12"
   }
 }

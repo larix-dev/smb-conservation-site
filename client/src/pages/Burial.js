@@ -6,12 +6,13 @@ import axios from 'axios'
 
 import Page from '../components/Page'
 
-import burial from '../assets/images/burial.jpg'
-
 function Burial() {
   const query = gql`
-    query Query {
+    query Burial {
       burial {
+        image {
+          url
+        }
         content {
           document
         }
@@ -26,6 +27,7 @@ function Burial() {
   }
 
   const document = data.burial.content.document
+  const image = data?.burial?.image?.url
 
   return (
     <Page name="Green Burial: Resting in Nature's Embrace">
@@ -35,7 +37,7 @@ function Burial() {
         </div>
         <div className="flex flex-col md:flex-row gap-8">
           <div className="flex-1">
-            <img src={burial} alt="Burial" />
+            <img src={image} alt="Burial page" />
           </div>
           <div className="flex-1">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
@@ -54,15 +56,16 @@ function BurialForm() {
 
   const onSubmit = async data => {
     const {name, email, phone, message} = data
-    /* construct the message (later via an API call to render the HTML) */
     const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
 
     const body = {
-      to: 'John.Yorke@smu.ca', // business email
+      to: 'John.Yorke@smu.ca',
       subject: `Green Burial Inquery from ${name}`,
       text: text
     }
+    
     await axios.post('/send-message', body)
+
     reset()
     setSubmitted(true)
   }

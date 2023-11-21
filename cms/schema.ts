@@ -1,4 +1,4 @@
-import {list} from '@keystone-6/core'
+import {list, group} from '@keystone-6/core'
 import {allowAll} from '@keystone-6/core/access'
 import {
   relationship,
@@ -70,8 +70,46 @@ export const lists: Lists = {
     access: allowAll,
     isSingleton: true,
     fields: {
+      image: image({storage: 'localImages'}),
       content: document({
         formatting: true
+      })
+    }
+  }),
+  Feedback: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      image: image({storage: 'localImages'}),
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Footer: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      address: text({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          displayMode: 'textarea'
+        }
+      }),
+      phone: text({validation: {isRequired: true}}),
+      ...group({
+        label: 'Instagram',
+        fields: {
+          instagramHandle: text({validation: {isRequired: true}})
+        }
+      }),
+      ...group({
+        label: 'Facebook',
+        fields: {
+          facebookHandle: text({validation: {isRequired: true}})
+        }
       })
     }
   }),
@@ -157,6 +195,24 @@ export const lists: Lists = {
         ],
         defaultValue: 'blue',
         validation: {isRequired: true}
+      })
+    }
+  }),
+  Privacy: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Disclaimer: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
       })
     }
   })

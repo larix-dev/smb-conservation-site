@@ -205,7 +205,24 @@ input AboutCreateInput {
 
 type Burial {
   id: ID!
+  image: ImageFieldOutput
   content: Burial_content_Document
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 type Burial_content_Document {
@@ -228,8 +245,16 @@ input BurialOrderByInput {
 }
 
 input BurialUpdateInput {
+  image: ImageFieldInput
   content: JSON
 }
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input BurialUpdateArgs {
   where: BurialWhereUniqueInput! = {id: 1}
@@ -237,7 +262,98 @@ input BurialUpdateArgs {
 }
 
 input BurialCreateInput {
+  image: ImageFieldInput
   content: JSON
+}
+
+type Feedback {
+  id: ID!
+  image: ImageFieldOutput
+  content: Feedback_content_Document
+}
+
+type Feedback_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input FeedbackWhereUniqueInput {
+  id: ID
+}
+
+input FeedbackWhereInput {
+  AND: [FeedbackWhereInput!]
+  OR: [FeedbackWhereInput!]
+  NOT: [FeedbackWhereInput!]
+  id: IDFilter
+}
+
+input FeedbackOrderByInput {
+  id: OrderDirection
+}
+
+input FeedbackUpdateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+input FeedbackUpdateArgs {
+  where: FeedbackWhereUniqueInput! = {id: 1}
+  data: FeedbackUpdateInput!
+}
+
+input FeedbackCreateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+type Footer {
+  id: ID!
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
+}
+
+input FooterWhereUniqueInput {
+  id: ID
+}
+
+input FooterWhereInput {
+  AND: [FooterWhereInput!]
+  OR: [FooterWhereInput!]
+  NOT: [FooterWhereInput!]
+  id: IDFilter
+  address: StringFilter
+  phone: StringFilter
+  instagramHandle: StringFilter
+  facebookHandle: StringFilter
+}
+
+input FooterOrderByInput {
+  id: OrderDirection
+  address: OrderDirection
+  phone: OrderDirection
+  instagramHandle: OrderDirection
+  facebookHandle: OrderDirection
+}
+
+input FooterUpdateInput {
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
+}
+
+input FooterUpdateArgs {
+  where: FooterWhereUniqueInput! = {id: 1}
+  data: FooterUpdateInput!
+}
+
+input FooterCreateInput {
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
 }
 
 type GalleryTag {
@@ -283,22 +399,6 @@ type GalleryImage {
   dateTaken: CalendarDay
   tags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
   tagsCount(where: GalleryTagWhereInput! = {}): Int
-}
-
-type ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  url: String!
-}
-
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
 }
 
 scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
@@ -349,13 +449,6 @@ input GalleryImageUpdateInput {
   dateTaken: CalendarDay
   tags: GalleryTagRelateToManyForUpdateInput
 }
-
-input ImageFieldInput {
-  upload: Upload!
-}
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 input GalleryTagRelateToManyForUpdateInput {
   disconnect: [GalleryTagWhereUniqueInput!]
@@ -485,6 +578,80 @@ input TrailCreateInput {
   colour: String
 }
 
+type Privacy {
+  id: ID!
+  content: Privacy_content_Document
+}
+
+type Privacy_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input PrivacyWhereUniqueInput {
+  id: ID
+}
+
+input PrivacyWhereInput {
+  AND: [PrivacyWhereInput!]
+  OR: [PrivacyWhereInput!]
+  NOT: [PrivacyWhereInput!]
+  id: IDFilter
+}
+
+input PrivacyOrderByInput {
+  id: OrderDirection
+}
+
+input PrivacyUpdateInput {
+  content: JSON
+}
+
+input PrivacyUpdateArgs {
+  where: PrivacyWhereUniqueInput! = {id: 1}
+  data: PrivacyUpdateInput!
+}
+
+input PrivacyCreateInput {
+  content: JSON
+}
+
+type Disclaimer {
+  id: ID!
+  content: Disclaimer_content_Document
+}
+
+type Disclaimer_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input DisclaimerWhereUniqueInput {
+  id: ID
+}
+
+input DisclaimerWhereInput {
+  AND: [DisclaimerWhereInput!]
+  OR: [DisclaimerWhereInput!]
+  NOT: [DisclaimerWhereInput!]
+  id: IDFilter
+}
+
+input DisclaimerOrderByInput {
+  id: OrderDirection
+}
+
+input DisclaimerUpdateInput {
+  content: JSON
+}
+
+input DisclaimerUpdateArgs {
+  where: DisclaimerWhereUniqueInput! = {id: 1}
+  data: DisclaimerUpdateInput!
+}
+
+input DisclaimerCreateInput {
+  content: JSON
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -515,6 +682,18 @@ type Mutation {
   updateBurials(data: [BurialUpdateArgs!]!): [Burial]
   deleteBurial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   deleteBurials(where: [BurialWhereUniqueInput!]!): [Burial]
+  createFeedback(data: FeedbackCreateInput!): Feedback
+  createFeedbacks(data: [FeedbackCreateInput!]!): [Feedback]
+  updateFeedback(where: FeedbackWhereUniqueInput! = {id: 1}, data: FeedbackUpdateInput!): Feedback
+  updateFeedbacks(data: [FeedbackUpdateArgs!]!): [Feedback]
+  deleteFeedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  deleteFeedbacks(where: [FeedbackWhereUniqueInput!]!): [Feedback]
+  createFooter(data: FooterCreateInput!): Footer
+  createFooters(data: [FooterCreateInput!]!): [Footer]
+  updateFooter(where: FooterWhereUniqueInput! = {id: 1}, data: FooterUpdateInput!): Footer
+  updateFooters(data: [FooterUpdateArgs!]!): [Footer]
+  deleteFooter(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  deleteFooters(where: [FooterWhereUniqueInput!]!): [Footer]
   createGalleryTag(data: GalleryTagCreateInput!): GalleryTag
   createGalleryTags(data: [GalleryTagCreateInput!]!): [GalleryTag]
   updateGalleryTag(where: GalleryTagWhereUniqueInput!, data: GalleryTagUpdateInput!): GalleryTag
@@ -539,6 +718,18 @@ type Mutation {
   updateTrails(data: [TrailUpdateArgs!]!): [Trail]
   deleteTrail(where: TrailWhereUniqueInput!): Trail
   deleteTrails(where: [TrailWhereUniqueInput!]!): [Trail]
+  createPrivacy(data: PrivacyCreateInput!): Privacy
+  createPrivacies(data: [PrivacyCreateInput!]!): [Privacy]
+  updatePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}, data: PrivacyUpdateInput!): Privacy
+  updatePrivacies(data: [PrivacyUpdateArgs!]!): [Privacy]
+  deletePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  deletePrivacies(where: [PrivacyWhereUniqueInput!]!): [Privacy]
+  createDisclaimer(data: DisclaimerCreateInput!): Disclaimer
+  createDisclaimers(data: [DisclaimerCreateInput!]!): [Disclaimer]
+  updateDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}, data: DisclaimerUpdateInput!): Disclaimer
+  updateDisclaimers(data: [DisclaimerUpdateArgs!]!): [Disclaimer]
+  deleteDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  deleteDisclaimers(where: [DisclaimerWhereUniqueInput!]!): [Disclaimer]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -574,6 +765,12 @@ type Query {
   burials(where: BurialWhereInput! = {id: {equals: 1}}, orderBy: [BurialOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BurialWhereUniqueInput): [Burial!]
   burial(where: BurialWhereUniqueInput! = {id: 1}): Burial
   burialsCount(where: BurialWhereInput! = {id: {equals: 1}}): Int
+  feedbacks(where: FeedbackWhereInput! = {id: {equals: 1}}, orderBy: [FeedbackOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FeedbackWhereUniqueInput): [Feedback!]
+  feedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  feedbacksCount(where: FeedbackWhereInput! = {id: {equals: 1}}): Int
+  footers(where: FooterWhereInput! = {id: {equals: 1}}, orderBy: [FooterOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FooterWhereUniqueInput): [Footer!]
+  footer(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  footersCount(where: FooterWhereInput! = {id: {equals: 1}}): Int
   galleryTags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
   galleryTag(where: GalleryTagWhereUniqueInput!): GalleryTag
   galleryTagsCount(where: GalleryTagWhereInput! = {}): Int
@@ -586,6 +783,12 @@ type Query {
   trails(where: TrailWhereInput! = {}, orderBy: [TrailOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailWhereUniqueInput): [Trail!]
   trail(where: TrailWhereUniqueInput!): Trail
   trailsCount(where: TrailWhereInput! = {}): Int
+  privacies(where: PrivacyWhereInput! = {id: {equals: 1}}, orderBy: [PrivacyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PrivacyWhereUniqueInput): [Privacy!]
+  privacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  privaciesCount(where: PrivacyWhereInput! = {id: {equals: 1}}): Int
+  disclaimers(where: DisclaimerWhereInput! = {id: {equals: 1}}, orderBy: [DisclaimerOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: DisclaimerWhereUniqueInput): [Disclaimer!]
+  disclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  disclaimersCount(where: DisclaimerWhereInput! = {id: {equals: 1}}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

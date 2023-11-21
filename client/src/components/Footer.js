@@ -1,9 +1,25 @@
 import {FaMap, FaPhone, FaInstagram, FaFacebook} from 'react-icons/fa'
-
+import {useQuery, gql} from '@apollo/client'
 import Logo from './Logo'
 import NavLink from './NavLink'
 
 function Footer() {
+  const query = gql`
+    query Query {
+      footer {
+        address
+        phone
+        facebookHandle
+        instagramHandle
+      }
+    }
+  `
+  const {data} = useQuery(query)
+
+  const {address, phone, instagramHandle, facebookHandle} = data?.footer || {}
+  const instagramLink = `https://instagram.com/${instagramHandle}`
+  const facebookLink = `https://facebook.com/${facebookHandle}`
+
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-0 p-8 pb-6 max-w-screen-lg">
@@ -11,9 +27,7 @@ function Footer() {
           <Logo />
           <div>
             <FaMap className="inline" />
-            &nbsp;100 Conservation Road
-            <br />
-            St. Margaret's Bay, NS B1A 1A1
+            &nbsp;<span className="whitespace-pre-line">{address}</span>
           </div>
         </div>
         <div className="flex-1 flex flex-col lg:text-center">
@@ -27,20 +41,20 @@ function Footer() {
           <div>
             <FaPhone className="inline" />
             &nbsp;
-            <a href="tel:+19025551234">(902) 555-1234</a>
+            <a href={`tel:${phone}`}>{phone}</a>
           </div>
           <div>
             <FaInstagram className="inline" />
             &nbsp;
-            <a href="http://instagram.com/smbconservation" target="_blank" rel="noopener noreferrer">
-              smbconservation
+            <a href={`${instagramLink}`} target="_blank" rel="noopener noreferrer">
+              {instagramHandle}
             </a>
           </div>
           <div>
             <FaFacebook className="inline" />
             &nbsp;
-            <a href="http://facebook.com/smbconservation" target="_blank" rel="noopener noreferrer">
-              smbconservation
+            <a href={`${facebookLink}`} target="_blank" rel="noopener noreferrer">
+              {facebookHandle}
             </a>
           </div>
         </div>
