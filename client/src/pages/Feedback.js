@@ -1,15 +1,14 @@
+import Page from '../components/Page'
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
 import {useState} from 'react'
 import axios from 'axios'
 
-import Page from '../components/Page'
-
-function Burial() {
+function Feedback() {
   const query = gql`
-    query Burial {
-      burial {
+    query Query {
+      feedback {
         image {
           url
         }
@@ -19,29 +18,27 @@ function Burial() {
       }
     }
   `
-
   const {loading, error, data} = useQuery(query)
 
   if (loading || error || !data) {
     return null
   }
 
-  const document = data.burial.content.document
-  const image = data?.burial?.image?.url
+  const document = data?.feedback?.content.document
+  const image = data?.feedback?.image?.url
 
   return (
-    <Page name="Green Burial: Resting in Nature's Embrace">
+    <Page name="Feedback">
       <div className="flex flex-col gap-8">
         <div className="prose max-w-none">
           <DocumentRenderer document={document} />
         </div>
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            <img src={image} alt="Burial page" />
+            <FeedbackForm />
           </div>
           <div className="flex-1">
-            <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
-            <BurialForm />
+            <img className="w-full" src={image} alt="Feedback page" />
           </div>
         </div>
       </div>
@@ -49,22 +46,23 @@ function Burial() {
   )
 }
 
-function BurialForm() {
+function FeedbackForm() {
   const [submitted, setSubmitted] = useState(false)
 
   const {register, handleSubmit, reset} = useForm()
 
   const onSubmit = async data => {
-    const {name, email, phone, message} = data
-    const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
+    const {name, email, phone, message, images} = data
+
+    const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\n`
 
     const body = {
-      to: 'John.Yorke@smu.ca',
-      subject: `Green Burial Inquery from ${name}`,
+      to: 'yorkejohn02@gmail.com',
+      subject: `Feedback from ${name}`,
       text: text
     }
-    
-    await axios.post('/send-message', body)
+
+    await axios.postForm('/send-multipart-message', {message: body, images})
 
     reset()
     setSubmitted(true)
@@ -102,10 +100,19 @@ function BurialForm() {
               rows="6"
               id="message"
               className="resize-none"
-              placeholder="Ask us about our green burial services."
+              placeholder="Tell us how we did!"
               {...register('message')}
             ></textarea>
           </div>
+          <label htmlFor="image">Upload images (optional)</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            multiple
+            {...register('images', {required: false})}
+          />
         </div>
         {submitted && (
           <div className="text-sm text-green-800">
@@ -118,4 +125,4 @@ function BurialForm() {
   )
 }
 
-export default Burial
+export default Feedback

@@ -10,6 +10,7 @@ import Burial from './pages/Burial'
 import Disclaimer from './pages/Disclaimer'
 import Gallery from './pages/Gallery'
 import Privacy from './pages/Privacy'
+import Feedback from './pages/Feedback'
 
 import Page from './components/Page'
 import Banner from './components/Banner'
@@ -34,8 +35,9 @@ root.render(
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
-            <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="gallery" element={<Gallery />} />
+            <Route path="feedback" element={<Feedback />} />
+            <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>

@@ -60,10 +60,11 @@ export const lists: Lists = {
       })
     }
   }),
-  Disclaimer: list({
+  Feedback: list({
     access: allowAll,
     isSingleton: true,
     fields: {
+      image: image({storage: 'localImages'}),
       content: document({
         formatting: true
       })
@@ -119,6 +120,15 @@ export const lists: Lists = {
     }
   }),
   Privacy: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Disclaimer: list({
     access: allowAll,
     isSingleton: true,
     fields: {
