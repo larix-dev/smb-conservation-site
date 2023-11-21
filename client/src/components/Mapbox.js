@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl'
+import mapboxgl from '!mapbox-gl'
 import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
