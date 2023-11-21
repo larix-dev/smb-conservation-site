@@ -22,6 +22,11 @@ class CoordPair {
     this.lng = longitude
   }
 
+  static fromString(coordString) {
+    const [lat, lng] = coordString.split(/\,\s*/)
+    return new CoordPair(Coord.fromString(lat), Coord.fromString(lng))
+  }
+
   toInvArray() {
     return [this.lng.toDecimal(), this.lat.toDecimal()]
   }

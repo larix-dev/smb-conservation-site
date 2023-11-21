@@ -142,7 +142,7 @@ export const lists: Lists = {
       content: document({
         formatting: true
       }),
-      centreCoordinates: text({
+      centreCoords: text({
         ui: {
           description:
             'Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W'

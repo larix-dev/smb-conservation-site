@@ -165,7 +165,7 @@ var lists = {
       content: (0, import_fields_document.document)({
         formatting: true
       }),
-      centreCoordinates: (0, import_fields.text)({
+      centreCoords: (0, import_fields.text)({
         ui: {
           description: "Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W"
         },

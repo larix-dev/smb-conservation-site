@@ -478,7 +478,7 @@ input GalleryTagRelateToManyForCreateInput {
 type Map {
   id: ID!
   content: Map_content_Document
-  centreCoordinates: String
+  centreCoords: String
   zoom: Int
 }
 
@@ -495,7 +495,7 @@ input MapWhereInput {
   OR: [MapWhereInput!]
   NOT: [MapWhereInput!]
   id: IDFilter
-  centreCoordinates: StringFilter
+  centreCoords: StringFilter
   zoom: IntFilter
 }
 
@@ -512,13 +512,13 @@ input IntFilter {
 
 input MapOrderByInput {
   id: OrderDirection
-  centreCoordinates: OrderDirection
+  centreCoords: OrderDirection
   zoom: OrderDirection
 }
 
 input MapUpdateInput {
   content: JSON
-  centreCoordinates: String
+  centreCoords: String
   zoom: Int
 }
 
@@ -529,7 +529,7 @@ input MapUpdateArgs {
 
 input MapCreateInput {
   content: JSON
-  centreCoordinates: String
+  centreCoords: String
   zoom: Int
 }
 

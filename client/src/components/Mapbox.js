@@ -14,7 +14,7 @@ const toCoordArray = coords => {
   return coords
     .trim()
     .split('\n')
-    .map(toCoordPair)
+    .map(CoordPair.fromString)
     .map(pair => pair.toInvArray())
 }
 
@@ -71,14 +71,13 @@ function Mapbox(props) {
   const query = gql`
     query Map {
       map {
-        latitude
-        longitude
+        centreCoords
         zoom
       }
       trails {
+        id
         name
         trailCoords
-        id
         colour
       }
     }
@@ -94,14 +93,14 @@ function Mapbox(props) {
       return
     }
 
-    const center = new CoordPair(Coord.fromString(data?.map?.latitude), Coord.fromString(data?.map?.longitude))
+    const centre = CoordPair.fromString(data?.map?.centreCoords)
     const zoom = data?.map?.zoom
     const trails = data?.trails
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [center.lng.toDecimal(), center.lat.toDecimal()],
+      center: centre.toInvArray(),
       zoom: zoom,
       attributionControl: false,
       minZoom: zoom,
