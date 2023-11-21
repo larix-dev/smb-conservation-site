@@ -40,6 +40,10 @@ var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
 var import_fields_document = require("@keystone-6/fields-document");
+var latRegex = /([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/;
+var lngRegex = /(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/;
+var coordRegex = new RegExp(`^${latRegex.source},\\s*${lngRegex.source}\\s*\\n?$`);
+var trailRegex = new RegExp(`^(${latRegex.source},\\s*${lngRegex.source}\\s*\\n?){2,}$`);
 var lists = {
   User: (0, import_core.list)({
     access: import_access.allowAll,
@@ -151,6 +155,67 @@ var lists = {
         ui: {
           labelField: "tagName"
         }
+      })
+    }
+  }),
+  Map: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      }),
+      centreCoordinates: (0, import_fields.text)({
+        ui: {
+          description: "Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W"
+        },
+        validation: {
+          isRequired: true,
+          match: { regex: coordRegex, explanation: "Coordinate pair must be in valid DMS format (see above)" }
+        }
+      }),
+      zoom: (0, import_fields.integer)({
+        ui: {
+          description: "The initial and maximum zoom factor of the map"
+        },
+        validation: { isRequired: true }
+      })
+    }
+  }),
+  Trail: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      name: (0, import_fields.text)({
+        ui: {
+          description: "Trail name that will be displayed on the map"
+        },
+        validation: { isRequired: true }
+      }),
+      trailCoords: (0, import_fields.text)({
+        ui: {
+          displayMode: "textarea",
+          description: "A list of coordinates representing a trail\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W\nEach coordinate pair must be on its own line\nAt least two points are required to create a trail"
+        },
+        validation: {
+          isRequired: true,
+          match: {
+            regex: trailRegex,
+            explanation: "Coordinate pairs must be in valid DMS format (see above), each on their own line"
+          }
+        }
+      }),
+      colour: (0, import_fields.select)({
+        type: "string",
+        options: [
+          { label: "Red", value: "#dc2626" },
+          { label: "Orange", value: "#f97316" },
+          { label: "Yellow", value: "#eab308" },
+          { label: "Green", value: "#22c55e" },
+          { label: "Blue", value: "#3b82f6" },
+          { label: "Violet", value: "#8b5cf6" }
+        ],
+        defaultValue: "blue",
+        validation: { isRequired: true }
       })
     }
   }),

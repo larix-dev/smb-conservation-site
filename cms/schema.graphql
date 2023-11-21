@@ -475,6 +475,109 @@ input GalleryTagRelateToManyForCreateInput {
   connect: [GalleryTagWhereUniqueInput!]
 }
 
+type Map {
+  id: ID!
+  content: Map_content_Document
+  centreCoordinates: String
+  zoom: Int
+}
+
+type Map_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input MapWhereUniqueInput {
+  id: ID
+}
+
+input MapWhereInput {
+  AND: [MapWhereInput!]
+  OR: [MapWhereInput!]
+  NOT: [MapWhereInput!]
+  id: IDFilter
+  centreCoordinates: StringFilter
+  zoom: IntFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input MapOrderByInput {
+  id: OrderDirection
+  centreCoordinates: OrderDirection
+  zoom: OrderDirection
+}
+
+input MapUpdateInput {
+  content: JSON
+  centreCoordinates: String
+  zoom: Int
+}
+
+input MapUpdateArgs {
+  where: MapWhereUniqueInput! = {id: 1}
+  data: MapUpdateInput!
+}
+
+input MapCreateInput {
+  content: JSON
+  centreCoordinates: String
+  zoom: Int
+}
+
+type Trail {
+  id: ID!
+  name: String
+  trailCoords: String
+  colour: String
+}
+
+input TrailWhereUniqueInput {
+  id: ID
+}
+
+input TrailWhereInput {
+  AND: [TrailWhereInput!]
+  OR: [TrailWhereInput!]
+  NOT: [TrailWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  trailCoords: StringFilter
+  colour: StringFilter
+}
+
+input TrailOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  trailCoords: OrderDirection
+  colour: OrderDirection
+}
+
+input TrailUpdateInput {
+  name: String
+  trailCoords: String
+  colour: String
+}
+
+input TrailUpdateArgs {
+  where: TrailWhereUniqueInput!
+  data: TrailUpdateInput!
+}
+
+input TrailCreateInput {
+  name: String
+  trailCoords: String
+  colour: String
+}
+
 type Privacy {
   id: ID!
   content: Privacy_content_Document
@@ -603,6 +706,18 @@ type Mutation {
   updateGalleryImages(data: [GalleryImageUpdateArgs!]!): [GalleryImage]
   deleteGalleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   deleteGalleryImages(where: [GalleryImageWhereUniqueInput!]!): [GalleryImage]
+  createMap(data: MapCreateInput!): Map
+  createMaps(data: [MapCreateInput!]!): [Map]
+  updateMap(where: MapWhereUniqueInput! = {id: 1}, data: MapUpdateInput!): Map
+  updateMaps(data: [MapUpdateArgs!]!): [Map]
+  deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
+  deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
+  createTrail(data: TrailCreateInput!): Trail
+  createTrails(data: [TrailCreateInput!]!): [Trail]
+  updateTrail(where: TrailWhereUniqueInput!, data: TrailUpdateInput!): Trail
+  updateTrails(data: [TrailUpdateArgs!]!): [Trail]
+  deleteTrail(where: TrailWhereUniqueInput!): Trail
+  deleteTrails(where: [TrailWhereUniqueInput!]!): [Trail]
   createPrivacy(data: PrivacyCreateInput!): Privacy
   createPrivacies(data: [PrivacyCreateInput!]!): [Privacy]
   updatePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}, data: PrivacyUpdateInput!): Privacy
@@ -662,6 +777,12 @@ type Query {
   galleryImages(where: GalleryImageWhereInput! = {}, orderBy: [GalleryImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryImageWhereUniqueInput): [GalleryImage!]
   galleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   galleryImagesCount(where: GalleryImageWhereInput! = {}): Int
+  maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
+  map(where: MapWhereUniqueInput! = {id: 1}): Map
+  mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
+  trails(where: TrailWhereInput! = {}, orderBy: [TrailOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailWhereUniqueInput): [Trail!]
+  trail(where: TrailWhereUniqueInput!): Trail
+  trailsCount(where: TrailWhereInput! = {}): Int
   privacies(where: PrivacyWhereInput! = {id: {equals: 1}}, orderBy: [PrivacyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PrivacyWhereUniqueInput): [Privacy!]
   privacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
   privaciesCount(where: PrivacyWhereInput! = {id: {equals: 1}}): Int

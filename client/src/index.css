@@ -10,12 +10,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cta-button {
+  @apply px-4 py-2 leading-none rounded text-white bg-teal-900 hover:bg-teal-800 w-fit;
+}
+
 .home-cta-button {
-  @apply px-4 py-2 leading-none border rounded text-white bg-opacity-90 bg-teal-900 hover:bg-teal-800 w-fit;
+  @apply px-4 py-2 leading-none border rounded text-white bg-teal-900 hover:bg-teal-800 w-fit bg-opacity-90;
 }
 
 .send-button {
-  @apply px-4 py-2 leading-none border rounded text-white bg-teal-900 hover:bg-teal-800 w-fit min-w-[100px];
+  @apply px-4 py-2 leading-none rounded text-white bg-teal-900 hover:bg-teal-800 w-fit min-w-[100px];
 }
 
 input[type='text'],

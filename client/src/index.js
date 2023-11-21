@@ -16,6 +16,9 @@ import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Map from './pages/Map'
+import InterMap from './pages/InterMap'
+
 import './index.css'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
@@ -31,11 +34,13 @@ root.render(
     <ApolloProvider client={apollo}>
       <BrowserRouter>
         <Routes>
+          <Route path="interactive-map" element={<InterMap />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
+            <Route path="map" element={<Map />} />
             <Route path="feedback" element={<Feedback />} />
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />
