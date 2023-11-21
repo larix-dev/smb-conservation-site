@@ -89,6 +89,7 @@ var lists = {
     access: import_access.allowAll,
     isSingleton: true,
     fields: {
+      image: (0, import_fields.image)({ storage: "localImages" }),
       content: (0, import_fields_document.document)({
         formatting: true
       })
@@ -101,6 +102,33 @@ var lists = {
       image: (0, import_fields.image)({ storage: "localImages" }),
       content: (0, import_fields_document.document)({
         formatting: true
+      })
+    }
+  }),
+  Footer: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      address: (0, import_fields.text)({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          displayMode: "textarea"
+        }
+      }),
+      phone: (0, import_fields.text)({ validation: { isRequired: true } }),
+      ...(0, import_core.group)({
+        label: "Instagram",
+        fields: {
+          instagramHandle: (0, import_fields.text)({ validation: { isRequired: true } })
+        }
+      }),
+      ...(0, import_core.group)({
+        label: "Facebook",
+        fields: {
+          facebookHandle: (0, import_fields.text)({ validation: { isRequired: true } })
+        }
       })
     }
   }),

@@ -33,8 +33,13 @@ model About {
 }
 
 model Burial {
-  id      Int    @id
-  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  id              Int     @id
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Feedback {
@@ -45,6 +50,14 @@ model Feedback {
   image_height    Int?
   image_id        String?
   content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Footer {
+  id              Int    @id
+  address         String @default("")
+  phone           String @default("")
+  instagramHandle String @default("")
+  facebookHandle  String @default("")
 }
 
 model GalleryTag {
