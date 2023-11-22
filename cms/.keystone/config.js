@@ -75,15 +75,25 @@ var lists = {
       })
     }
   }),
+  ProductsServicesPage: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
   Product: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
       title: (0, import_fields.text)({ validation: { isRequired: true } }),
-      previewImage: (0, import_fields.image)({ storage: "localImages" }),
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      isService: (0, import_fields.checkbox)(),
+      origin: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
       description: (0, import_fields_document.document)({
         formatting: true
-      }),
-      image: (0, import_fields.image)({ storage: "localImages" })
+      })
     }
   })
 };
@@ -127,7 +137,7 @@ var keystone_default = withAuth(
   (0, import_core2.config)({
     db: {
       provider: "sqlite",
-      url: "file:./keystone.db"
+      url: "file:./keystone0.db"
     },
     lists,
     session,

@@ -32,18 +32,20 @@ model About {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
+model ProductsServicesPage {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
 model Product {
-  id                     String  @id @default(cuid())
-  title                  String  @default("")
-  previewImage_filesize  Int?
-  previewImage_extension String?
-  previewImage_width     Int?
-  previewImage_height    Int?
-  previewImage_id        String?
-  description            String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  image_filesize         Int?
-  image_extension        String?
-  image_width            Int?
-  image_height           Int?
-  image_id               String?
+  id              String  @id @default(cuid())
+  title           String  @default("")
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  isService       Boolean @default(false)
+  origin          String  @default("")
+  description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }

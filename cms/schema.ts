@@ -50,15 +50,25 @@ export const lists: Lists = {
       })
     }
   }),
+  ProductsServicesPage: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
   Product: list({
     access: allowAll,
     fields: {
       title: text({validation: {isRequired: true}}),
-      previewImage: image({ storage: 'localImages' }),
+      image: image({storage: 'localImages'}),
+      isService: checkbox(),
+      origin: text({ui: {description: 'Not required for services'}}),
       description: document({
         formatting: true
-      }),
-      image: image({ storage: 'localImages' }),
-  }
-})
+      })
+    }
+  })
 }
