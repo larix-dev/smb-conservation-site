@@ -90,15 +90,16 @@ function Mapbox(props) {
 
     const centre = CoordPair.fromString(data?.map?.centreCoords)
     const zoom = data?.map?.zoom
+    const scaledZoom = zoom - Math.log2(992 / mapContainer.current.clientWidth) // scale relative to 992 pixels (full map width)
     const trails = data?.trails
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
       center: centre.toInvArray(),
-      zoom: zoom,
+      zoom: scaledZoom,
       attributionControl: false,
-      minZoom: zoom,
+      minZoom: scaledZoom,
       interactive: props.interactive
     })
 
