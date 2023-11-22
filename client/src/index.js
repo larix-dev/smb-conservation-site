@@ -29,7 +29,7 @@ root.render(
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="products-services" element={<ProductsServices />} />
-            <Route path="product-info/:itemId" element={<ProductInfo />} />
+            <Route path="products-services/:itemId" element={<ProductInfo />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

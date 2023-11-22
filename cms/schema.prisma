@@ -40,6 +40,7 @@ model ProductsServicesPage {
 model Product {
   id              String  @id @default(cuid())
   title           String  @default("")
+  urlId           String  @default("")
   image_filesize  Int?
   image_extension String?
   image_width     Int?

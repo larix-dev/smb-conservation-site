@@ -243,6 +243,7 @@ input ProductsServicesPageCreateInput {
 type Product {
   id: ID!
   title: String
+  urlId: String
   image: ImageFieldOutput
   isService: Boolean
   origin: String
@@ -279,6 +280,7 @@ input ProductWhereInput {
   NOT: [ProductWhereInput!]
   id: IDFilter
   title: StringFilter
+  urlId: StringFilter
   isService: BooleanFilter
   origin: StringFilter
 }
@@ -286,12 +288,14 @@ input ProductWhereInput {
 input ProductOrderByInput {
   id: OrderDirection
   title: OrderDirection
+  urlId: OrderDirection
   isService: OrderDirection
   origin: OrderDirection
 }
 
 input ProductUpdateInput {
   title: String
+  urlId: String
   image: ImageFieldInput
   isService: Boolean
   origin: String
@@ -312,6 +316,7 @@ input ProductUpdateArgs {
 
 input ProductCreateInput {
   title: String
+  urlId: String
   image: ImageFieldInput
   isService: Boolean
   origin: String

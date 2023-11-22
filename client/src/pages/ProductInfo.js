@@ -7,9 +7,8 @@ function ProductInfo() {
   const {itemId} = useParams()
 
   const query = gql`
-    query Product($where: ProductWhereUniqueInput!) {
-      product(where: $where) {
-        id
+    query Products($where: ProductWhereInput!) {
+      products(where: $where, take: 1) {
         title
         isService
         image {
@@ -24,22 +23,22 @@ function ProductInfo() {
   `
 
   const {loading, error, data} = useQuery(query, {
-    variables: {where: {id: itemId}}
+    variables: {where: {urlId: {equals: itemId}}}
   })
 
   if (loading || error || !data) {
     return null
   }
 
-  const document = data?.product?.description.document
-  const {title, isService, image, origin} = data?.product
+  const product = data?.products[0]
+  const {title, isService, image, origin, description} = product
 
   return (
     <Page name={title}>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
           {!isService && <div className="font-bold">Product Origin: {origin}</div>}
-          <DocumentRenderer document={document} />
+          <DocumentRenderer document={description.document} />
         </div>
         <div className="flex-1">
           <img src={image.url} alt={title} />

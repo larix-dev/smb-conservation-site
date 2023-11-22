@@ -7,10 +7,15 @@ function ProductsServices() {
   const query = gql`
     query Query {
       products {
-        id
+        urlId
         title
+        origin
+        isService
         image {
           url
+        }
+        description {
+          document
         }
       }
       productsServicesPage {
@@ -32,8 +37,7 @@ function ProductsServices() {
     <Page name="Products and Services">
       <div className="flex flex-col gap-4">
         <DocumentRenderer document={document} />
-        <div className="font-bold text-lg">Our current offerings</div>
-        <div className="columns-xs gap-4">
+        <div className="flex flex-col gap-8">
           {data.products.map((product, i) => (
             <Product key={i} product={product} />
           ))}
@@ -44,13 +48,21 @@ function ProductsServices() {
 }
 
 function Product(props) {
-  const {id, title, image} = props.product
+  const {urlId, title, image, description, isService, origin} = props.product
+
   return (
-    <div className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden">
-      <Link className="text-lg font-bold" to={`/product-info/${id}`}>
+    <div className="flex flex-col md:flex-row gap-4">
+      <div className="basis-1/3">
         <img src={image.url} alt={title} />
-        <div className="p-2">{title}</div>
-      </Link>
+      </div>
+      <div className="basis-2/3 flex flex-col gap-4">
+        <div className="font-bold text-xl">{title}</div>
+        {!isService && <div className="font-bold">Product Origin: {origin}</div>}
+        <DocumentRenderer document={[description.document[0]]} />
+        <Link className="text-blue-600 font-bold hover:underline" to={`/products-services/${urlId}`}>
+          Learn More &rsaquo;
+        </Link>
+      </div>
     </div>
   )
 }
