@@ -35,7 +35,7 @@ function Product(props) {
     <div className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden">
       <img src={props.url} alt={props.title} />
       <div className="p-2">
-        <Link className="text-lg font-bold" to={"/products-services"}>{props.title}</Link>
+        <Link className="text-lg font-bold" to={"/productinfo/:" + props.title}>{props.title}</Link>
       </div>
     </div>
   )
