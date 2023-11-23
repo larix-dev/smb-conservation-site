@@ -11,7 +11,8 @@ import Disclaimer from './pages/Disclaimer'
 import Gallery from './pages/Gallery'
 import Privacy from './pages/Privacy'
 import Feedback from './pages/Feedback'
-
+import ProductsServices from './pages/ProductsServices'
+import Product from './pages/Product'
 import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
@@ -44,6 +45,8 @@ root.render(
             <Route path="feedback" element={<Feedback />} />
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />
+            <Route path="products-services" element={<ProductsServices />} />
+            <Route path="products-services/:itemId" element={<Product />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

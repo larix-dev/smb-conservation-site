@@ -236,6 +236,40 @@ var lists = {
         formatting: true
       })
     }
+  }),
+  ProductsServicesPage: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
+  Product: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      title: (0, import_fields.text)({ validation: { isRequired: true } }),
+      urlId: (0, import_fields.text)({
+        label: "URL ID",
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-z\-]*$/,
+            explanation: "URL ID must only contain lowercase letters, hypens, and no spaces"
+          }
+        }
+      }),
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      isService: (0, import_fields.checkbox)(),
+      origin: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
+      description: (0, import_fields_document.document)({
+        formatting: true,
+        ui: {
+          description: "First paragraph is used for the preview"
+        }
+      })
+    }
   })
 };
 

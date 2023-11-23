@@ -102,3 +102,22 @@ model Disclaimer {
   id      Int    @id
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
+
+model ProductsServicesPage {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Product {
+  id              String  @id @default(cuid())
+  title           String  @default("")
+  urlId           String  @default("")
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  isService       Boolean @default(false)
+  origin          String  @default("")
+  description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
