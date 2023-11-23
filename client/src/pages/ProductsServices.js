@@ -39,7 +39,7 @@ function ProductsServices() {
         <DocumentRenderer document={document} />
         <div className="flex flex-col gap-8">
           {data.products.map((product, i) => (
-            <Product key={i} product={product} />
+            <ProductPreview key={i} product={product} />
           ))}
         </div>
       </div>
@@ -47,7 +47,7 @@ function ProductsServices() {
   )
 }
 
-function Product(props) {
+function ProductPreview(props) {
   const {urlId, title, image, description, isService, origin} = props.product
 
   return (

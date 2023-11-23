@@ -3,7 +3,7 @@ import {useQuery, gql} from '@apollo/client'
 import {useParams} from 'react-router-dom'
 import Page from '../components/Page'
 
-function ProductInfo() {
+function Product() {
   const {itemId} = useParams()
 
   const query = gql`
@@ -47,4 +47,5 @@ function ProductInfo() {
     </Page>
   )
 }
-export default ProductInfo
+
+export default Product
