@@ -32,6 +32,77 @@ model About {
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
+model Burial {
+  id              Int     @id
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Feedback {
+  id              Int     @id
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Footer {
+  id              Int    @id
+  address         String @default("")
+  phone           String @default("")
+  instagramHandle String @default("")
+  facebookHandle  String @default("")
+}
+
+model GalleryTag {
+  id                     String         @id @default(cuid())
+  tagName                String         @default("")
+  from_GalleryImage_tags GalleryImage[] @relation("GalleryImage_tags")
+}
+
+model GalleryImage {
+  id              String       @id @default(cuid())
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  caption         String       @default("")
+  author          String       @default("")
+  dateTaken       String
+  tags            GalleryTag[] @relation("GalleryImage_tags")
+}
+
+model Map {
+  id           Int    @id
+  content      String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  centreCoords String @default("")
+  zoom         Int
+}
+
+model Trail {
+  id          String @id @default(cuid())
+  name        String @default("")
+  trailCoords String @default("")
+  colour      String @default("blue")
+}
+
+model Privacy {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Disclaimer {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
 model ProductsServicesPage {
   id      Int    @id
   content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")

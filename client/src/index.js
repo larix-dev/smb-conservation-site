@@ -2,20 +2,30 @@ import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-dom'
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
+import axios from 'axios'
 
 import Home from './pages/Home'
 import About from './pages/About'
+import Burial from './pages/Burial'
+import Disclaimer from './pages/Disclaimer'
+import Gallery from './pages/Gallery'
+import Privacy from './pages/Privacy'
+import Feedback from './pages/Feedback'
 import ProductsServices from './pages/ProductsServices'
 import ProductInfo from './pages/ProductInfo'
 import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import Map from './pages/Map'
+import InterMap from './pages/InterMap'
 
 import './index.css'
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
+
 const apollo = new ApolloClient({
-  uri: process.env.REACT_APP_API_URL,
+  uri: `${process.env.REACT_APP_API_URL}/api/graphql`,
   cache: new InMemoryCache()
 })
 
@@ -25,9 +35,16 @@ root.render(
     <ApolloProvider client={apollo}>
       <BrowserRouter>
         <Routes>
+          <Route path="interactive-map" element={<InterMap />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="green-burial" element={<Burial />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="map" element={<Map />} />
+            <Route path="feedback" element={<Feedback />} />
+            <Route path="disclaimer" element={<Disclaimer />} />
+            <Route path="privacy-policy" element={<Privacy />} />
             <Route path="products-services" element={<ProductsServices />} />
             <Route path="products-services/:itemId" element={<ProductInfo />} />
             <Route path="*" element={<PageNotFound />} />

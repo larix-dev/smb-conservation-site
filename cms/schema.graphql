@@ -203,6 +203,455 @@ input AboutCreateInput {
   content: JSON
 }
 
+type Burial {
+  id: ID!
+  image: ImageFieldOutput
+  content: Burial_content_Document
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+type Burial_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input BurialWhereUniqueInput {
+  id: ID
+}
+
+input BurialWhereInput {
+  AND: [BurialWhereInput!]
+  OR: [BurialWhereInput!]
+  NOT: [BurialWhereInput!]
+  id: IDFilter
+}
+
+input BurialOrderByInput {
+  id: OrderDirection
+}
+
+input BurialUpdateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input BurialUpdateArgs {
+  where: BurialWhereUniqueInput! = {id: 1}
+  data: BurialUpdateInput!
+}
+
+input BurialCreateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+type Feedback {
+  id: ID!
+  image: ImageFieldOutput
+  content: Feedback_content_Document
+}
+
+type Feedback_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input FeedbackWhereUniqueInput {
+  id: ID
+}
+
+input FeedbackWhereInput {
+  AND: [FeedbackWhereInput!]
+  OR: [FeedbackWhereInput!]
+  NOT: [FeedbackWhereInput!]
+  id: IDFilter
+}
+
+input FeedbackOrderByInput {
+  id: OrderDirection
+}
+
+input FeedbackUpdateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+input FeedbackUpdateArgs {
+  where: FeedbackWhereUniqueInput! = {id: 1}
+  data: FeedbackUpdateInput!
+}
+
+input FeedbackCreateInput {
+  image: ImageFieldInput
+  content: JSON
+}
+
+type Footer {
+  id: ID!
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
+}
+
+input FooterWhereUniqueInput {
+  id: ID
+}
+
+input FooterWhereInput {
+  AND: [FooterWhereInput!]
+  OR: [FooterWhereInput!]
+  NOT: [FooterWhereInput!]
+  id: IDFilter
+  address: StringFilter
+  phone: StringFilter
+  instagramHandle: StringFilter
+  facebookHandle: StringFilter
+}
+
+input FooterOrderByInput {
+  id: OrderDirection
+  address: OrderDirection
+  phone: OrderDirection
+  instagramHandle: OrderDirection
+  facebookHandle: OrderDirection
+}
+
+input FooterUpdateInput {
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
+}
+
+input FooterUpdateArgs {
+  where: FooterWhereUniqueInput! = {id: 1}
+  data: FooterUpdateInput!
+}
+
+input FooterCreateInput {
+  address: String
+  phone: String
+  instagramHandle: String
+  facebookHandle: String
+}
+
+type GalleryTag {
+  id: ID!
+  tagName: String
+}
+
+input GalleryTagWhereUniqueInput {
+  id: ID
+}
+
+input GalleryTagWhereInput {
+  AND: [GalleryTagWhereInput!]
+  OR: [GalleryTagWhereInput!]
+  NOT: [GalleryTagWhereInput!]
+  id: IDFilter
+  tagName: StringFilter
+}
+
+input GalleryTagOrderByInput {
+  id: OrderDirection
+  tagName: OrderDirection
+}
+
+input GalleryTagUpdateInput {
+  tagName: String
+}
+
+input GalleryTagUpdateArgs {
+  where: GalleryTagWhereUniqueInput!
+  data: GalleryTagUpdateInput!
+}
+
+input GalleryTagCreateInput {
+  tagName: String
+}
+
+type GalleryImage {
+  id: ID!
+  image: ImageFieldOutput
+  caption: String
+  author: String
+  dateTaken: CalendarDay
+  tags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
+  tagsCount(where: GalleryTagWhereInput! = {}): Int
+}
+
+scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+
+input GalleryImageWhereUniqueInput {
+  id: ID
+}
+
+input GalleryImageWhereInput {
+  AND: [GalleryImageWhereInput!]
+  OR: [GalleryImageWhereInput!]
+  NOT: [GalleryImageWhereInput!]
+  id: IDFilter
+  caption: StringFilter
+  author: StringFilter
+  dateTaken: CalendarDayFilter
+  tags: GalleryTagManyRelationFilter
+}
+
+input CalendarDayFilter {
+  equals: CalendarDay
+  in: [CalendarDay!]
+  notIn: [CalendarDay!]
+  lt: CalendarDay
+  lte: CalendarDay
+  gt: CalendarDay
+  gte: CalendarDay
+  not: CalendarDayFilter
+}
+
+input GalleryTagManyRelationFilter {
+  every: GalleryTagWhereInput
+  some: GalleryTagWhereInput
+  none: GalleryTagWhereInput
+}
+
+input GalleryImageOrderByInput {
+  id: OrderDirection
+  caption: OrderDirection
+  author: OrderDirection
+  dateTaken: OrderDirection
+}
+
+input GalleryImageUpdateInput {
+  image: ImageFieldInput
+  caption: String
+  author: String
+  dateTaken: CalendarDay
+  tags: GalleryTagRelateToManyForUpdateInput
+}
+
+input GalleryTagRelateToManyForUpdateInput {
+  disconnect: [GalleryTagWhereUniqueInput!]
+  set: [GalleryTagWhereUniqueInput!]
+  create: [GalleryTagCreateInput!]
+  connect: [GalleryTagWhereUniqueInput!]
+}
+
+input GalleryImageUpdateArgs {
+  where: GalleryImageWhereUniqueInput!
+  data: GalleryImageUpdateInput!
+}
+
+input GalleryImageCreateInput {
+  image: ImageFieldInput
+  caption: String
+  author: String
+  dateTaken: CalendarDay
+  tags: GalleryTagRelateToManyForCreateInput
+}
+
+input GalleryTagRelateToManyForCreateInput {
+  create: [GalleryTagCreateInput!]
+  connect: [GalleryTagWhereUniqueInput!]
+}
+
+type Map {
+  id: ID!
+  content: Map_content_Document
+  centreCoords: String
+  zoom: Int
+}
+
+type Map_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input MapWhereUniqueInput {
+  id: ID
+}
+
+input MapWhereInput {
+  AND: [MapWhereInput!]
+  OR: [MapWhereInput!]
+  NOT: [MapWhereInput!]
+  id: IDFilter
+  centreCoords: StringFilter
+  zoom: IntFilter
+}
+
+input IntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntFilter
+}
+
+input MapOrderByInput {
+  id: OrderDirection
+  centreCoords: OrderDirection
+  zoom: OrderDirection
+}
+
+input MapUpdateInput {
+  content: JSON
+  centreCoords: String
+  zoom: Int
+}
+
+input MapUpdateArgs {
+  where: MapWhereUniqueInput! = {id: 1}
+  data: MapUpdateInput!
+}
+
+input MapCreateInput {
+  content: JSON
+  centreCoords: String
+  zoom: Int
+}
+
+type Trail {
+  id: ID!
+  name: String
+  trailCoords: String
+  colour: String
+}
+
+input TrailWhereUniqueInput {
+  id: ID
+}
+
+input TrailWhereInput {
+  AND: [TrailWhereInput!]
+  OR: [TrailWhereInput!]
+  NOT: [TrailWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  trailCoords: StringFilter
+  colour: StringFilter
+}
+
+input TrailOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  trailCoords: OrderDirection
+  colour: OrderDirection
+}
+
+input TrailUpdateInput {
+  name: String
+  trailCoords: String
+  colour: String
+}
+
+input TrailUpdateArgs {
+  where: TrailWhereUniqueInput!
+  data: TrailUpdateInput!
+}
+
+input TrailCreateInput {
+  name: String
+  trailCoords: String
+  colour: String
+}
+
+type Privacy {
+  id: ID!
+  content: Privacy_content_Document
+}
+
+type Privacy_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input PrivacyWhereUniqueInput {
+  id: ID
+}
+
+input PrivacyWhereInput {
+  AND: [PrivacyWhereInput!]
+  OR: [PrivacyWhereInput!]
+  NOT: [PrivacyWhereInput!]
+  id: IDFilter
+}
+
+input PrivacyOrderByInput {
+  id: OrderDirection
+}
+
+input PrivacyUpdateInput {
+  content: JSON
+}
+
+input PrivacyUpdateArgs {
+  where: PrivacyWhereUniqueInput! = {id: 1}
+  data: PrivacyUpdateInput!
+}
+
+input PrivacyCreateInput {
+  content: JSON
+}
+
+type Disclaimer {
+  id: ID!
+  content: Disclaimer_content_Document
+}
+
+type Disclaimer_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input DisclaimerWhereUniqueInput {
+  id: ID
+}
+
+input DisclaimerWhereInput {
+  AND: [DisclaimerWhereInput!]
+  OR: [DisclaimerWhereInput!]
+  NOT: [DisclaimerWhereInput!]
+  id: IDFilter
+}
+
+input DisclaimerOrderByInput {
+  id: OrderDirection
+}
+
+input DisclaimerUpdateInput {
+  content: JSON
+}
+
+input DisclaimerUpdateArgs {
+  where: DisclaimerWhereUniqueInput! = {id: 1}
+  data: DisclaimerUpdateInput!
+}
+
+input DisclaimerCreateInput {
+  content: JSON
+}
+
 type ProductsServicesPage {
   id: ID!
   content: ProductsServicesPage_content_Document
@@ -250,22 +699,6 @@ type Product {
   description: Product_description_Document
 }
 
-type ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  url: String!
-}
-
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
-}
-
 type Product_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
@@ -301,13 +734,6 @@ input ProductUpdateInput {
   origin: String
   description: JSON
 }
-
-input ImageFieldInput {
-  upload: Upload!
-}
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 input ProductUpdateArgs {
   where: ProductWhereUniqueInput!
@@ -347,6 +773,60 @@ type Mutation {
   updateAbouts(data: [AboutUpdateArgs!]!): [About]
   deleteAbout(where: AboutWhereUniqueInput! = {id: 1}): About
   deleteAbouts(where: [AboutWhereUniqueInput!]!): [About]
+  createBurial(data: BurialCreateInput!): Burial
+  createBurials(data: [BurialCreateInput!]!): [Burial]
+  updateBurial(where: BurialWhereUniqueInput! = {id: 1}, data: BurialUpdateInput!): Burial
+  updateBurials(data: [BurialUpdateArgs!]!): [Burial]
+  deleteBurial(where: BurialWhereUniqueInput! = {id: 1}): Burial
+  deleteBurials(where: [BurialWhereUniqueInput!]!): [Burial]
+  createFeedback(data: FeedbackCreateInput!): Feedback
+  createFeedbacks(data: [FeedbackCreateInput!]!): [Feedback]
+  updateFeedback(where: FeedbackWhereUniqueInput! = {id: 1}, data: FeedbackUpdateInput!): Feedback
+  updateFeedbacks(data: [FeedbackUpdateArgs!]!): [Feedback]
+  deleteFeedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  deleteFeedbacks(where: [FeedbackWhereUniqueInput!]!): [Feedback]
+  createFooter(data: FooterCreateInput!): Footer
+  createFooters(data: [FooterCreateInput!]!): [Footer]
+  updateFooter(where: FooterWhereUniqueInput! = {id: 1}, data: FooterUpdateInput!): Footer
+  updateFooters(data: [FooterUpdateArgs!]!): [Footer]
+  deleteFooter(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  deleteFooters(where: [FooterWhereUniqueInput!]!): [Footer]
+  createGalleryTag(data: GalleryTagCreateInput!): GalleryTag
+  createGalleryTags(data: [GalleryTagCreateInput!]!): [GalleryTag]
+  updateGalleryTag(where: GalleryTagWhereUniqueInput!, data: GalleryTagUpdateInput!): GalleryTag
+  updateGalleryTags(data: [GalleryTagUpdateArgs!]!): [GalleryTag]
+  deleteGalleryTag(where: GalleryTagWhereUniqueInput!): GalleryTag
+  deleteGalleryTags(where: [GalleryTagWhereUniqueInput!]!): [GalleryTag]
+  createGalleryImage(data: GalleryImageCreateInput!): GalleryImage
+  createGalleryImages(data: [GalleryImageCreateInput!]!): [GalleryImage]
+  updateGalleryImage(where: GalleryImageWhereUniqueInput!, data: GalleryImageUpdateInput!): GalleryImage
+  updateGalleryImages(data: [GalleryImageUpdateArgs!]!): [GalleryImage]
+  deleteGalleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
+  deleteGalleryImages(where: [GalleryImageWhereUniqueInput!]!): [GalleryImage]
+  createMap(data: MapCreateInput!): Map
+  createMaps(data: [MapCreateInput!]!): [Map]
+  updateMap(where: MapWhereUniqueInput! = {id: 1}, data: MapUpdateInput!): Map
+  updateMaps(data: [MapUpdateArgs!]!): [Map]
+  deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
+  deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
+  createTrail(data: TrailCreateInput!): Trail
+  createTrails(data: [TrailCreateInput!]!): [Trail]
+  updateTrail(where: TrailWhereUniqueInput!, data: TrailUpdateInput!): Trail
+  updateTrails(data: [TrailUpdateArgs!]!): [Trail]
+  deleteTrail(where: TrailWhereUniqueInput!): Trail
+  deleteTrails(where: [TrailWhereUniqueInput!]!): [Trail]
+  createPrivacy(data: PrivacyCreateInput!): Privacy
+  createPrivacies(data: [PrivacyCreateInput!]!): [Privacy]
+  updatePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}, data: PrivacyUpdateInput!): Privacy
+  updatePrivacies(data: [PrivacyUpdateArgs!]!): [Privacy]
+  deletePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  deletePrivacies(where: [PrivacyWhereUniqueInput!]!): [Privacy]
+  createDisclaimer(data: DisclaimerCreateInput!): Disclaimer
+  createDisclaimers(data: [DisclaimerCreateInput!]!): [Disclaimer]
+  updateDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}, data: DisclaimerUpdateInput!): Disclaimer
+  updateDisclaimers(data: [DisclaimerUpdateArgs!]!): [Disclaimer]
+  deleteDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  deleteDisclaimers(where: [DisclaimerWhereUniqueInput!]!): [Disclaimer]
   createProductsServicesPage(data: ProductsServicesPageCreateInput!): ProductsServicesPage
   createProductsServicesPages(data: [ProductsServicesPageCreateInput!]!): [ProductsServicesPage]
   updateProductsServicesPage(where: ProductsServicesPageWhereUniqueInput! = {id: 1}, data: ProductsServicesPageUpdateInput!): ProductsServicesPage
@@ -391,6 +871,33 @@ type Query {
   abouts(where: AboutWhereInput! = {id: {equals: 1}}, orderBy: [AboutOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: AboutWhereUniqueInput): [About!]
   about(where: AboutWhereUniqueInput! = {id: 1}): About
   aboutsCount(where: AboutWhereInput! = {id: {equals: 1}}): Int
+  burials(where: BurialWhereInput! = {id: {equals: 1}}, orderBy: [BurialOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: BurialWhereUniqueInput): [Burial!]
+  burial(where: BurialWhereUniqueInput! = {id: 1}): Burial
+  burialsCount(where: BurialWhereInput! = {id: {equals: 1}}): Int
+  feedbacks(where: FeedbackWhereInput! = {id: {equals: 1}}, orderBy: [FeedbackOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FeedbackWhereUniqueInput): [Feedback!]
+  feedback(where: FeedbackWhereUniqueInput! = {id: 1}): Feedback
+  feedbacksCount(where: FeedbackWhereInput! = {id: {equals: 1}}): Int
+  footers(where: FooterWhereInput! = {id: {equals: 1}}, orderBy: [FooterOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FooterWhereUniqueInput): [Footer!]
+  footer(where: FooterWhereUniqueInput! = {id: 1}): Footer
+  footersCount(where: FooterWhereInput! = {id: {equals: 1}}): Int
+  galleryTags(where: GalleryTagWhereInput! = {}, orderBy: [GalleryTagOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryTagWhereUniqueInput): [GalleryTag!]
+  galleryTag(where: GalleryTagWhereUniqueInput!): GalleryTag
+  galleryTagsCount(where: GalleryTagWhereInput! = {}): Int
+  galleryImages(where: GalleryImageWhereInput! = {}, orderBy: [GalleryImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryImageWhereUniqueInput): [GalleryImage!]
+  galleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
+  galleryImagesCount(where: GalleryImageWhereInput! = {}): Int
+  maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
+  map(where: MapWhereUniqueInput! = {id: 1}): Map
+  mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
+  trails(where: TrailWhereInput! = {}, orderBy: [TrailOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailWhereUniqueInput): [Trail!]
+  trail(where: TrailWhereUniqueInput!): Trail
+  trailsCount(where: TrailWhereInput! = {}): Int
+  privacies(where: PrivacyWhereInput! = {id: {equals: 1}}, orderBy: [PrivacyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PrivacyWhereUniqueInput): [Privacy!]
+  privacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
+  privaciesCount(where: PrivacyWhereInput! = {id: {equals: 1}}): Int
+  disclaimers(where: DisclaimerWhereInput! = {id: {equals: 1}}, orderBy: [DisclaimerOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: DisclaimerWhereUniqueInput): [Disclaimer!]
+  disclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
+  disclaimersCount(where: DisclaimerWhereInput! = {id: {equals: 1}}): Int
   productsServicesPages(where: ProductsServicesPageWhereInput! = {id: {equals: 1}}, orderBy: [ProductsServicesPageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductsServicesPageWhereUniqueInput): [ProductsServicesPage!]
   productsServicesPage(where: ProductsServicesPageWhereUniqueInput! = {id: 1}): ProductsServicesPage
   productsServicesPagesCount(where: ProductsServicesPageWhereInput! = {id: {equals: 1}}): Int
