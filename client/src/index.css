@@ -28,3 +28,8 @@ input[type='tel'],
 textarea {
   @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0;
 }
+
+input.invalid,
+textarea.invalid {
+  @apply ring-1 ring-red-600;
+}

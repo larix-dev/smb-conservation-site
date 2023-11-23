@@ -3,6 +3,7 @@ import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
 import {useState} from 'react'
 import axios from 'axios'
+import cx from 'classnames'
 
 import Page from '../components/Page'
 
@@ -52,18 +53,22 @@ function Burial() {
 function BurialForm() {
   const [submitted, setSubmitted] = useState(false)
 
-  const {register, handleSubmit, reset} = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors}
+  } = useForm()
 
   const onSubmit = async data => {
     const {name, email, phone, message} = data
     const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
-
     const body = {
       to: 'John.Yorke@smu.ca',
       subject: `Green Burial Inquery from ${name}`,
       text: text
     }
-    
+
     await axios.post('/send-message', body)
 
     reset()
@@ -81,7 +86,11 @@ function BurialForm() {
               id="name"
               placeholder="Your Name"
               {...register('name', {required: true, maxLength: 40})}
+              className={cx({invalid: errors.name})}
             />
+            {errors.name && (
+              <p className="text-sm text-red-600">Please enter a name that is under 40 characters long</p>
+            )}
           </div>
           <div>
             <label htmlFor="email">Email</label>
@@ -90,14 +99,23 @@ function BurialForm() {
               id="email"
               placeholder="yourname@example.com"
               {...register('email', {required: true})}
+              className={cx({invalid: errors.email})}
             />
+            {errors.email && <p className="text-sm text-red-600">Please enter a valid email</p>}
           </div>
           <div>
             <label htmlFor="phone">Phone number</label>
-            <input type="tel" id="phone" placeholder="(902) 555-1234" {...register('phone')} />
+            <input
+              type="tel"
+              id="phone"
+              placeholder="(902) 555-1234"
+              {...register('phone', {pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im})}
+              className={cx({invalid: errors.phone})}
+            />
+            {errors.phone && <p className="text-sm text-red-600">Please enter a valid phone number</p>}
           </div>
           <div>
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">Message (optional)</label>
             <textarea
               rows="6"
               id="message"
