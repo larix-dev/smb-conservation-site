@@ -104,7 +104,7 @@ function BurialForm() {
             {errors.email && <p className="text-sm text-red-600">Please enter a valid email</p>}
           </div>
           <div>
-            <label htmlFor="phone">Phone number</label>
+            <label htmlFor="phone">Phone number (optional)</label>
             <input
               type="tel"
               id="phone"
@@ -115,14 +115,15 @@ function BurialForm() {
             {errors.phone && <p className="text-sm text-red-600">Please enter a valid phone number</p>}
           </div>
           <div>
-            <label htmlFor="message">Message (optional)</label>
+            <label htmlFor="message">Message</label>
             <textarea
               rows="6"
               id="message"
-              className="resize-none"
               placeholder="Ask us about our green burial services."
-              {...register('message')}
+              {...register('message', {required: true})}
+              className={cx('resize-none', {invalid: errors.message})}
             ></textarea>
+            {errors.message && <p className="text-sm text-red-600">Please enter a message</p>}
           </div>
         </div>
         {submitted && (

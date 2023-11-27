@@ -114,14 +114,15 @@ function FeedbackForm() {
             {errors.phone && <p className="text-sm text-red-600">Please enter a valid phone number</p>}
           </div>
           <div>
-            <label htmlFor="message">Message (optional)</label>
+            <label htmlFor="message">Message</label>
             <textarea
               rows="6"
               id="message"
-              className="resize-none"
               placeholder="Tell us how we did!"
-              {...register('message')}
+              {...register('message', {required: true})}
+              className={cx('resize-none', {invalid: errors.message})}
             ></textarea>
+            {errors.message && <p className="text-sm text-red-600">Please enter a message</p>}
           </div>
           <label htmlFor="image">Upload images (optional)</label>
           <input
