@@ -17,6 +17,9 @@ function Feedback() {
           document
         }
       }
+      mailRecipients {
+        email
+      }
     }
   `
   const {loading, error, data} = useQuery(query)
@@ -27,6 +30,7 @@ function Feedback() {
 
   const document = data?.feedback?.content.document
   const image = data?.feedback?.image?.url
+  const emails = data?.mailRecipients.map(e => e.email).join(',')
 
   return (
     <Page name="Feedback">
@@ -36,7 +40,7 @@ function Feedback() {
         </div>
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            <FeedbackForm />
+            <FeedbackForm emails={emails} />
           </div>
           <div className="flex-1">
             <img className="w-full" src={image} alt="Feedback page" />
@@ -47,7 +51,7 @@ function Feedback() {
   )
 }
 
-function FeedbackForm() {
+function FeedbackForm(props) {
   const [submitted, setSubmitted] = useState(false)
 
   const {
@@ -63,7 +67,7 @@ function FeedbackForm() {
     const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\n`
 
     const body = {
-      to: 'yorkejohn02@gmail.com',
+      to: props.emails,
       subject: `Feedback from ${name}`,
       text: text
     }

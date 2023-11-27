@@ -18,6 +18,9 @@ function Burial() {
           document
         }
       }
+      mailRecipients {
+        email
+      }
     }
   `
 
@@ -29,6 +32,7 @@ function Burial() {
 
   const document = data.burial.content.document
   const image = data?.burial?.image?.url
+  const emails = data?.mailRecipients.map(e => e.email).join(',')
 
   return (
     <Page name="Green Burial: Resting in Nature's Embrace">
@@ -42,7 +46,7 @@ function Burial() {
           </div>
           <div className="flex-1">
             <div className="text-2xl lg:text-4xl tracking-tight font-bold mb-4">Get In Touch</div>
-            <BurialForm />
+            <BurialForm emails={emails} />
           </div>
         </div>
       </div>
@@ -50,7 +54,7 @@ function Burial() {
   )
 }
 
-function BurialForm() {
+function BurialForm(props) {
   const [submitted, setSubmitted] = useState(false)
 
   const {
@@ -64,7 +68,7 @@ function BurialForm() {
     const {name, email, phone, message} = data
     const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
     const body = {
-      to: 'John.Yorke@smu.ca',
+      to: props.emails,
       subject: `Green Burial Inquery from ${name}`,
       text: text
     }

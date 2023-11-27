@@ -44,6 +44,7 @@ var latRegex = /([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS
 var lngRegex = /(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/;
 var coordRegex = new RegExp(`^${latRegex.source},\\s*${lngRegex.source}\\s*\\n?$`);
 var trailRegex = new RegExp(`^(${latRegex.source},\\s*${lngRegex.source}\\s*\\n?){2,}$`);
+var emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 var lists = {
   User: (0, import_core.list)({
     access: import_access.allowAll,
@@ -267,6 +268,21 @@ var lists = {
         formatting: true,
         ui: {
           description: "First paragraph is used for the preview"
+        }
+      })
+    }
+  }),
+  MailRecipient: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      name: (0, import_fields.text)({ validation: { isRequired: true } }),
+      email: (0, import_fields.text)({
+        validation: {
+          isRequired: true,
+          match: {
+            regex: emailRegex,
+            explanation: "Must be a valid email"
+          }
         }
       })
     }
