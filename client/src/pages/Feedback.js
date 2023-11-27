@@ -75,7 +75,7 @@ function FeedbackForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div>
@@ -97,7 +97,7 @@ function FeedbackForm() {
               type="email"
               id="email"
               placeholder="yourname@example.com"
-              {...register('email', {required: true})}
+              {...register('email', {required: true, pattern: /\S+@\S+\.\S+/})}
               className={cx({invalid: errors.email})}
             />
             {errors.email && <p className="text-sm text-red-600">Please enter a valid email</p>}
