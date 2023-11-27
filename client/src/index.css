@@ -31,3 +31,11 @@ input.invalid,
 textarea.invalid {
   @apply ring-1 ring-red-600;
 }
+
+.geolocate-button {
+  @apply flex items-center w-fit pe-2 !important;
+}
+
+.geolocate-button > span {
+  @apply w-[29px] !important;
+}

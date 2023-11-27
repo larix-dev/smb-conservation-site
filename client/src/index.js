@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter, Routes, Route, Outlet, useLocation} from 'react-router-dom'
+import {ErrorBoundary} from 'react-error-boundary'
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 import axios from 'axios'
 
@@ -11,13 +12,15 @@ import Disclaimer from './pages/Disclaimer'
 import Gallery from './pages/Gallery'
 import Privacy from './pages/Privacy'
 import Feedback from './pages/Feedback'
+import Map from './pages/Map'
+import InterMap from './pages/InterMap'
+import ProductsServices from './pages/ProductsServices'
+import Product from './pages/Product'
 
-import Page from './components/Page'
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import Map from './pages/Map'
-import InterMap from './pages/InterMap'
+import MessagePage from './components/MessagePage'
 
 import './index.css'
 
@@ -44,6 +47,8 @@ root.render(
             <Route path="feedback" element={<Feedback />} />
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />
+            <Route path="products-services" element={<ProductsServices />} />
+            <Route path="products-services/:itemId" element={<Product />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
@@ -68,7 +73,9 @@ function Layout() {
         <Navbar />
       </header>
       <main className="flex" style={{minHeight: `calc(100vh - 80px - ${bannerHeight}px)`}}>
-        <Outlet />
+        <ErrorBoundary fallback={<GenericError />} key={location.pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       <footer>
         <Footer />
@@ -79,12 +86,20 @@ function Layout() {
 
 function PageNotFound() {
   return (
-    <Page name="404: Page Not Found">
-      <div className="bg-stone-300 text-center p-2">
-        The page that you requested was not found.
-        <br />
-        Please verify that the URL is correct and try again.
-      </div>
-    </Page>
+    <MessagePage name="404: Page Not Found">
+      The page that you requested was not found.
+      <br />
+      Please verify that the URL is correct and try again.
+    </MessagePage>
+  )
+}
+
+function GenericError() {
+  return (
+    <MessagePage name="Error">
+      An unexpected error has occurred.
+      <br />
+      We apologize for the inconvenience. Please try again later.
+    </MessagePage>
   )
 }

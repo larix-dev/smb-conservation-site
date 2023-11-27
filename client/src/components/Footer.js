@@ -22,7 +22,7 @@ function Footer() {
 
   return (
     <div className="bg-stone-900 text-white flex flex-col items-center">
-      <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-0 p-8 pb-6 max-w-screen-lg">
+      <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-0 p-8 pb-4 max-w-screen-lg">
         <div className="flex-1 flex flex-col gap-2">
           <Logo />
           <div>
@@ -59,7 +59,14 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-center text-sm text-stone-300 p-2">Copyright &copy; SMU CSCI 3428 Group F</div>
+      <div className="text-center text-sm text-stone-300 p-4">
+        Copyright &copy; {new Date().getFullYear()} St. Margaret's Bay Area Woodland Conservation Site. Website made
+        by&nbsp;
+        <a className="underline" href="https://github.com/larix-dev" target="_blank" rel="noopener noreferrer">
+          Larix Dev.
+        </a>
+        &nbsp;at Saint Mary's University, Group F
+      </div>
     </div>
   )
 }

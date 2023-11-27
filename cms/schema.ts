@@ -215,5 +215,39 @@ export const lists: Lists = {
         formatting: true
       })
     }
+  }),
+  ProductsServicesPage: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Product: list({
+    access: allowAll,
+    fields: {
+      title: text({validation: {isRequired: true}}),
+      urlId: text({
+        label: 'URL ID',
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-z\-]*$/,
+            explanation: 'URL ID must only contain lowercase letters, hypens, and no spaces'
+          }
+        }
+      }),
+      image: image({storage: 'localImages'}),
+      isService: checkbox(),
+      origin: text({ui: {description: 'Not required for services'}}),
+      description: document({
+        formatting: true,
+        ui: {
+          description: 'First paragraph is used for the preview'
+        }
+      })
+    }
   })
 }
