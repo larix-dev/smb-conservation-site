@@ -4,6 +4,7 @@ import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {CoordPair} from '../utils/coordinates'
+import {GeolocateControl} from 'mapbox-gl'
 
 const toCoordArray = coords => {
   return coords
@@ -103,17 +104,35 @@ function Mapbox(props) {
       interactive: props.interactive
     })
 
-    map.current.resize()
-
     if (props.interactive) {
-      map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
       map.current.addControl(new ExitControl(), 'top-right')
+      map.current.addControl(
+        new CustomGeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true
+          },
+          trackUserLocation: true,
+          showUserHeading: true
+        }),
+        'top-left'
+      )
+      map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
     }
 
     map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
+    map.current.resize()
+
   }, [data, props.interactive])
 
   return <div ref={mapContainer} className="w-full h-full"></div>
+}
+
+class CustomGeolocateControl extends GeolocateControl {
+  _setupUI(supported) {
+    super._setupUI(supported)
+    this._geolocateButton.classList.add('geolocate-button')
+    this._geolocateButton.appendChild(document.createTextNode('Enable Geolocation'))
+  }
 }
 
 class ExitControl {

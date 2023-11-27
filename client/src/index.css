@@ -28,3 +28,11 @@ input[type='tel'],
 textarea {
   @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0;
 }
+
+.geolocate-button {
+  @apply flex items-center w-fit pe-2 !important;
+}
+
+.geolocate-button > span {
+  @apply w-[29px] !important;
+}
