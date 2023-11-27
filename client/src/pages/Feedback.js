@@ -4,6 +4,7 @@ import {useQuery, gql} from '@apollo/client'
 import {useForm} from 'react-hook-form'
 import {useState} from 'react'
 import axios from 'axios'
+import cx from 'classnames'
 
 function Feedback() {
   const query = gql`
@@ -53,7 +54,12 @@ function Feedback() {
 function FeedbackForm(props) {
   const [submitted, setSubmitted] = useState(false)
 
-  const {register, handleSubmit, reset} = useForm()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors}
+  } = useForm()
 
   const onSubmit = async data => {
     const {name, email, phone, message, images} = data
@@ -73,7 +79,7 @@ function FeedbackForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <div>
@@ -83,7 +89,11 @@ function FeedbackForm(props) {
               id="name"
               placeholder="Your Name"
               {...register('name', {required: true, maxLength: 40})}
+              className={cx({invalid: errors.name})}
             />
+            {errors.name && (
+              <p className="text-sm text-red-600">Please enter a name that is under 40 characters long</p>
+            )}
           </div>
           <div>
             <label htmlFor="email">Email</label>
@@ -91,22 +101,32 @@ function FeedbackForm(props) {
               type="email"
               id="email"
               placeholder="yourname@example.com"
-              {...register('email', {required: true})}
+              {...register('email', {required: true, pattern: /\S+@\S+\.\S+/})}
+              className={cx({invalid: errors.email})}
             />
+            {errors.email && <p className="text-sm text-red-600">Please enter a valid email</p>}
           </div>
           <div>
-            <label htmlFor="phone">Phone number</label>
-            <input type="tel" id="phone" placeholder="(902) 555-1234" {...register('phone')} />
+            <label htmlFor="phone">Phone number (optional)</label>
+            <input
+              type="tel"
+              id="phone"
+              placeholder="(902) 555-1234"
+              {...register('phone', {pattern: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im})}
+              className={cx({invalid: errors.phone})}
+            />
+            {errors.phone && <p className="text-sm text-red-600">Please enter a valid phone number</p>}
           </div>
           <div>
             <label htmlFor="message">Message</label>
             <textarea
               rows="6"
               id="message"
-              className="resize-none"
               placeholder="Tell us how we did!"
-              {...register('message')}
+              {...register('message', {required: true})}
+              className={cx('resize-none', {invalid: errors.message})}
             ></textarea>
+            {errors.message && <p className="text-sm text-red-600">Please enter a message</p>}
           </div>
           <label htmlFor="image">Upload images (optional)</label>
           <input
