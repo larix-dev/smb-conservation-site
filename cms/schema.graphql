@@ -652,6 +652,103 @@ input DisclaimerCreateInput {
   content: JSON
 }
 
+type ProductsServicesPage {
+  id: ID!
+  content: ProductsServicesPage_content_Document
+}
+
+type ProductsServicesPage_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input ProductsServicesPageWhereUniqueInput {
+  id: ID
+}
+
+input ProductsServicesPageWhereInput {
+  AND: [ProductsServicesPageWhereInput!]
+  OR: [ProductsServicesPageWhereInput!]
+  NOT: [ProductsServicesPageWhereInput!]
+  id: IDFilter
+}
+
+input ProductsServicesPageOrderByInput {
+  id: OrderDirection
+}
+
+input ProductsServicesPageUpdateInput {
+  content: JSON
+}
+
+input ProductsServicesPageUpdateArgs {
+  where: ProductsServicesPageWhereUniqueInput! = {id: 1}
+  data: ProductsServicesPageUpdateInput!
+}
+
+input ProductsServicesPageCreateInput {
+  content: JSON
+}
+
+type Product {
+  id: ID!
+  title: String
+  urlId: String
+  image: ImageFieldOutput
+  isService: Boolean
+  origin: String
+  description: Product_description_Document
+}
+
+type Product_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input ProductWhereUniqueInput {
+  id: ID
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  urlId: StringFilter
+  isService: BooleanFilter
+  origin: StringFilter
+}
+
+input ProductOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  urlId: OrderDirection
+  isService: OrderDirection
+  origin: OrderDirection
+}
+
+input ProductUpdateInput {
+  title: String
+  urlId: String
+  image: ImageFieldInput
+  isService: Boolean
+  origin: String
+  description: JSON
+}
+
+input ProductUpdateArgs {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateInput!
+}
+
+input ProductCreateInput {
+  title: String
+  urlId: String
+  image: ImageFieldInput
+  isService: Boolean
+  origin: String
+  description: JSON
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -730,6 +827,18 @@ type Mutation {
   updateDisclaimers(data: [DisclaimerUpdateArgs!]!): [Disclaimer]
   deleteDisclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
   deleteDisclaimers(where: [DisclaimerWhereUniqueInput!]!): [Disclaimer]
+  createProductsServicesPage(data: ProductsServicesPageCreateInput!): ProductsServicesPage
+  createProductsServicesPages(data: [ProductsServicesPageCreateInput!]!): [ProductsServicesPage]
+  updateProductsServicesPage(where: ProductsServicesPageWhereUniqueInput! = {id: 1}, data: ProductsServicesPageUpdateInput!): ProductsServicesPage
+  updateProductsServicesPages(data: [ProductsServicesPageUpdateArgs!]!): [ProductsServicesPage]
+  deleteProductsServicesPage(where: ProductsServicesPageWhereUniqueInput! = {id: 1}): ProductsServicesPage
+  deleteProductsServicesPages(where: [ProductsServicesPageWhereUniqueInput!]!): [ProductsServicesPage]
+  createProduct(data: ProductCreateInput!): Product
+  createProducts(data: [ProductCreateInput!]!): [Product]
+  updateProduct(where: ProductWhereUniqueInput!, data: ProductUpdateInput!): Product
+  updateProducts(data: [ProductUpdateArgs!]!): [Product]
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -789,6 +898,12 @@ type Query {
   disclaimers(where: DisclaimerWhereInput! = {id: {equals: 1}}, orderBy: [DisclaimerOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: DisclaimerWhereUniqueInput): [Disclaimer!]
   disclaimer(where: DisclaimerWhereUniqueInput! = {id: 1}): Disclaimer
   disclaimersCount(where: DisclaimerWhereInput! = {id: {equals: 1}}): Int
+  productsServicesPages(where: ProductsServicesPageWhereInput! = {id: {equals: 1}}, orderBy: [ProductsServicesPageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductsServicesPageWhereUniqueInput): [ProductsServicesPage!]
+  productsServicesPage(where: ProductsServicesPageWhereUniqueInput! = {id: 1}): ProductsServicesPage
+  productsServicesPagesCount(where: ProductsServicesPageWhereInput! = {id: {equals: 1}}): Int
+  products(where: ProductWhereInput! = {}, orderBy: [ProductOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductWhereUniqueInput): [Product!]
+  product(where: ProductWhereUniqueInput!): Product
+  productsCount(where: ProductWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
