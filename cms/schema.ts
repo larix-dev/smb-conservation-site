@@ -20,6 +20,7 @@ const latRegex = /([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[
 const lngRegex = /(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/
 const coordRegex = new RegExp(`^${latRegex.source},\\s*${lngRegex.source}\\s*\\n?$`)
 const trailRegex = new RegExp(`^(${latRegex.source},\\s*${lngRegex.source}\\s*\\n?){2,}$`)
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 export const lists: Lists = {
   User: list({
@@ -246,6 +247,21 @@ export const lists: Lists = {
         formatting: true,
         ui: {
           description: 'First paragraph is used for the preview'
+        }
+      })
+    }
+  }),
+  MailRecipient: list({
+    access: allowAll,
+    fields: {
+      name: text({validation: {isRequired: true}}),
+      email: text({
+        validation: {
+          isRequired: true,
+          match: {
+            regex: emailRegex,
+            explanation: 'Must be a valid email'
+          }
         }
       })
     }

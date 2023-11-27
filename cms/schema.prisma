@@ -121,3 +121,9 @@ model Product {
   origin          String  @default("")
   description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
+
+model MailRecipient {
+  id    String @id @default(cuid())
+  name  String @default("")
+  email String @default("")
+}

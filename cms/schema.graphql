@@ -749,6 +749,46 @@ input ProductCreateInput {
   description: JSON
 }
 
+type MailRecipient {
+  id: ID!
+  name: String
+  email: String
+}
+
+input MailRecipientWhereUniqueInput {
+  id: ID
+}
+
+input MailRecipientWhereInput {
+  AND: [MailRecipientWhereInput!]
+  OR: [MailRecipientWhereInput!]
+  NOT: [MailRecipientWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  email: StringFilter
+}
+
+input MailRecipientOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  email: OrderDirection
+}
+
+input MailRecipientUpdateInput {
+  name: String
+  email: String
+}
+
+input MailRecipientUpdateArgs {
+  where: MailRecipientWhereUniqueInput!
+  data: MailRecipientUpdateInput!
+}
+
+input MailRecipientCreateInput {
+  name: String
+  email: String
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -839,6 +879,12 @@ type Mutation {
   updateProducts(data: [ProductUpdateArgs!]!): [Product]
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
+  createMailRecipient(data: MailRecipientCreateInput!): MailRecipient
+  createMailRecipients(data: [MailRecipientCreateInput!]!): [MailRecipient]
+  updateMailRecipient(where: MailRecipientWhereUniqueInput!, data: MailRecipientUpdateInput!): MailRecipient
+  updateMailRecipients(data: [MailRecipientUpdateArgs!]!): [MailRecipient]
+  deleteMailRecipient(where: MailRecipientWhereUniqueInput!): MailRecipient
+  deleteMailRecipients(where: [MailRecipientWhereUniqueInput!]!): [MailRecipient]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -904,6 +950,9 @@ type Query {
   products(where: ProductWhereInput! = {}, orderBy: [ProductOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductWhereUniqueInput): [Product!]
   product(where: ProductWhereUniqueInput!): Product
   productsCount(where: ProductWhereInput! = {}): Int
+  mailRecipients(where: MailRecipientWhereInput! = {}, orderBy: [MailRecipientOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MailRecipientWhereUniqueInput): [MailRecipient!]
+  mailRecipient(where: MailRecipientWhereUniqueInput!): MailRecipient
+  mailRecipientsCount(where: MailRecipientWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
