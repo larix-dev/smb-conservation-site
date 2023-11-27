@@ -1,10 +1,9 @@
-import mapboxgl from '!mapbox-gl'
+import mapboxgl, {GeolocateControl} from '!mapbox-gl'
 import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {CoordPair} from '../utils/coordinates'
-import {GeolocateControl} from 'mapbox-gl'
 
 const toCoordArray = coords => {
   return coords
@@ -121,7 +120,6 @@ function Mapbox(props) {
 
     map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
     map.current.resize()
-
   }, [data, props.interactive])
 
   return <div ref={mapContainer} className="w-full h-full"></div>
