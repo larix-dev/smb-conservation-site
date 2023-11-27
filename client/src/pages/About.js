@@ -1,6 +1,6 @@
-import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 
+import Document from '../components/Document'
 import Page from '../components/Page'
 
 import forest from '../assets/images/about.jpg'
@@ -15,19 +15,15 @@ function About() {
       }
     }
   `
-  const {loading, error, data} = useQuery(query)
 
-  if (loading || error || !data) {
-    return null
-  }
-
-  const document = data.about.content.document
+  const {data} = useQuery(query)
+  const document = data?.about?.content.document
 
   return (
     <Page name="About Us">
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
-          <DocumentRenderer document={document} />
+          <Document document={document} />
         </div>
         <div className="flex-1">
           <img className="w-full" src={forest} alt="Forest" />
