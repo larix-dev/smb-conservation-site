@@ -333,14 +333,17 @@ function extendApp(app) {
   const sendMail = async (message) => {
     const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`;
     const mail = { from, ...message };
-    transport.sendMail(mail, (error) => {
-      if (error) {
-        console.log(error);
-        return 500;
-      }
-      console.log(`Message sent to ${message.to}`);
+    return new Promise((resolve) => {
+      transport.sendMail(mail, (error) => {
+        if (error) {
+          console.log(`\u{1F4E7} Mail error: ${error.message}`);
+          resolve(500);
+        } else {
+          console.log(`\u{1F4E7} Message sent to ${message.to}`);
+          resolve(200);
+        }
+      });
     });
-    return 200;
   };
   const corsOpts = {
     origin: (origin, callback) => {

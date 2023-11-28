@@ -22,14 +22,17 @@ export default function extendApp(app: express.Express) {
     const from = `${process.env.SENDER_NAME} <${process.env.SENDER_ADDR}>`
     const mail: nodemailer.SendMailOptions = {from, ...message}
 
-    transport.sendMail(mail, error => {
-      if (error) {
-        console.log(`📧 Mail error:\n${error}`)
-        return 500
-      }
-      console.log(`📧 Message sent to ${message.to}`)
+    return new Promise<number>(resolve => {
+      transport.sendMail(mail, error => {
+        if (error) {
+          console.log(`📧 Mail error: ${error.message}`)
+          resolve(500)
+        } else {
+          console.log(`📧 Message sent to ${message.to}`)
+          resolve(200)
+        }
+      })
     })
-    return 200
   }
 
   const corsOpts: cors.CorsOptions = {
