@@ -8,15 +8,18 @@ class Coord {
 
   static fromString(coordString) {
     const fields = coordString?.match(/-?\d+(\.\d*)?|[NSEW]/g) || []
-    if(fields.length === 1) {
+    if (fields.length === 1) {
       return new Coord(parseFloat(fields[0]), 0, 0, undefined)
     } else {
       const [deg, min, sec, direction] = fields
       return new Coord(parseInt(deg), parseInt(min), parseFloat(sec), direction)
-   }
+    }
   }
 
   toDecimal() {
+    if (!this.deg) {
+      throw new Error('Coordinate does not have any value')
+    }
     return (this.deg + this.min / 60 + this.sec / 3600) * (['S', 'W'].includes(this.direction) ? -1 : 1)
   }
 }

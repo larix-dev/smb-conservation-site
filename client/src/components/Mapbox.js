@@ -5,11 +5,22 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {CoordPair} from '../utils/coordinates'
 
-const toCoordArray = (coords) => {
-    return coords.trim().split('\n').map(CoordPair.fromString).map(pair => pair.toInvArray())
+const toCoordArray = coords => {
+  return coords
+    .trim()
+    .split('\n')
+    .map(CoordPair.fromString)
+    .map(pair => {
+      try {
+        return pair.toInvArray()
+      } catch {
+        return undefined
+      }
+    })
+    .filter(pair => pair)
 }
 
-const buildGeoJson = (trail) => ({
+const buildGeoJson = trail => ({
   type: 'Feature',
   geometry: {
     type: 'LineString',
