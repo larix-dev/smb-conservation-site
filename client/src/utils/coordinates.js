@@ -7,8 +7,13 @@ class Coord {
   }
 
   static fromString(coordString) {
-    const [deg, min, sec, direction] = coordString?.match(/\d+(\.\d{1,3})?|[NSEW]/g) || []
-    return new Coord(parseInt(deg), parseInt(min), parseFloat(sec), direction)
+    const fields = coordString?.match(/-?\d+(\.\d*)?|[NSEW]/g) || []
+    if(fields.length === 1) {
+      return new Coord(parseFloat(fields[0]), 0, 0, undefined)
+    } else {
+      const [deg, min, sec, direction] = fields
+      return new Coord(parseInt(deg), parseInt(min), parseFloat(sec), direction)
+   }
   }
 
   toDecimal() {

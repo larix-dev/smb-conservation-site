@@ -5,15 +5,11 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import {CoordPair} from '../utils/coordinates'
 
-const toCoordArray = coords => {
-  return coords
-    .trim()
-    .split('\n')
-    .map(CoordPair.fromString)
-    .map(pair => pair.toInvArray())
+const toCoordArray = (coords) => {
+    return coords.trim().split('\n').map(CoordPair.fromString).map(pair => pair.toInvArray())
 }
 
-const buildGeoJson = trail => ({
+const buildGeoJson = (trail) => ({
   type: 'Feature',
   geometry: {
     type: 'LineString',
@@ -65,15 +61,15 @@ function Mapbox(props) {
 
   const query = gql`
     query Map {
+      trails {
+        name
+        trailCoords
+        id
+        colour
+      }
       map {
         centreCoords
         zoom
-      }
-      trails {
-        id
-        name
-        trailCoords
-        colour
       }
     }
   `
@@ -88,7 +84,7 @@ function Mapbox(props) {
       return
     }
 
-    const centre = CoordPair.fromString(data?.map?.centreCoords)
+    const centre = CoordPair.fromString(data?.map?.centreCoords).toInvArray()
     const zoom = data?.map?.zoom
     const scaledZoom = zoom - Math.log2(992 / mapContainer.current.clientWidth) // scale relative to 992 pixels (full map width)
     const trails = data?.trails
@@ -96,7 +92,7 @@ function Mapbox(props) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: centre.toInvArray(),
+      center: centre,
       zoom: scaledZoom,
       attributionControl: false,
       minZoom: scaledZoom,
