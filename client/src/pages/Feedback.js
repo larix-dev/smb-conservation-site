@@ -53,6 +53,7 @@ function Feedback() {
 
 function FeedbackForm(props) {
   const [submitted, setSubmitted] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   const {
     register,
@@ -72,10 +73,14 @@ function FeedbackForm(props) {
       text: text
     }
 
-    await axios.postForm('/send-multipart-message', {message: body, images})
-
-    reset()
-    setSubmitted(true)
+    const res = await axios.postForm('/send-multipart-message', {message: body, images})
+    if (res.status === 200) {
+      reset()
+      setFailed(false)
+      setSubmitted(true)
+    } else {
+      setFailed(true)
+    }
   }
 
   return (
@@ -141,6 +146,11 @@ function FeedbackForm(props) {
         {submitted && (
           <div className="text-sm text-green-800">
             Thank you for your message. We will get back to you as soon as possible.
+          </div>
+        )}
+        {failed && (
+          <div className="text-sm text-red-600">
+            We are having trouble sending your message right now. Please try again.
           </div>
         )}
         <input type="submit" value="Send" className="send-button cursor-pointer" />

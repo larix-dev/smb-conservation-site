@@ -23,13 +23,15 @@ body {
 }
 
 input,
+select,
 textarea {
-  @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0;
+  @apply block w-full rounded bg-stone-50 border-transparent focus:ring-0 !important;
 }
 
 input.invalid,
+select.invalid,
 textarea.invalid {
-  @apply ring-1 ring-red-600;
+  @apply ring-1 ring-red-600 !important;
 }
 
 .geolocate-button {

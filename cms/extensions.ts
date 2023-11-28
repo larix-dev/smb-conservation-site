@@ -24,10 +24,10 @@ export default function extendApp(app: express.Express) {
 
     transport.sendMail(mail, error => {
       if (error) {
-        console.log(error)
+        console.log(`📧 Mail error:\n${error}`)
         return 500
       }
-      console.log(`Message sent to ${message.to}`)
+      console.log(`📧 Message sent to ${message.to}`)
     })
     return 200
   }

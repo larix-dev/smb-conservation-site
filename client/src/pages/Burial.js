@@ -56,6 +56,7 @@ function Burial() {
 
 function BurialForm(props) {
   const [submitted, setSubmitted] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   const {
     register,
@@ -73,10 +74,14 @@ function BurialForm(props) {
       text: text
     }
 
-    await axios.post('/send-message', body)
-
-    reset()
-    setSubmitted(true)
+    const res = await axios.post('/send-message', body)
+    if (res.status === 200) {
+      reset()
+      setFailed(false)
+      setSubmitted(true)
+    } else {
+      setFailed(true)
+    }
   }
 
   return (
@@ -133,6 +138,11 @@ function BurialForm(props) {
         {submitted && (
           <div className="text-sm text-green-800">
             Thank you for your message. We will get back to you as soon as possible.
+          </div>
+        )}
+        {failed && (
+          <div className="text-sm text-red-600">
+            We are having trouble sending your message right now. Please try again.
           </div>
         )}
         <input type="submit" value="Send" className="send-button cursor-pointer" />
