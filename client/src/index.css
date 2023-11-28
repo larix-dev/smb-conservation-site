@@ -38,6 +38,10 @@ textarea.invalid {
   @apply ring-1 ring-red-600;
 }
 
+input[type='submit']:disabled {
+  @apply cursor-default opacity-50;
+}
+
 .geolocate-button {
   @apply flex items-center w-fit pe-2 !important;
 }

@@ -52,8 +52,8 @@ function Feedback() {
 }
 
 function FeedbackForm(props) {
-  const [submitted, setSubmitted] = useState(false)
-  const [failed, setFailed] = useState(false)
+  const states = {submitting: 1, submitted: 2, failed: 3}
+  const [formState, setFormState] = useState(0)
 
   const {
     register,
@@ -63,6 +63,7 @@ function FeedbackForm(props) {
   } = useForm()
 
   const onSubmit = async data => {
+    setFormState(states.submitting)
     const {name, email, phone, message, images} = data
 
     const text = `Feedback Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}\n`
@@ -76,10 +77,9 @@ function FeedbackForm(props) {
     try {
       await axios.postForm('/send-multipart-message', {message: body, images})
       reset()
-      setSubmitted(true)
-      setFailed(false)
+      setFormState(states.submitted)
     } catch (error) {
-      setFailed(true)
+      setFormState(states.failed)
     }
   }
 
@@ -143,17 +143,22 @@ function FeedbackForm(props) {
             {...register('images', {required: false})}
           />
         </div>
-        {submitted && (
+        {formState === states.submitted && (
           <div className="text-sm text-green-800">
             Thank you for your message. We will get back to you as soon as possible.
           </div>
         )}
-        {failed && (
+        {formState === states.failed && (
           <div className="text-sm text-red-600">
             We're having trouble sending your message right now. Please try again.
           </div>
         )}
-        <input type="submit" value="Send" className="send-button cursor-pointer" />
+        <input
+          type="submit"
+          value={formState === states.submitting ? 'Sending...' : 'Send'}
+          className="send-button cursor-pointer"
+          disabled={formState === states.submitting}
+        />
       </div>
     </form>
   )
