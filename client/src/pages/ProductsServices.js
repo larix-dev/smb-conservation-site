@@ -37,7 +37,7 @@ function ProductsServices() {
 
   return (
     <Page name="Products and Services">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         <DocumentRenderer document={document} />
         <div className="flex flex-col gap-8">
           {data.products.map((product, i) => (
