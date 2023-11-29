@@ -695,7 +695,7 @@ type Product {
   urlId: String
   image: ImageFieldOutput
   isService: Boolean
-  origin: String
+  source: String
   description: Product_description_Document
 }
 
@@ -715,7 +715,7 @@ input ProductWhereInput {
   title: StringFilter
   urlId: StringFilter
   isService: BooleanFilter
-  origin: StringFilter
+  source: StringFilter
 }
 
 input ProductOrderByInput {
@@ -723,7 +723,7 @@ input ProductOrderByInput {
   title: OrderDirection
   urlId: OrderDirection
   isService: OrderDirection
-  origin: OrderDirection
+  source: OrderDirection
 }
 
 input ProductUpdateInput {
@@ -731,7 +731,7 @@ input ProductUpdateInput {
   urlId: String
   image: ImageFieldInput
   isService: Boolean
-  origin: String
+  source: String
   description: JSON
 }
 
@@ -745,7 +745,109 @@ input ProductCreateInput {
   urlId: String
   image: ImageFieldInput
   isService: Boolean
-  origin: String
+  source: String
+  description: JSON
+}
+
+type EcosystemPage {
+  id: ID!
+  content: EcosystemPage_content_Document
+}
+
+type EcosystemPage_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input EcosystemPageWhereUniqueInput {
+  id: ID
+}
+
+input EcosystemPageWhereInput {
+  AND: [EcosystemPageWhereInput!]
+  OR: [EcosystemPageWhereInput!]
+  NOT: [EcosystemPageWhereInput!]
+  id: IDFilter
+}
+
+input EcosystemPageOrderByInput {
+  id: OrderDirection
+}
+
+input EcosystemPageUpdateInput {
+  content: JSON
+}
+
+input EcosystemPageUpdateArgs {
+  where: EcosystemPageWhereUniqueInput! = {id: 1}
+  data: EcosystemPageUpdateInput!
+}
+
+input EcosystemPageCreateInput {
+  content: JSON
+}
+
+type Organism {
+  id: ID!
+  name: String
+  scientificName: String
+  urlId: String
+  type: String
+  conservationStatus: String
+  image: ImageFieldOutput
+  description: Organism_description_Document
+}
+
+type Organism_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input OrganismWhereUniqueInput {
+  id: ID
+}
+
+input OrganismWhereInput {
+  AND: [OrganismWhereInput!]
+  OR: [OrganismWhereInput!]
+  NOT: [OrganismWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  scientificName: StringFilter
+  urlId: StringFilter
+  type: StringFilter
+  conservationStatus: StringFilter
+}
+
+input OrganismOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  scientificName: OrderDirection
+  urlId: OrderDirection
+  type: OrderDirection
+  conservationStatus: OrderDirection
+}
+
+input OrganismUpdateInput {
+  name: String
+  scientificName: String
+  urlId: String
+  type: String
+  conservationStatus: String
+  image: ImageFieldInput
+  description: JSON
+}
+
+input OrganismUpdateArgs {
+  where: OrganismWhereUniqueInput!
+  data: OrganismUpdateInput!
+}
+
+input OrganismCreateInput {
+  name: String
+  scientificName: String
+  urlId: String
+  type: String
+  conservationStatus: String
+  image: ImageFieldInput
   description: JSON
 }
 
@@ -879,6 +981,18 @@ type Mutation {
   updateProducts(data: [ProductUpdateArgs!]!): [Product]
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
+  createEcosystemPage(data: EcosystemPageCreateInput!): EcosystemPage
+  createEcosystemPages(data: [EcosystemPageCreateInput!]!): [EcosystemPage]
+  updateEcosystemPage(where: EcosystemPageWhereUniqueInput! = {id: 1}, data: EcosystemPageUpdateInput!): EcosystemPage
+  updateEcosystemPages(data: [EcosystemPageUpdateArgs!]!): [EcosystemPage]
+  deleteEcosystemPage(where: EcosystemPageWhereUniqueInput! = {id: 1}): EcosystemPage
+  deleteEcosystemPages(where: [EcosystemPageWhereUniqueInput!]!): [EcosystemPage]
+  createOrganism(data: OrganismCreateInput!): Organism
+  createOrganisms(data: [OrganismCreateInput!]!): [Organism]
+  updateOrganism(where: OrganismWhereUniqueInput!, data: OrganismUpdateInput!): Organism
+  updateOrganisms(data: [OrganismUpdateArgs!]!): [Organism]
+  deleteOrganism(where: OrganismWhereUniqueInput!): Organism
+  deleteOrganisms(where: [OrganismWhereUniqueInput!]!): [Organism]
   createMailRecipient(data: MailRecipientCreateInput!): MailRecipient
   createMailRecipients(data: [MailRecipientCreateInput!]!): [MailRecipient]
   updateMailRecipient(where: MailRecipientWhereUniqueInput!, data: MailRecipientUpdateInput!): MailRecipient
@@ -950,6 +1064,12 @@ type Query {
   products(where: ProductWhereInput! = {}, orderBy: [ProductOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProductWhereUniqueInput): [Product!]
   product(where: ProductWhereUniqueInput!): Product
   productsCount(where: ProductWhereInput! = {}): Int
+  ecosystemPages(where: EcosystemPageWhereInput! = {id: {equals: 1}}, orderBy: [EcosystemPageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: EcosystemPageWhereUniqueInput): [EcosystemPage!]
+  ecosystemPage(where: EcosystemPageWhereUniqueInput! = {id: 1}): EcosystemPage
+  ecosystemPagesCount(where: EcosystemPageWhereInput! = {id: {equals: 1}}): Int
+  organisms(where: OrganismWhereInput! = {}, orderBy: [OrganismOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: OrganismWhereUniqueInput): [Organism!]
+  organism(where: OrganismWhereUniqueInput!): Organism
+  organismsCount(where: OrganismWhereInput! = {}): Int
   mailRecipients(where: MailRecipientWhereInput! = {}, orderBy: [MailRecipientOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MailRecipientWhereUniqueInput): [MailRecipient!]
   mailRecipient(where: MailRecipientWhereUniqueInput!): MailRecipient
   mailRecipientsCount(where: MailRecipientWhereInput! = {}): Int

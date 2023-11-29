@@ -1,10 +1,12 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 import {useParams} from 'react-router-dom'
+import {FaMapPin} from 'react-icons/fa'
+
 import Page from '../components/Page'
 
 function Product() {
-  const {itemId} = useParams()
+  const {id} = useParams()
 
   const query = gql`
     query Products($where: ProductWhereInput!) {
@@ -14,7 +16,7 @@ function Product() {
         image {
           url
         }
-        origin
+        source
         description {
           document
         }
@@ -23,7 +25,7 @@ function Product() {
   `
 
   const {loading, error, data} = useQuery(query, {
-    variables: {where: {urlId: {equals: itemId}}}
+    variables: {where: {urlId: {equals: id}}}
   })
 
   if (loading || error || !data) {
@@ -31,13 +33,18 @@ function Product() {
   }
 
   const product = data?.products[0]
-  const {title, isService, image, origin, description} = product
+  const {title, isService, image, source, description} = product
 
   return (
     <Page name={title}>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
-          {!isService && <div className="font-bold">Product Origin: {origin}</div>}
+          {!isService && (
+            <div className="font-bold">
+              <FaMapPin className="inline" />
+              &nbsp;Sourced From: {source}
+            </div>
+          )}
           <DocumentRenderer document={description.document} />
         </div>
         <div className="flex-1">

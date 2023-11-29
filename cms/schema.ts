@@ -185,7 +185,7 @@ export const lists: Lists = {
           {label: 'Blue', value: '#3b82f6'},
           {label: 'Violet', value: '#8b5cf6'}
         ],
-        defaultValue: 'blue',
+        defaultValue: '#3b82f6',
         validation: {isRequired: true}
       })
     }
@@ -233,12 +233,66 @@ export const lists: Lists = {
       }),
       image: image({storage: 'localImages'}),
       isService: checkbox(),
-      origin: text({ui: {description: 'Not required for services'}}),
+      source: text({ui: {description: 'Not required for services'}}),
       description: document({
         formatting: true,
         ui: {
           description: 'First paragraph is used for the preview'
         }
+      })
+    }
+  }),
+  EcosystemPage: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
+  }),
+  Organism: list({
+    access: allowAll,
+    fields: {
+      name: text({validation: {isRequired: true}}),
+      scientificName: text({validation: {isRequired: true}}),
+      urlId: text({
+        label: 'URL ID',
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-z\-]*$/,
+            explanation: 'URL ID must only contain lowercase letters, hypens, and no spaces'
+          }
+        }
+      }),
+      type: select({
+        type: 'string',
+        options: [
+          {label: 'Flora', value: 'Flora'},
+          {label: 'Fauna', value: 'Fauna'},
+          {label: 'Fungi', value: 'Fungi'}
+        ],
+        validation: {isRequired: true}
+      }),
+      conservationStatus: select({
+        type: 'string',
+        options: [
+          {label: 'Not Classified', value: 'NC'},
+          {label: 'Least Concern', value: 'LC'},
+          {label: 'Near Threatened', value: 'NT'},
+          {label: 'Vulnerable', value: 'VU'},
+          {label: 'Endangered', value: 'EN'},
+          {label: 'Critically Endangered', value: 'CE'},
+          {label: 'Extinct in the Wild', value: 'EW'},
+          {label: 'Extinct', value: 'EX'}
+        ],
+        defaultValue: 'Unclassified',
+        validation: {isRequired: true}
+      }),
+      image: image({storage: 'localImages'}),
+      description: document({
+        formatting: true
       })
     }
   }),

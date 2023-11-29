@@ -206,7 +206,7 @@ var lists = {
           { label: "Blue", value: "#3b82f6" },
           { label: "Violet", value: "#8b5cf6" }
         ],
-        defaultValue: "blue",
+        defaultValue: "#3b82f6",
         validation: { isRequired: true }
       })
     }
@@ -254,12 +254,66 @@ var lists = {
       }),
       image: (0, import_fields.image)({ storage: "localImages" }),
       isService: (0, import_fields.checkbox)(),
-      origin: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
+      source: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
       description: (0, import_fields_document.document)({
         formatting: true,
         ui: {
           description: "First paragraph is used for the preview"
         }
+      })
+    }
+  }),
+  EcosystemPage: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
+  }),
+  Organism: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      name: (0, import_fields.text)({ validation: { isRequired: true } }),
+      scientificName: (0, import_fields.text)({ validation: { isRequired: true } }),
+      urlId: (0, import_fields.text)({
+        label: "URL ID",
+        validation: {
+          isRequired: true,
+          match: {
+            regex: /^[a-z\-]*$/,
+            explanation: "URL ID must only contain lowercase letters, hypens, and no spaces"
+          }
+        }
+      }),
+      type: (0, import_fields.select)({
+        type: "string",
+        options: [
+          { label: "Flora", value: "Flora" },
+          { label: "Fauna", value: "Fauna" },
+          { label: "Fungi", value: "Fungi" }
+        ],
+        validation: { isRequired: true }
+      }),
+      conservationStatus: (0, import_fields.select)({
+        type: "string",
+        options: [
+          { label: "Not Classified", value: "NC" },
+          { label: "Least Concern", value: "LC" },
+          { label: "Near Threatened", value: "NT" },
+          { label: "Vulnerable", value: "VU" },
+          { label: "Endangered", value: "EN" },
+          { label: "Critically Endangered", value: "CE" },
+          { label: "Extinct in the Wild", value: "EW" },
+          { label: "Extinct", value: "EX" }
+        ],
+        defaultValue: "Unclassified",
+        validation: { isRequired: true }
+      }),
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      description: (0, import_fields_document.document)({
+        formatting: true
       })
     }
   }),

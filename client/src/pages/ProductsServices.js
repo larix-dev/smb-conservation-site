@@ -1,7 +1,9 @@
 import {useQuery, gql} from '@apollo/client'
 import {Link} from 'react-router-dom'
-import Page from '../components/Page'
 import {DocumentRenderer} from '@keystone-6/document-renderer'
+import {FaMapPin} from 'react-icons/fa'
+
+import Page from '../components/Page'
 
 function ProductsServices() {
   const query = gql`
@@ -9,7 +11,7 @@ function ProductsServices() {
       products {
         urlId
         title
-        origin
+        source
         isService
         image {
           url
@@ -35,7 +37,7 @@ function ProductsServices() {
 
   return (
     <Page name="Products and Services">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         <DocumentRenderer document={document} />
         <div className="flex flex-col gap-8">
           {data.products.map((product, i) => (
@@ -48,7 +50,7 @@ function ProductsServices() {
 }
 
 function ProductPreview(props) {
-  const {urlId, title, image, description, isService, origin} = props.product
+  const {urlId, title, image, description, isService, source} = props.product
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
@@ -57,7 +59,12 @@ function ProductPreview(props) {
       </div>
       <div className="basis-2/3 flex flex-col gap-4">
         <div className="font-bold text-xl">{title}</div>
-        {!isService && <div className="font-bold">Product Origin: {origin}</div>}
+        {!isService && (
+          <div className="font-bold">
+            <FaMapPin className="inline" />
+            &nbsp;Sourced From: {source}
+          </div>
+        )}
         <DocumentRenderer document={[description.document[0]]} />
         <Link className="text-blue-600 font-bold hover:underline" to={`/products-services/${urlId}`}>
           Learn More &rsaquo;
