@@ -1,6 +1,6 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {FaScroll, FaLeaf, FaPaw, FaInfoCircle} from 'react-icons/fa'
 import {GiMushroomGills} from 'react-icons/gi'
 
@@ -51,6 +51,11 @@ function Organism() {
     <Page name={`${name}`}>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
+          <div className="mb-4">
+            <Link className="text-blue-600 font-bold no-underline hover:underline" to={`/ecosystem`}>
+              &lsaquo; Back to Ecosystem
+            </Link>
+          </div>
           <div className="font-bold">
             <FaScroll className="inline" />
             &nbsp;Scientific Name: <span className="italic">{scientificName}</span>

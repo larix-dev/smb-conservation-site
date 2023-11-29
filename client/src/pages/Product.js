@@ -1,6 +1,6 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {FaMapPin} from 'react-icons/fa'
 
 import Page from '../components/Page'
@@ -39,6 +39,11 @@ function Product() {
     <Page name={title}>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
+          <div className="mb-4">
+            <Link className="text-blue-600 font-bold no-underline hover:underline" to={`/ecosystem`}>
+              &lsaquo; Back to Products & Services
+            </Link>
+          </div>
           {!isService && (
             <div className="font-bold">
               <FaMapPin className="inline" />
