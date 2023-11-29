@@ -16,6 +16,8 @@ import Map from './pages/Map'
 import InterMap from './pages/InterMap'
 import ProductsServices from './pages/ProductsServices'
 import Product from './pages/Product'
+import Ecosystem from './pages/Ecosystem'
+import Organism from './pages/Organism'
 
 import Banner from './components/Banner'
 import Navbar from './components/Navbar'
@@ -48,7 +50,9 @@ root.render(
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />
             <Route path="products-services" element={<ProductsServices />} />
-            <Route path="products-services/:itemId" element={<Product />} />
+            <Route path="products-services/:id" element={<Product />} />
+            <Route path="ecosystem" element={<Ecosystem />} />
+            <Route path="ecosystem/:id" element={<Organism />} />            
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

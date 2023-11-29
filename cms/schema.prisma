@@ -90,7 +90,7 @@ model Trail {
   id          String @id @default(cuid())
   name        String @default("")
   trailCoords String @default("")
-  colour      String @default("blue")
+  colour      String @default("#3b82f6")
 }
 
 model Privacy {
@@ -120,6 +120,25 @@ model Product {
   isService       Boolean @default(false)
   origin          String  @default("")
   description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model EcosystemPage {
+  id Int @id
+}
+
+model Organism {
+  id                 String  @id @default(cuid())
+  name               String  @default("")
+  scientificName     String  @default("")
+  urlId              String  @default("")
+  type               String
+  conservationStatus String  @default("Unclassified")
+  image_filesize     Int?
+  image_extension    String?
+  image_width        Int?
+  image_height       Int?
+  image_id           String?
+  description        String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model MailRecipient {

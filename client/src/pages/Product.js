@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom'
 import Page from '../components/Page'
 
 function Product() {
-  const {itemId} = useParams()
+  const {id} = useParams()
 
   const query = gql`
     query Products($where: ProductWhereInput!) {
@@ -23,7 +23,7 @@ function Product() {
   `
 
   const {loading, error, data} = useQuery(query, {
-    variables: {where: {urlId: {equals: itemId}}}
+    variables: {where: {urlId: {equals: id}}}
   })
 
   if (loading || error || !data) {
