@@ -155,26 +155,12 @@ var lists = {
       })
     }
   }),
-  Map: (0, import_core.list)({
+  TrailPage: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
     fields: {
       content: (0, import_fields_document.document)({
         formatting: true
-      }),
-      centreCoords: (0, import_fields.text)({
-        ui: {
-          description: "Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error"
-        },
-        validation: {
-          isRequired: true
-        }
-      }),
-      zoom: (0, import_fields.integer)({
-        ui: {
-          description: "The initial and maximum zoom factor of the map"
-        },
-        validation: { isRequired: true }
       })
     }
   }),
@@ -186,6 +172,35 @@ var lists = {
           description: "Trail name that will be displayed on the map"
         },
         validation: { isRequired: true }
+      }),
+      image: (0, import_fields.image)({ storage: "localImages" }),
+      length: (0, import_fields.float)({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          description: "Trail length in kilometres"
+        }
+      }),
+      elevationGain: (0, import_fields.float)({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          description: "Trail elevation gain in metres"
+        }
+      }),
+      difficulty: (0, import_fields.select)({
+        type: "string",
+        options: [
+          { label: "Easy", value: "E" },
+          { label: "Moderate", value: "M" },
+          { label: "Difficult", value: "D" }
+        ],
+        validation: { isRequired: true }
+      }),
+      description: (0, import_fields_document.document)({
+        formatting: true
       }),
       trailCoords: (0, import_fields.text)({
         ui: {
@@ -207,6 +222,26 @@ var lists = {
           { label: "Violet", value: "#8b5cf6" }
         ],
         defaultValue: "#3b82f6",
+        validation: { isRequired: true }
+      })
+    }
+  }),
+  Map: (0, import_core.list)({
+    access: import_access.allowAll,
+    isSingleton: true,
+    fields: {
+      centreCoords: (0, import_fields.text)({
+        ui: {
+          description: "Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error"
+        },
+        validation: {
+          isRequired: true
+        }
+      }),
+      zoom: (0, import_fields.integer)({
+        ui: {
+          description: "The initial and maximum zoom factor of the map"
+        },
         validation: { isRequired: true }
       })
     }
