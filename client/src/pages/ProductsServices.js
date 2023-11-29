@@ -60,9 +60,9 @@ function ProductPreview(props) {
       <div className="basis-2/3 flex flex-col gap-4">
         <div className="font-bold text-xl">{title}</div>
         {!isService && (
-          <div className="font-bold">
+          <div>
             <FaMapPin className="inline" />
-            &nbsp;Sourced From: {source}
+            &nbsp;Source: {source}
           </div>
         )}
         <DocumentRenderer document={[description.document[0]]} />

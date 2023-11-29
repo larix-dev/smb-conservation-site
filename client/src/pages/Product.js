@@ -42,7 +42,7 @@ function Product() {
           {!isService && (
             <div className="font-bold">
               <FaMapPin className="inline" />
-              &nbsp;Sourced From: {source}
+              &nbsp;Source: {source}
             </div>
           )}
           <DocumentRenderer document={description.document} />
