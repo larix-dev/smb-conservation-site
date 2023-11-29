@@ -16,10 +16,6 @@ import {document} from '@keystone-6/fields-document'
 import type {Lists} from '.keystone/types'
 
 /* validation regex */
-const latRegex = /([0-8]?\d|90)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[NS]/
-const lngRegex = /(\d{1,2}|1[0-7][0-9]|180)\:(0\d|[1-5]\d|60)\:(0\d|[1-5]\d|60)(\.\d{1,3})?[EW]/
-const coordRegex = new RegExp(`^${latRegex.source},\\s*${lngRegex.source}\\s*\\n?$`)
-const trailRegex = new RegExp(`^(${latRegex.source},\\s*${lngRegex.source}\\s*\\n?){2,}$`)
 const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 export const lists: Lists = {
@@ -146,11 +142,10 @@ export const lists: Lists = {
       centreCoords: text({
         ui: {
           description:
-            'Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W'
+            'Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error'
         },
         validation: {
-          isRequired: true,
-          match: {regex: coordRegex, explanation: 'Coordinate pair must be in valid DMS format (see above)'}
+          isRequired: true
         }
       }),
       zoom: integer({
@@ -174,14 +169,10 @@ export const lists: Lists = {
         ui: {
           displayMode: 'textarea',
           description:
-            'A list of coordinates representing a trail\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W\nEach coordinate pair must be on its own line\nAt least two points are required to create a trail'
+            'A list of coordinate pairs representing a trail\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nEach coordinate pair must be on its own line\nAny invalid coordinates will be removed from the list'
         },
         validation: {
-          isRequired: true,
-          match: {
-            regex: trailRegex,
-            explanation: 'Coordinate pairs must be in valid DMS format (see above), each on their own line'
-          }
+          isRequired: true
         }
       }),
       colour: select({
