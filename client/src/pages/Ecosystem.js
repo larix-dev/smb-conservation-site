@@ -2,6 +2,8 @@ import {useState} from 'react'
 import {gql, useQuery} from '@apollo/client'
 import {Link} from 'react-router-dom'
 
+import {getStatusInfo} from '../utils/status-info'
+
 import Page from '../components/Page'
 import Filter from '../components/Filter'
 
@@ -48,18 +50,7 @@ function Ecosystem() {
 function EcosystemItem(props) {
   const {name, scientificName, type, urlId, conservationStatus, image} = props.organism
 
-  const statusInfo = {
-    NC: {label: 'Not Classified', color: 'text-stone-600'},
-    LC: {label: 'Least Concern', color: 'text-teal-600'},
-    NT: {label: 'Near Threatened', color: 'text-lime-600'},
-    VU: {label: 'Vulnerable', color: 'text-yellow-600'},
-    EN: {label: 'Endangered', color: 'text-amber-600'},
-    CE: {label: 'Critically Endangered', color: 'text-orange-600'},
-    EW: {label: 'Extinct in the Wild', color: 'text-red-600'},
-    EX: {label: 'Extinct', color: 'text-red-800'}
-  }
-
-  const status = statusInfo[conservationStatus]
+  const statusInfo = getStatusInfo(conservationStatus)
 
   return (
     <div
@@ -74,7 +65,7 @@ function EcosystemItem(props) {
         </div>
         <div className="text-sm">
           Conservation Status:
-          <span className={`font-bold ${status.color}`}>&nbsp;{status.label}</span>
+          <span className={`font-bold ${statusInfo.class}`}>&nbsp;{statusInfo.label}</span>
         </div>
         <Link className="text-blue-600 font-bold no-underline hover:underline" to={`/ecosystem/${urlId}`}>
           Learn More &rsaquo;
