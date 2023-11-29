@@ -142,7 +142,7 @@ export const lists: Lists = {
       centreCoords: text({
         ui: {
           description:
-            'Coordinates representing the centre point of the map\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W'
+            'Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error'
         },
         validation: {
           isRequired: true
@@ -169,7 +169,7 @@ export const lists: Lists = {
         ui: {
           displayMode: 'textarea',
           description:
-            'A list of coordinates representing a trail\n\nCoordinates must be latitude-longitude in DMS format\ni.e. 00:00:00.000N, 00:00:00.000W\nEach coordinate pair must be on its own line\nAt least two points are required to create a trail'
+            'A list of coordinate pairs representing a trail\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nEach coordinate pair must be on its own line\nAny invalid coordinates will be removed from the list'
         },
         validation: {
           isRequired: true
