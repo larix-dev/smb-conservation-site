@@ -695,7 +695,7 @@ type Product {
   urlId: String
   image: ImageFieldOutput
   isService: Boolean
-  origin: String
+  source: String
   description: Product_description_Document
 }
 
@@ -715,7 +715,7 @@ input ProductWhereInput {
   title: StringFilter
   urlId: StringFilter
   isService: BooleanFilter
-  origin: StringFilter
+  source: StringFilter
 }
 
 input ProductOrderByInput {
@@ -723,7 +723,7 @@ input ProductOrderByInput {
   title: OrderDirection
   urlId: OrderDirection
   isService: OrderDirection
-  origin: OrderDirection
+  source: OrderDirection
 }
 
 input ProductUpdateInput {
@@ -731,7 +731,7 @@ input ProductUpdateInput {
   urlId: String
   image: ImageFieldInput
   isService: Boolean
-  origin: String
+  source: String
   description: JSON
 }
 
@@ -745,7 +745,7 @@ input ProductCreateInput {
   urlId: String
   image: ImageFieldInput
   isService: Boolean
-  origin: String
+  source: String
   description: JSON
 }
 

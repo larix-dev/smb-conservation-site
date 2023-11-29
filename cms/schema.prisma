@@ -118,7 +118,7 @@ model Product {
   image_height    Int?
   image_id        String?
   isService       Boolean @default(false)
-  origin          String  @default("")
+  source          String  @default("")
   description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 

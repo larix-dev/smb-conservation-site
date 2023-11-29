@@ -263,7 +263,7 @@ var lists = {
       }),
       image: (0, import_fields.image)({ storage: "localImages" }),
       isService: (0, import_fields.checkbox)(),
-      origin: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
+      source: (0, import_fields.text)({ ui: { description: "Not required for services" } }),
       description: (0, import_fields_document.document)({
         formatting: true,
         ui: {

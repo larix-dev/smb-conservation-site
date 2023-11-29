@@ -242,7 +242,7 @@ export const lists: Lists = {
       }),
       image: image({storage: 'localImages'}),
       isService: checkbox(),
-      origin: text({ui: {description: 'Not required for services'}}),
+      source: text({ui: {description: 'Not required for services'}}),
       description: document({
         formatting: true,
         ui: {
