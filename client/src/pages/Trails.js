@@ -74,15 +74,15 @@ function TrailInfo(props) {
         <div className="flex gap-4">
           <div>
             <FaArrowsLeftRight className="inline" />
-            &nbsp;Length: {length} km
+            &nbsp;Length <span className="font-bold">{length}&nbsp;km</span>
           </div>
           <div>
             <FaArrowsUpDown className="inline" />
-            &nbsp;Elevation Gain: {elevationGain} m
+            &nbsp;Elevation&nbsp;Gain <span className="font-bold">{elevationGain}&nbsp;m</span>
           </div>
           <div>
             <FaChartSimple className="inline" />
-            &nbsp;Difficulty: <span className={diff.class}>{diff.label}</span>
+            &nbsp;Difficulty <span className={`font-bold ${diff.class}`}>{diff.label}</span>
           </div>
         </div>
         <Document document={description.document} />

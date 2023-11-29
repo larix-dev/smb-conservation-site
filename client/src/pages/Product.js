@@ -40,7 +40,7 @@ function Product() {
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1 prose">
           <div className="mb-4">
-            <Link className="text-blue-600 font-bold no-underline hover:underline" to={`/ecosystem`}>
+            <Link className="text-blue-600 font-bold no-underline hover:underline" to={`/products-services`}>
               &lsaquo; Back to Products & Services
             </Link>
           </div>
