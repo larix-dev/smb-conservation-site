@@ -254,7 +254,11 @@ export const lists: Lists = {
   EcosystemPage: list({
     access: allowAll,
     isSingleton: true,
-    fields: {}
+    fields: {
+      content: document({
+        formatting: true
+      })
+    }
   }),
   Organism: list({
     access: allowAll,

@@ -6,12 +6,18 @@ import {getStatusInfo} from '../utils/status-info'
 
 import Page from '../components/Page'
 import Filter from '../components/Filter'
+import Document from '../components/Document'
 
 function Ecosystem() {
   const [filter, setFilter] = useState(null)
 
   const query = gql`
     query Query {
+      ecosystemPage {
+        content {
+          document
+        }
+      }
       organisms {
         name
         scientificName
@@ -26,11 +32,14 @@ function Ecosystem() {
   `
 
   const {data} = useQuery(query)
+  const document = data?.ecosystemPage?.content.document
   const organisms = data?.organisms || []
 
   return (
     <Page name="Ecosystem">
-      <div className="mb-4">Placeholder text</div>
+      <div className="mb-4">
+        <Document document={document} />
+      </div>
       <div className="flex flex-wrap gap-2 mb-4 items-center">
         <Filter tag="Flora" filter={filter} callback={filter => setFilter(filter)} />
         <Filter tag="Fauna" filter={filter} callback={filter => setFilter(filter)} />

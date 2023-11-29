@@ -275,7 +275,11 @@ var lists = {
   EcosystemPage: (0, import_core.list)({
     access: import_access.allowAll,
     isSingleton: true,
-    fields: {}
+    fields: {
+      content: (0, import_fields_document.document)({
+        formatting: true
+      })
+    }
   }),
   Organism: (0, import_core.list)({
     access: import_access.allowAll,

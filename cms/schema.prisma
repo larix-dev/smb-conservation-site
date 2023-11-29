@@ -123,7 +123,8 @@ model Product {
 }
 
 model EcosystemPage {
-  id Int @id
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Organism {

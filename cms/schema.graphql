@@ -751,6 +751,11 @@ input ProductCreateInput {
 
 type EcosystemPage {
   id: ID!
+  content: EcosystemPage_content_Document
+}
+
+type EcosystemPage_content_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input EcosystemPageWhereUniqueInput {
@@ -766,6 +771,19 @@ input EcosystemPageWhereInput {
 
 input EcosystemPageOrderByInput {
   id: OrderDirection
+}
+
+input EcosystemPageUpdateInput {
+  content: JSON
+}
+
+input EcosystemPageUpdateArgs {
+  where: EcosystemPageWhereUniqueInput! = {id: 1}
+  data: EcosystemPageUpdateInput!
+}
+
+input EcosystemPageCreateInput {
+  content: JSON
 }
 
 type Organism {
@@ -963,6 +981,10 @@ type Mutation {
   updateProducts(data: [ProductUpdateArgs!]!): [Product]
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
+  createEcosystemPage(data: EcosystemPageCreateInput!): EcosystemPage
+  createEcosystemPages(data: [EcosystemPageCreateInput!]!): [EcosystemPage]
+  updateEcosystemPage(where: EcosystemPageWhereUniqueInput! = {id: 1}, data: EcosystemPageUpdateInput!): EcosystemPage
+  updateEcosystemPages(data: [EcosystemPageUpdateArgs!]!): [EcosystemPage]
   deleteEcosystemPage(where: EcosystemPageWhereUniqueInput! = {id: 1}): EcosystemPage
   deleteEcosystemPages(where: [EcosystemPageWhereUniqueInput!]!): [EcosystemPage]
   createOrganism(data: OrganismCreateInput!): Organism
