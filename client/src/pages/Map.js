@@ -106,28 +106,25 @@ function Mapbox(props) {
       center: centre,
       zoom: scaledZoom,
       attributionControl: false,
-      minZoom: scaledZoom,
-      interactive: props.interactive
+      minZoom: scaledZoom
     })
 
-    if (props.interactive) {
-      map.current.addControl(new ExitControl(), 'top-right')
-      map.current.addControl(
-        new CustomGeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true
-          },
-          trackUserLocation: true,
-          showUserHeading: true
-        }),
-        'top-left'
-      )
-      map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
-    }
+    map.current.addControl(new ExitControl(), 'top-right')
+    map.current.addControl(
+      new CustomGeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserHeading: true
+      }),
+      'top-left'
+    )
+    map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
 
     map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
     map.current.resize()
-  }, [data, props.interactive])
+  }, [data])
 
   return <div ref={mapContainer} className="w-full h-full"></div>
 }
@@ -182,7 +179,7 @@ function Map() {
 
   return (
     <div className="w-screen" style={{height: window.innerHeight}}>
-      <Mapbox interactive={true} />
+      <Mapbox />
     </div>
   )
 }
