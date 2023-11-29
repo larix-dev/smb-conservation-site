@@ -36,7 +36,7 @@ function Navbar() {
             <div className="flex flex-col lg:flex-row gap-6 text-sm font-bold pt-8 pb-4 lg:p-0">
               <NavLink to="/" name="Home" />
               <NavLink to="/about" name="About Us" />
-              <NavLink to="/map" name="Map" />
+              <NavLink to="/trails" name="Trails & Map" />
               <NavLink to="/ecosystem" name="Ecosystem" />
               <NavLink to="/products-services" name="Products & Services" />
               <NavLink to="/green-burial" name="Green Burial" />

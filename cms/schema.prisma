@@ -79,18 +79,31 @@ model GalleryImage {
   tags            GalleryTag[] @relation("GalleryImage_tags")
 }
 
-model Map {
-  id           Int    @id
-  content      String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  centreCoords String @default("")
-  zoom         Int
+model TrailPage {
+  id      Int    @id
+  content String @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Trail {
-  id          String @id @default(cuid())
-  name        String @default("")
-  trailCoords String @default("")
-  colour      String @default("#3b82f6")
+  id              String  @id @default(cuid())
+  name            String  @default("")
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
+  length          Float
+  elevationGain   Float
+  difficulty      String
+  description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  trailCoords     String  @default("")
+  colour          String  @default("#3b82f6")
+}
+
+model Map {
+  id           Int    @id
+  centreCoords String @default("")
+  zoom         Int
 }
 
 model Privacy {

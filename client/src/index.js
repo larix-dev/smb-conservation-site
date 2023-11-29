@@ -12,8 +12,8 @@ import Disclaimer from './pages/Disclaimer'
 import Gallery from './pages/Gallery'
 import Privacy from './pages/Privacy'
 import Feedback from './pages/Feedback'
+import Trails from './pages/Trails'
 import Map from './pages/Map'
-import InterMap from './pages/InterMap'
 import ProductsServices from './pages/ProductsServices'
 import Product from './pages/Product'
 import Ecosystem from './pages/Ecosystem'
@@ -39,13 +39,13 @@ root.render(
     <ApolloProvider client={apollo}>
       <BrowserRouter>
         <Routes>
-          <Route path="interactive-map" element={<InterMap />} />
+          <Route path="map" element={<Map />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="green-burial" element={<Burial />} />
             <Route path="gallery" element={<Gallery />} />
-            <Route path="map" element={<Map />} />
+            <Route path="trails" element={<Trails />} />
             <Route path="feedback" element={<Feedback />} />
             <Route path="disclaimer" element={<Disclaimer />} />
             <Route path="privacy-policy" element={<Privacy />} />

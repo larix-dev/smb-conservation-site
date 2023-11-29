@@ -475,15 +475,128 @@ input GalleryTagRelateToManyForCreateInput {
   connect: [GalleryTagWhereUniqueInput!]
 }
 
-type Map {
+type TrailPage {
   id: ID!
-  content: Map_content_Document
-  centreCoords: String
-  zoom: Int
+  content: TrailPage_content_Document
 }
 
-type Map_content_Document {
+type TrailPage_content_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input TrailPageWhereUniqueInput {
+  id: ID
+}
+
+input TrailPageWhereInput {
+  AND: [TrailPageWhereInput!]
+  OR: [TrailPageWhereInput!]
+  NOT: [TrailPageWhereInput!]
+  id: IDFilter
+}
+
+input TrailPageOrderByInput {
+  id: OrderDirection
+}
+
+input TrailPageUpdateInput {
+  content: JSON
+}
+
+input TrailPageUpdateArgs {
+  where: TrailPageWhereUniqueInput! = {id: 1}
+  data: TrailPageUpdateInput!
+}
+
+input TrailPageCreateInput {
+  content: JSON
+}
+
+type Trail {
+  id: ID!
+  name: String
+  image: ImageFieldOutput
+  length: Float
+  elevationGain: Float
+  difficulty: String
+  description: Trail_description_Document
+  trailCoords: String
+  colour: String
+}
+
+type Trail_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input TrailWhereUniqueInput {
+  id: ID
+}
+
+input TrailWhereInput {
+  AND: [TrailWhereInput!]
+  OR: [TrailWhereInput!]
+  NOT: [TrailWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  length: FloatFilter
+  elevationGain: FloatFilter
+  difficulty: StringFilter
+  trailCoords: StringFilter
+  colour: StringFilter
+}
+
+input FloatFilter {
+  equals: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: FloatFilter
+}
+
+input TrailOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  length: OrderDirection
+  elevationGain: OrderDirection
+  difficulty: OrderDirection
+  trailCoords: OrderDirection
+  colour: OrderDirection
+}
+
+input TrailUpdateInput {
+  name: String
+  image: ImageFieldInput
+  length: Float
+  elevationGain: Float
+  difficulty: String
+  description: JSON
+  trailCoords: String
+  colour: String
+}
+
+input TrailUpdateArgs {
+  where: TrailWhereUniqueInput!
+  data: TrailUpdateInput!
+}
+
+input TrailCreateInput {
+  name: String
+  image: ImageFieldInput
+  length: Float
+  elevationGain: Float
+  difficulty: String
+  description: JSON
+  trailCoords: String
+  colour: String
+}
+
+type Map {
+  id: ID!
+  centreCoords: String
+  zoom: Int
 }
 
 input MapWhereUniqueInput {
@@ -517,7 +630,6 @@ input MapOrderByInput {
 }
 
 input MapUpdateInput {
-  content: JSON
   centreCoords: String
   zoom: Int
 }
@@ -528,54 +640,8 @@ input MapUpdateArgs {
 }
 
 input MapCreateInput {
-  content: JSON
   centreCoords: String
   zoom: Int
-}
-
-type Trail {
-  id: ID!
-  name: String
-  trailCoords: String
-  colour: String
-}
-
-input TrailWhereUniqueInput {
-  id: ID
-}
-
-input TrailWhereInput {
-  AND: [TrailWhereInput!]
-  OR: [TrailWhereInput!]
-  NOT: [TrailWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  trailCoords: StringFilter
-  colour: StringFilter
-}
-
-input TrailOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-  trailCoords: OrderDirection
-  colour: OrderDirection
-}
-
-input TrailUpdateInput {
-  name: String
-  trailCoords: String
-  colour: String
-}
-
-input TrailUpdateArgs {
-  where: TrailWhereUniqueInput!
-  data: TrailUpdateInput!
-}
-
-input TrailCreateInput {
-  name: String
-  trailCoords: String
-  colour: String
 }
 
 type Privacy {
@@ -945,18 +1011,24 @@ type Mutation {
   updateGalleryImages(data: [GalleryImageUpdateArgs!]!): [GalleryImage]
   deleteGalleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   deleteGalleryImages(where: [GalleryImageWhereUniqueInput!]!): [GalleryImage]
-  createMap(data: MapCreateInput!): Map
-  createMaps(data: [MapCreateInput!]!): [Map]
-  updateMap(where: MapWhereUniqueInput! = {id: 1}, data: MapUpdateInput!): Map
-  updateMaps(data: [MapUpdateArgs!]!): [Map]
-  deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
-  deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
+  createTrailPage(data: TrailPageCreateInput!): TrailPage
+  createTrailPages(data: [TrailPageCreateInput!]!): [TrailPage]
+  updateTrailPage(where: TrailPageWhereUniqueInput! = {id: 1}, data: TrailPageUpdateInput!): TrailPage
+  updateTrailPages(data: [TrailPageUpdateArgs!]!): [TrailPage]
+  deleteTrailPage(where: TrailPageWhereUniqueInput! = {id: 1}): TrailPage
+  deleteTrailPages(where: [TrailPageWhereUniqueInput!]!): [TrailPage]
   createTrail(data: TrailCreateInput!): Trail
   createTrails(data: [TrailCreateInput!]!): [Trail]
   updateTrail(where: TrailWhereUniqueInput!, data: TrailUpdateInput!): Trail
   updateTrails(data: [TrailUpdateArgs!]!): [Trail]
   deleteTrail(where: TrailWhereUniqueInput!): Trail
   deleteTrails(where: [TrailWhereUniqueInput!]!): [Trail]
+  createMap(data: MapCreateInput!): Map
+  createMaps(data: [MapCreateInput!]!): [Map]
+  updateMap(where: MapWhereUniqueInput! = {id: 1}, data: MapUpdateInput!): Map
+  updateMaps(data: [MapUpdateArgs!]!): [Map]
+  deleteMap(where: MapWhereUniqueInput! = {id: 1}): Map
+  deleteMaps(where: [MapWhereUniqueInput!]!): [Map]
   createPrivacy(data: PrivacyCreateInput!): Privacy
   createPrivacies(data: [PrivacyCreateInput!]!): [Privacy]
   updatePrivacy(where: PrivacyWhereUniqueInput! = {id: 1}, data: PrivacyUpdateInput!): Privacy
@@ -1046,12 +1118,15 @@ type Query {
   galleryImages(where: GalleryImageWhereInput! = {}, orderBy: [GalleryImageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GalleryImageWhereUniqueInput): [GalleryImage!]
   galleryImage(where: GalleryImageWhereUniqueInput!): GalleryImage
   galleryImagesCount(where: GalleryImageWhereInput! = {}): Int
-  maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
-  map(where: MapWhereUniqueInput! = {id: 1}): Map
-  mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
+  trailPages(where: TrailPageWhereInput! = {id: {equals: 1}}, orderBy: [TrailPageOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailPageWhereUniqueInput): [TrailPage!]
+  trailPage(where: TrailPageWhereUniqueInput! = {id: 1}): TrailPage
+  trailPagesCount(where: TrailPageWhereInput! = {id: {equals: 1}}): Int
   trails(where: TrailWhereInput! = {}, orderBy: [TrailOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: TrailWhereUniqueInput): [Trail!]
   trail(where: TrailWhereUniqueInput!): Trail
   trailsCount(where: TrailWhereInput! = {}): Int
+  maps(where: MapWhereInput! = {id: {equals: 1}}, orderBy: [MapOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MapWhereUniqueInput): [Map!]
+  map(where: MapWhereUniqueInput! = {id: 1}): Map
+  mapsCount(where: MapWhereInput! = {id: {equals: 1}}): Int
   privacies(where: PrivacyWhereInput! = {id: {equals: 1}}, orderBy: [PrivacyOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: PrivacyWhereUniqueInput): [Privacy!]
   privacy(where: PrivacyWhereUniqueInput! = {id: 1}): Privacy
   privaciesCount(where: PrivacyWhereInput! = {id: {equals: 1}}): Int

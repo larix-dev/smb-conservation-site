@@ -9,7 +9,8 @@ import {
   timestamp,
   select,
   checkbox,
-  integer
+  integer,
+  float
 } from '@keystone-6/core/fields'
 import {document} from '@keystone-6/fields-document'
 
@@ -132,27 +133,12 @@ export const lists: Lists = {
       })
     }
   }),
-  Map: list({
+  TrailPage: list({
     access: allowAll,
     isSingleton: true,
     fields: {
       content: document({
         formatting: true
-      }),
-      centreCoords: text({
-        ui: {
-          description:
-            'Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error'
-        },
-        validation: {
-          isRequired: true
-        }
-      }),
-      zoom: integer({
-        ui: {
-          description: 'The initial and maximum zoom factor of the map'
-        },
-        validation: {isRequired: true}
       })
     }
   }),
@@ -164,6 +150,35 @@ export const lists: Lists = {
           description: 'Trail name that will be displayed on the map'
         },
         validation: {isRequired: true}
+      }),
+      image: image({storage: 'localImages'}),
+      length: float({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          description: 'Trail length in kilometres'
+        }
+      }),
+      elevationGain: float({
+        validation: {
+          isRequired: true
+        },
+        ui: {
+          description: 'Trail elevation gain in metres'
+        }
+      }),
+      difficulty: select({
+        type: 'string',
+        options: [
+          {label: 'Easy', value: 'E'},
+          {label: 'Moderate', value: 'M'},
+          {label: 'Difficult', value: 'D'}
+        ],
+        validation: {isRequired: true}
+      }),
+      description: document({
+        formatting: true
       }),
       trailCoords: text({
         ui: {
@@ -186,6 +201,27 @@ export const lists: Lists = {
           {label: 'Violet', value: '#8b5cf6'}
         ],
         defaultValue: '#3b82f6',
+        validation: {isRequired: true}
+      })
+    }
+  }),
+  Map: list({
+    access: allowAll,
+    isSingleton: true,
+    fields: {
+      centreCoords: text({
+        ui: {
+          description:
+            'Coordinate pair representing the centre point of the map\n\nCoordinates must be in latitude-longitude order, comma separated, in either\n\u2022 Decimal format e.g. 44.631536, -63.580812\n\u2022 DMS format with any delimiter e.g. 44 37 53.5N, 63 34 50.9W\nInvalid coordinates will result in the map page displaying a generic error'
+        },
+        validation: {
+          isRequired: true
+        }
+      }),
+      zoom: integer({
+        ui: {
+          description: 'The initial and maximum zoom factor of the map'
+        },
         validation: {isRequired: true}
       })
     }
