@@ -346,5 +346,13 @@ export const lists: Lists = {
         }
       })
     }
+  }),
+  Landmarks: list({
+    access: allowAll,
+    fields: {
+      name: text({validation: {isRequired: true}}),
+      coords: text({validation: {isRequired: true}}),
+      range: float({validation: {isRequired: true}})
+    }
   })
 }
