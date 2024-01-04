@@ -1,4 +1,5 @@
 import mapboxgl, {GeolocateControl} from '!mapbox-gl'
+import Geolocation from '!mapbox-gl'
 import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -37,6 +38,7 @@ const addLayers = (trail, map) => {
     type: 'geojson',
     data: buildGeoJson(trail)
   })
+
 
   map.addLayer({
     id: trail.name,
@@ -110,16 +112,18 @@ function Mapbox(props) {
     })
 
     map.current.addControl(new ExitControl(), 'top-right')
-    map.current.addControl(
-      new CustomGeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true,
-        showUserHeading: true
-      }),
-      'top-left'
-    )
+    const geolocate = new CustomGeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    })
+
+    map.current.addControl(geolocate, 'top-left')
+    geolocate.on('geolocate', (pos) => {
+      console.log(`${pos.coords.latitude} ${pos.coords.longitude}`)
+    })
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-left')
 
     map.current.on('load', () => trails.forEach(trail => addLayers(trail, map.current)))
