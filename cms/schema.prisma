@@ -160,3 +160,10 @@ model MailRecipient {
   name  String @default("")
   email String @default("")
 }
+
+model Landmark {
+  id     String @id @default(cuid())
+  name   String @default("")
+  coords String @default("")
+  range  Float
+}

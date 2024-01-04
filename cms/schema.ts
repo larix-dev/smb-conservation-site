@@ -347,7 +347,7 @@ export const lists: Lists = {
       })
     }
   }),
-  Landmarks: list({
+  Landmark: list({
     access: allowAll,
     fields: {
       name: text({validation: {isRequired: true}}),

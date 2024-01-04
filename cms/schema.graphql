@@ -957,6 +957,51 @@ input MailRecipientCreateInput {
   email: String
 }
 
+type Landmark {
+  id: ID!
+  name: String
+  coords: String
+  range: Float
+}
+
+input LandmarkWhereUniqueInput {
+  id: ID
+}
+
+input LandmarkWhereInput {
+  AND: [LandmarkWhereInput!]
+  OR: [LandmarkWhereInput!]
+  NOT: [LandmarkWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  coords: StringFilter
+  range: FloatFilter
+}
+
+input LandmarkOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  coords: OrderDirection
+  range: OrderDirection
+}
+
+input LandmarkUpdateInput {
+  name: String
+  coords: String
+  range: Float
+}
+
+input LandmarkUpdateArgs {
+  where: LandmarkWhereUniqueInput!
+  data: LandmarkUpdateInput!
+}
+
+input LandmarkCreateInput {
+  name: String
+  coords: String
+  range: Float
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -1071,6 +1116,12 @@ type Mutation {
   updateMailRecipients(data: [MailRecipientUpdateArgs!]!): [MailRecipient]
   deleteMailRecipient(where: MailRecipientWhereUniqueInput!): MailRecipient
   deleteMailRecipients(where: [MailRecipientWhereUniqueInput!]!): [MailRecipient]
+  createLandmark(data: LandmarkCreateInput!): Landmark
+  createLandmarks(data: [LandmarkCreateInput!]!): [Landmark]
+  updateLandmark(where: LandmarkWhereUniqueInput!, data: LandmarkUpdateInput!): Landmark
+  updateLandmarks(data: [LandmarkUpdateArgs!]!): [Landmark]
+  deleteLandmark(where: LandmarkWhereUniqueInput!): Landmark
+  deleteLandmarks(where: [LandmarkWhereUniqueInput!]!): [Landmark]
   endSession: Boolean!
   authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
   createInitialUser(data: CreateInitialUserInput!): UserAuthenticationWithPasswordSuccess!
@@ -1148,6 +1199,9 @@ type Query {
   mailRecipients(where: MailRecipientWhereInput! = {}, orderBy: [MailRecipientOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: MailRecipientWhereUniqueInput): [MailRecipient!]
   mailRecipient(where: MailRecipientWhereUniqueInput!): MailRecipient
   mailRecipientsCount(where: MailRecipientWhereInput! = {}): Int
+  landmarks(where: LandmarkWhereInput! = {}, orderBy: [LandmarkOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: LandmarkWhereUniqueInput): [Landmark!]
+  landmark(where: LandmarkWhereUniqueInput!): Landmark
+  landmarksCount(where: LandmarkWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
