@@ -34,21 +34,21 @@ model About {
 
 model Burial {
   id              Int     @id
+  image_id        String?
   image_filesize  Int?
-  image_extension String?
   image_width     Int?
   image_height    Int?
-  image_id        String?
+  image_extension String?
   content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Feedback {
   id              Int     @id
+  image_id        String?
   image_filesize  Int?
-  image_extension String?
   image_width     Int?
   image_height    Int?
-  image_id        String?
+  image_extension String?
   content         String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
@@ -68,11 +68,11 @@ model GalleryTag {
 
 model GalleryImage {
   id              String       @id @default(cuid())
+  image_id        String?
   image_filesize  Int?
-  image_extension String?
   image_width     Int?
   image_height    Int?
-  image_id        String?
+  image_extension String?
   caption         String       @default("")
   author          String       @default("")
   dateTaken       String
@@ -87,11 +87,11 @@ model TrailPage {
 model Trail {
   id              String  @id @default(cuid())
   name            String  @default("")
+  image_id        String?
   image_filesize  Int?
-  image_extension String?
   image_width     Int?
   image_height    Int?
-  image_id        String?
+  image_extension String?
   length          Float
   elevationGain   Float
   difficulty      String
@@ -125,11 +125,11 @@ model Product {
   id              String  @id @default(cuid())
   title           String  @default("")
   urlId           String  @default("")
+  image_id        String?
   image_filesize  Int?
-  image_extension String?
   image_width     Int?
   image_height    Int?
-  image_id        String?
+  image_extension String?
   isService       Boolean @default(false)
   source          String  @default("")
   description     String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
@@ -147,11 +147,11 @@ model Organism {
   urlId              String  @default("")
   type               String
   conservationStatus String  @default("Unclassified")
+  image_id           String?
   image_filesize     Int?
-  image_extension    String?
   image_width        Int?
   image_height       Int?
-  image_id           String?
+  image_extension    String?
   description        String  @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
