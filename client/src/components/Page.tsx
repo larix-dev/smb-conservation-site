@@ -1,4 +1,6 @@
-function Page(props) {
+import {PropsWithChildren} from 'react'
+
+export default function Page(props: PropsWithChildren<{name: string}>) {
   return (
     <div className="bg-stone-200 text-slate-900 w-full flex justify-center pb-8">
       <div className="max-w-screen-lg w-full p-4">
@@ -8,5 +10,3 @@ function Page(props) {
     </div>
   )
 }
-
-export default Page

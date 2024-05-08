@@ -4,8 +4,9 @@ import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {FaMapPin} from 'react-icons/fa'
 
 import Page from '../components/Page'
+import {ProductType} from './Product'
 
-function ProductsServices() {
+export default function ProductsServices() {
   const query = gql`
     query Query {
       products {
@@ -27,7 +28,13 @@ function ProductsServices() {
       }
     }
   `
-  const {loading, error, data} = useQuery(query)
+
+  interface ProductsData {
+    products: ProductType[]
+    productsServicesPage: any
+  }
+
+  const {loading, error, data} = useQuery<ProductsData>(query)
 
   if (loading || error || !data) {
     return null
@@ -49,7 +56,7 @@ function ProductsServices() {
   )
 }
 
-function ProductPreview(props) {
+function ProductPreview(props: {product: ProductType}) {
   const {urlId, title, image, description, isService, source} = props.product
 
   return (
@@ -73,5 +80,3 @@ function ProductPreview(props) {
     </div>
   )
 }
-
-export default ProductsServices

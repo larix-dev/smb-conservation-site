@@ -2,14 +2,14 @@ import {useState} from 'react'
 import {gql, useQuery} from '@apollo/client'
 import {Link} from 'react-router-dom'
 
-import {getStatusInfo} from '../utils/status-info'
+import {getStatusInfo, OrganismType} from './Organism'
 
 import Page from '../components/Page'
 import Filter from '../components/Filter'
 import Document from '../components/Document'
 
-function Ecosystem() {
-  const [filter, setFilter] = useState(null)
+export default function Ecosystem() {
+  const [filter, setFilter] = useState<string | null>(null)
 
   const query = gql`
     query Query {
@@ -31,7 +31,12 @@ function Ecosystem() {
     }
   `
 
-  const {data} = useQuery(query)
+  interface EcosystemData {
+    ecosystemPage: any
+    organisms: OrganismType[]
+  }
+
+  const {data} = useQuery<EcosystemData>(query)
   const document = data?.ecosystemPage?.content.document
   const organisms = data?.organisms || []
 
@@ -41,9 +46,9 @@ function Ecosystem() {
         <Document document={document} />
       </div>
       <div className="flex flex-wrap gap-2 mb-4 items-center">
-        <Filter tag="Flora" filter={filter} callback={filter => setFilter(filter)} />
-        <Filter tag="Fauna" filter={filter} callback={filter => setFilter(filter)} />
-        <Filter tag="Fungi" filter={filter} callback={filter => setFilter(filter)} />
+        <Filter tag="Flora" filter={filter} callback={(filter: string) => setFilter(filter)} />
+        <Filter tag="Fauna" filter={filter} callback={(filter: string) => setFilter(filter)} />
+        <Filter tag="Fungi" filter={filter} callback={(filter: string) => setFilter(filter)} />
       </div>
       <div className="columns-xs gap-4">
         {organisms
@@ -56,7 +61,7 @@ function Ecosystem() {
   )
 }
 
-function EcosystemItem(props) {
+function EcosystemItem(props: {organism: OrganismType; filter: string | null}) {
   const {name, scientificName, type, urlId, conservationStatus, image} = props.organism
 
   const statusInfo = getStatusInfo(conservationStatus)
@@ -83,5 +88,3 @@ function EcosystemItem(props) {
     </div>
   )
 }
-
-export default Ecosystem

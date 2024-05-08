@@ -3,10 +3,10 @@ import {useQuery, gql} from '@apollo/client'
 
 import Page from '../components/Page'
 
-function Disclaimer() {
+export default function Privacy() {
   const query = gql`
-    query Disclaimer {
-      disclaimer {
+    query Privacy {
+      privacy {
         content {
           document
         }
@@ -19,15 +19,13 @@ function Disclaimer() {
     return null
   }
 
-  const document = data.disclaimer.content.document
+  const document = data?.privacy?.content.document
 
   return (
-    <Page name="Disclaimer">
+    <Page name="Privacy Policy">
       <div className="prose max-w-none">
         <DocumentRenderer document={document} />
       </div>
     </Page>
   )
 }
-
-export default Disclaimer

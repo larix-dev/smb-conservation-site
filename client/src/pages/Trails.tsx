@@ -5,7 +5,21 @@ import {FaArrowsUpDown, FaArrowsLeftRight, FaChartSimple} from 'react-icons/fa6'
 import Page from '../components/Page'
 import Document from '../components/Document'
 
-function Trails() {
+export interface TrailType {
+  name: string
+  trailCoords: string
+  id: string
+  colour: string
+  length: number
+  elevationGain: number
+  difficulty: string
+  image: {
+    url: string
+  }
+  description: any
+}
+
+export default function Trails() {
   const query = gql`
     query Query {
       trailPage {
@@ -28,9 +42,14 @@ function Trails() {
     }
   `
 
-  const {data} = useQuery(query)
+  interface TrailsData {
+    trailPage: any
+    trails: TrailType[]
+  }
+
+  const {data} = useQuery<TrailsData>(query)
   const document = data?.trailPage?.content.document
-  const trails = data?.trails || []
+  const trails = data?.trails
 
   return (
     <Page name="Trails and Interactive Map">
@@ -44,7 +63,7 @@ function Trails() {
           </Link>
         </div>
         <div className="flex flex-col gap-8">
-          {trails.map((trail, i) => (
+          {trails?.map((trail, i) => (
             <TrailInfo key={i} trail={trail} />
           ))}
         </div>
@@ -53,10 +72,10 @@ function Trails() {
   )
 }
 
-function TrailInfo(props) {
+function TrailInfo(props: {trail: TrailType}) {
   const {name, image, length, elevationGain, difficulty, description} = props.trail
 
-  const difficultyInfo = {
+  const difficultyInfo: {[key: string]: {label: string; class: string}} = {
     E: {label: 'Easy', class: 'text-green-600'},
     M: {label: 'Moderate', class: 'text-amber-600'},
     D: {label: 'Difficult', class: 'text-red-600'}
@@ -90,5 +109,3 @@ function TrailInfo(props) {
     </div>
   )
 }
-
-export default Trails

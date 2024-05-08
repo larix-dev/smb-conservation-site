@@ -5,7 +5,7 @@ import Page from '../components/Page'
 
 import forest from '../assets/images/about.jpg'
 
-function About() {
+export default function About() {
   const query = gql`
     query Query {
       about {
@@ -32,5 +32,3 @@ function About() {
     </Page>
   )
 }
-
-export default About
