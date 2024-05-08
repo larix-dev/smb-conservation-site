@@ -5,8 +5,19 @@ import {FaMapPin} from 'react-icons/fa'
 
 import Page from '../components/Page'
 
-function Product() {
-  const {id} = useParams()
+export interface ProductType {
+  title: string
+  isService: boolean
+  source: string
+  urlId: string
+  image: {
+    url: string
+  }
+  description: any
+}
+
+export default function Product() {
+  const {id} = useParams<string>()
 
   const query = gql`
     query Products($where: ProductWhereInput!) {
@@ -24,7 +35,7 @@ function Product() {
     }
   `
 
-  const {loading, error, data} = useQuery(query, {
+  const {loading, error, data} = useQuery<{products: ProductType[]}>(query, {
     variables: {where: {urlId: {equals: id}}}
   })
 
@@ -59,5 +70,3 @@ function Product() {
     </Page>
   )
 }
-
-export default Product

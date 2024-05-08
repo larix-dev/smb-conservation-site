@@ -1,6 +1,12 @@
 import cx from 'classnames'
 
-function Filter(props) {
+interface FilterProps {
+  tag: string
+  filter: string | null
+  callback: Function
+}
+
+export default function Filter(props: FilterProps) {
   const selected = props.filter === props.tag
   const buttonClass = cx({'bg-stone-400': selected}, 'bg-stone-300 text-sm py-1 px-4 rounded')
   const handleClick = () => props.callback(selected ? null : props.tag)
@@ -13,5 +19,3 @@ function Filter(props) {
     </div>
   )
 }
-
-export default Filter

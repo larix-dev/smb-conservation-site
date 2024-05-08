@@ -3,7 +3,7 @@ import {HiSparkles} from 'react-icons/hi2'
 
 import background from '../assets/images/home.jpg'
 
-function Home() {
+export default function Home() {
   return (
     <div
       className="w-full bg-cover bg-center flex flex-col justify-center items-center gap-4"
@@ -22,5 +22,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home

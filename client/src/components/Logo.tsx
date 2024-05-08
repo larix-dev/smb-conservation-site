@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 
 import logoImage from '../assets/forest_logo.svg'
 
-function Logo() {
+export default function Logo() {
   return (
     <Link to="/">
       <div className="text-white flex gap-4 items-center font-logo font-semibold tracking-tighter">
@@ -16,5 +16,3 @@ function Logo() {
     </Link>
   )
 }
-
-export default Logo

@@ -1,11 +1,29 @@
-import mapboxgl, {GeolocateControl} from '!mapbox-gl'
+import mapboxgl from 'mapbox-gl'
 import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import {CustomGeolocateControl, ExitControl} from '../utils/mapbox_controls'
 import {CoordPair} from '../utils/coordinates'
+import {TrailType} from './Trails'
 
-const toCoordArray = coords => {
+export default function Map() {
+  // disable scrolling on the map
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [])
+
+  return (
+    <div className="w-screen" style={{height: window.innerHeight}}>
+      <Mapbox />
+    </div>
+  )
+}
+
+const toCoordArray = (coords: string) => {
   return coords
     .trim()
     .split('\n')
@@ -20,11 +38,11 @@ const toCoordArray = coords => {
     .filter(pair => pair)
 }
 
-const buildGeoJson = trail => ({
+const buildGeoJson = (trail: TrailType): GeoJSON.Feature<GeoJSON.Geometry> => ({
   type: 'Feature',
   geometry: {
     type: 'LineString',
-    coordinates: toCoordArray(trail.trailCoords)
+    coordinates: toCoordArray(trail.trailCoords) as GeoJSON.Position[]
   },
   properties: {
     name: trail.name,
@@ -32,7 +50,7 @@ const buildGeoJson = trail => ({
   }
 })
 
-const addLayers = (trail, map) => {
+const addLayers = (trail: TrailType, map: mapboxgl.Map) => {
   map.addSource(trail.id, {
     type: 'geojson',
     data: buildGeoJson(trail)
@@ -67,8 +85,8 @@ const addLayers = (trail, map) => {
   })
 }
 
-function Mapbox(props) {
-  mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+function Mapbox() {
+  mapboxgl.accessToken = import.meta.env.VITE_APP_MAPBOX_TOKEN
 
   const query = gql`
     query Map {
@@ -85,10 +103,18 @@ function Mapbox(props) {
     }
   `
 
-  const {data} = useQuery(query)
+  interface MapData {
+    trails: TrailType[]
+    map: {
+      centreCoords: string
+      zoom: number
+    }
+  }
 
-  const mapContainer = useRef(null)
-  const map = useRef(null)
+  const {data} = useQuery<MapData>(query)
+
+  const mapContainer = useRef<HTMLDivElement>(null)
+  const map = useRef<any>(null)
 
   useEffect(() => {
     if (map.current || !data) {
@@ -97,11 +123,12 @@ function Mapbox(props) {
 
     const centre = CoordPair.fromString(data?.map?.centreCoords).toInvArray()
     const zoom = data?.map?.zoom
-    const scaledZoom = zoom - Math.log2(992 / mapContainer.current.clientWidth) // scale relative to 992 pixels (full map width)
+    // scale relative to 992 pixels (full map width)
+    const scaledZoom = zoom - Math.log2(992 / mapContainer.current!.clientWidth)
     const trails = data?.trails
 
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: 'mapbox://styles/mapbox/outdoors-v12',
       center: centre,
       zoom: scaledZoom,
@@ -128,60 +155,3 @@ function Mapbox(props) {
 
   return <div ref={mapContainer} className="w-full h-full"></div>
 }
-
-class CustomGeolocateControl extends GeolocateControl {
-  _setupUI(supported) {
-    super._setupUI(supported)
-    this._geolocateButton.classList.add('geolocate-button')
-    this._geolocateButton.appendChild(document.createTextNode('Enable Geolocation'))
-  }
-}
-
-class ExitControl {
-  onAdd(map) {
-    this._map = map
-    this._container = document.createElement('div')
-    this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group'
-
-    this._container.innerHTML = `
-      <button>
-        <svg class="mapboxgl-ctrl-icon" version="1.2" xmlns="http://www.w3.org/2000/svg" fill="#333" width="29" height="29" viewBox="0 0 29 29">
-        <path d="M10.3,10.3c-0.5,0.5-0.5,1.6,0,2.1l2.1,2.1l-2.1,2.1c-0.5,0.5-0.5,1.6,0,2.1c0.5,0.5,1.6,0.5,2.1,0l2.1-2.1l2.1,2.1
-          c0.5,0.5,1.6,0.5,2.1,0c0.5-0.5,0.5-1.6,0-2.1l-2.1-2.1l2.1-2.1c0.5-0.5,0.5-1.6,0-2.1c-0.5-0.5-1.6-0.5-2.1,0l-2.1,2.1l-2.1-2.1
-          C11.8,9.7,10.8,9.7,10.3,10.3z"/>
-        </svg>
-      </button>
-    `
-
-    this._container.addEventListener('contextmenu', e => e.preventDefault())
-    this._container.addEventListener('click', e => this.onClick())
-    return this._container
-  }
-
-  onRemove() {
-    this._container.parentNode.removeChild(this._container)
-    this._map = undefined
-  }
-
-  onClick() {
-    window.location.href = '/trails'
-  }
-}
-
-function Map() {
-  // disable scrolling on the map
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [])
-
-  return (
-    <div className="w-screen" style={{height: window.innerHeight}}>
-      <Mapbox />
-    </div>
-  )
-}
-
-export default Map
