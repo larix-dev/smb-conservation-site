@@ -1,15 +1,46 @@
+import {ReactElement} from 'react'
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
 import {Link, useParams} from 'react-router-dom'
 import {FaScroll, FaLeaf, FaPaw, FaInfoCircle} from 'react-icons/fa'
 import {GiMushroomGills} from 'react-icons/gi'
 
-import {getStatusInfo} from '../utils/status-info'
-
 import Page from '../components/Page'
 
-function Organism() {
-  const {id} = useParams()
+export interface StatusInfo {
+  label: string
+  class: string
+}
+
+const statusInfo: {[key: string]: StatusInfo} = {
+  NC: {label: 'Not Classified', class: 'text-stone-600'},
+  LC: {label: 'Least Concern', class: 'text-green-600'},
+  NT: {label: 'Near Threatened', class: 'text-lime-600'},
+  VU: {label: 'Vulnerable', class: 'text-yellow-600'},
+  EN: {label: 'Endangered', class: 'text-amber-600'},
+  CE: {label: 'Critically Endangered', class: 'text-orange-600'},
+  EW: {label: 'Extinct in the Wild', class: 'text-red-600'},
+  EX: {label: 'Extinct', class: 'text-red-800'}
+}
+
+export const getStatusInfo = (status: string): StatusInfo => {
+  return statusInfo[status]
+}
+
+export interface OrganismType {
+  name: string
+  scientificName: string
+  type: string
+  conservationStatus: string
+  urlId: string
+  image: {
+    url: string
+  }
+  description: any
+}
+
+export default function Organism() {
+  const {id} = useParams<string>()
 
   const query = gql`
     query Query($where: OrganismWhereInput!) {
@@ -28,7 +59,7 @@ function Organism() {
     }
   `
 
-  const {data, loading} = useQuery(query, {
+  const {data, loading} = useQuery<{organisms: OrganismType[]}>(query, {
     variables: {where: {urlId: {equals: id}}}
   })
 
@@ -36,12 +67,12 @@ function Organism() {
     return null
   }
 
-  const organism = data?.organisms[0] || {}
-  const {name, scientificName, type, conservationStatus, image, description} = organism
+  const organism = data?.organisms[0]
+  const {name, scientificName, type, conservationStatus, image, description} = organism!
 
   const statusInfo = getStatusInfo(conservationStatus)
 
-  const typeIcons = {
+  const typeIcons: {[key: string]: ReactElement} = {
     Flora: <FaLeaf className="inline" />,
     Fauna: <FaPaw className="inline" />,
     Fungi: <GiMushroomGills className="inline" />
@@ -76,5 +107,3 @@ function Organism() {
     </Page>
   )
 }
-
-export default Organism

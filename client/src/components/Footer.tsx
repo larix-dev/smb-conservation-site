@@ -3,7 +3,7 @@ import {useQuery, gql} from '@apollo/client'
 import Logo from './Logo'
 import NavLink from './NavLink'
 
-function Footer() {
+export default function Footer() {
   const query = gql`
     query Query {
       footer {
@@ -14,7 +14,17 @@ function Footer() {
       }
     }
   `
-  const {data} = useQuery(query)
+
+  interface FooterData {
+    footer: {
+      address: string
+      phone: string
+      facebookHandle: string
+      instagramHandle: string
+    }
+  }
+
+  const {data} = useQuery<FooterData>(query)
 
   const {address, phone, instagramHandle, facebookHandle} = data?.footer || {}
   const instagramLink = `https://instagram.com/${instagramHandle}`
@@ -63,12 +73,10 @@ function Footer() {
         Copyright &copy; {new Date().getFullYear()} St. Margaret's Bay Area Woodland Conservation Site. Website made
         by&nbsp;
         <a className="underline" href="https://github.com/larix-dev" target="_blank" rel="noopener noreferrer">
-          Larix Dev.
+          Larix Software
         </a>
-        &nbsp;at Saint Mary's University, Group F
+        &nbsp;at Saint Mary's University, Halifax, NS
       </div>
     </div>
   )
 }
-
-export default Footer

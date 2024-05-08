@@ -1,13 +1,13 @@
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
-import {useForm} from 'react-hook-form'
+import {FieldValues, useForm} from 'react-hook-form'
 import {useState} from 'react'
 import axios from 'axios'
 import cx from 'classnames'
 
 import Page from '../components/Page'
 
-function Burial() {
+export default function Burial() {
   const query = gql`
     query Burial {
       burial {
@@ -23,8 +23,19 @@ function Burial() {
       }
     }
   `
+  interface BurialData {
+    burial: {
+      image: {
+        url: string
+      }
+      content: any
+    }
+    mailRecipients: {
+      email: string
+    }[]
+  }
 
-  const {loading, error, data} = useQuery(query)
+  const {loading, error, data} = useQuery<BurialData>(query)
 
   if (loading || error || !data) {
     return null
@@ -32,7 +43,7 @@ function Burial() {
 
   const document = data.burial.content.document
   const image = data?.burial?.image?.url
-  const emails = data?.mailRecipients.map(e => e.email).join(',')
+  const emails = data?.mailRecipients.map(recipient => recipient.email).join(',')
 
   return (
     <Page name="Green Burial: Resting in Nature's Embrace">
@@ -54,7 +65,7 @@ function Burial() {
   )
 }
 
-function BurialForm(props) {
+function BurialForm(props: {emails: string}) {
   const states = {submitting: 1, submitted: 2, failed: 3}
   const [formState, setFormState] = useState(0)
 
@@ -65,7 +76,7 @@ function BurialForm(props) {
     formState: {errors}
   } = useForm()
 
-  const onSubmit = async data => {
+  const onSubmit = async (data: FieldValues) => {
     setFormState(states.submitting)
     const {name, email, phone, message} = data
     const text = `Green Burial Inquery Received\nName: ${name}\nEmail: ${email}\nPhone Number: ${phone}\n\nMessage:\n${message}`
@@ -126,7 +137,7 @@ function BurialForm(props) {
           <div>
             <label htmlFor="message">Message</label>
             <textarea
-              rows="6"
+              rows={6}
               id="message"
               placeholder="Ask us about our green burial services."
               {...register('message', {required: true})}
@@ -155,5 +166,3 @@ function BurialForm(props) {
     </form>
   )
 }
-
-export default Burial

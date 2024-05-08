@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react'
 import {useQuery, gql} from '@apollo/client'
 import cx from 'classnames'
 
-function Banner(props) {
+export default function Banner({callback}: {callback: Function}) {
   const query = gql`
     query {
       announcements(where: {active: {equals: true}}) {
@@ -11,21 +11,28 @@ function Banner(props) {
       }
     }
   `
-  const {loading, error, data} = useQuery(query)
+  interface BannerData {
+    announcements: {
+      colour: string
+      text: string
+    }[]
+  }
 
-  const bannerRef = useRef(null)
+  const {loading, error, data} = useQuery<BannerData>(query)
+
+  const bannerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (data) {
-      props.callback(bannerRef.current.offsetHeight)
+      callback(bannerRef.current?.offsetHeight)
     }
-  }, [data, props])
+  }, [data, callback])
 
   if (loading || error) {
     return null
   }
 
-  const colours = {
+  const colours: {[key: string]: string} = {
     red: 'bg-red-600',
     orange: 'bg-orange-500',
     yellow: 'bg-amber-500',
@@ -36,7 +43,7 @@ function Banner(props) {
 
   return (
     <div ref={bannerRef}>
-      {data.announcements.map((item, index) => (
+      {data?.announcements.map((item, index) => (
         <div key={index} className={cx(colours[item.colour], 'p-1 text-sm text-center text-white')}>
           {item.text}
         </div>
@@ -44,5 +51,3 @@ function Banner(props) {
     </div>
   )
 }
-
-export default Banner

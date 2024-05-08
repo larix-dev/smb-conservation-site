@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect, PropsWithChildren} from 'react'
 import {Collapse} from 'react-collapse'
 import {useLocation} from 'react-router-dom'
 import cx from 'classnames'
@@ -8,9 +8,9 @@ import NavLink from './NavLink'
 
 import './Navbar.css'
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [windowSize, setWindowSize] = useState(window.innerWidth)
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [windowSize, setWindowSize] = useState<number>(window.innerWidth)
 
   const location = useLocation()
 
@@ -29,7 +29,7 @@ function Navbar() {
       <div className="max-w-screen-lg w-full flex items-center justify-between flex-wrap p-4">
         <Logo />
         <div className="block lg:hidden">
-          <NavbarToggle onToggle={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+          <NavbarToggle onToggle={setIsOpen} isOpen={isOpen} />
         </div>
         <div className="w-full lg:w-auto">
           <NavbarMenu isOpen={isOpen} windowSize={windowSize}>
@@ -49,7 +49,7 @@ function Navbar() {
   )
 }
 
-function NavbarMenu(props) {
+function NavbarMenu(props: PropsWithChildren<{windowSize: number; isOpen: boolean}>) {
   if (props.windowSize >= 1024) {
     return <>{props.children}</>
   } else {
@@ -61,9 +61,9 @@ function NavbarMenu(props) {
   }
 }
 
-function NavbarToggle(props) {
+function NavbarToggle(props: PropsWithChildren<{isOpen: boolean; onToggle: Function}>) {
   return (
-    <button className={cx('nav-icon', {open: props.isOpen})} onClick={props.onToggle}>
+    <button className={cx('nav-icon', {open: props.isOpen})} onClick={() => props.onToggle(!props.isOpen)}>
       <span className={cx({'mt-[-8px]': !props.isOpen, 'mt-0 opacity-0': props.isOpen})}></span>
       <span className={cx({'mt-[8px]': !props.isOpen, 'mt-0 opacity-0': props.isOpen})}></span>
       <span className={cx({'opacity-0': !props.isOpen, 'opacity-1 rotate-45': props.isOpen})}></span>
@@ -71,5 +71,3 @@ function NavbarToggle(props) {
     </button>
   )
 }
-
-export default Navbar

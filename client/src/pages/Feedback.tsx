@@ -1,12 +1,12 @@
 import Page from '../components/Page'
 import {DocumentRenderer} from '@keystone-6/document-renderer'
 import {useQuery, gql} from '@apollo/client'
-import {useForm} from 'react-hook-form'
+import {FieldValues, useForm} from 'react-hook-form'
 import {useState} from 'react'
 import axios from 'axios'
 import cx from 'classnames'
 
-function Feedback() {
+export default function Feedback() {
   const query = gql`
     query Query {
       feedback {
@@ -22,7 +22,20 @@ function Feedback() {
       }
     }
   `
-  const {loading, error, data} = useQuery(query)
+
+  interface FeedbackData {
+    feedback: {
+      image: {
+        url: string
+      }
+      content: any
+    }
+    mailRecipients: {
+      email: string
+    }[]
+  }
+
+  const {loading, error, data} = useQuery<FeedbackData>(query)
 
   if (loading || error || !data) {
     return null
@@ -30,7 +43,7 @@ function Feedback() {
 
   const document = data?.feedback?.content.document
   const image = data?.feedback?.image?.url
-  const emails = data?.mailRecipients.map(e => e.email).join(',')
+  const emails = data?.mailRecipients.map(recipient => recipient.email).join(',')
 
   return (
     <Page name="Feedback">
@@ -51,7 +64,7 @@ function Feedback() {
   )
 }
 
-function FeedbackForm(props) {
+function FeedbackForm(props: {emails: string}) {
   const states = {submitting: 1, submitted: 2, failed: 3}
   const [formState, setFormState] = useState(0)
 
@@ -62,7 +75,7 @@ function FeedbackForm(props) {
     formState: {errors}
   } = useForm()
 
-  const onSubmit = async data => {
+  const onSubmit = async (data: FieldValues) => {
     setFormState(states.submitting)
     const {name, email, phone, message, images} = data
 
@@ -125,7 +138,7 @@ function FeedbackForm(props) {
           <div>
             <label htmlFor="message">Message</label>
             <textarea
-              rows="6"
+              rows={6}
               id="message"
               placeholder="Tell us how we did!"
               {...register('message', {required: true})}
@@ -134,14 +147,7 @@ function FeedbackForm(props) {
             {errors.message && <p className="text-sm text-red-600">Please enter a message</p>}
           </div>
           <label htmlFor="image">Upload images (optional)</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            multiple
-            {...register('images', {required: false})}
-          />
+          <input type="file" id="image" accept="image/*" multiple {...register('images', {required: false})} />
         </div>
         {formState === states.submitted && (
           <div className="text-sm text-green-800">
@@ -163,5 +169,3 @@ function FeedbackForm(props) {
     </form>
   )
 }
-
-export default Feedback

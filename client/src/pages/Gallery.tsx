@@ -5,8 +5,20 @@ import {Link} from 'react-router-dom'
 import Page from '../components/Page'
 import Filter from '../components/Filter'
 
-function Gallery() {
-  const [filter, setFilter] = useState(null)
+interface GalleryImage {
+  caption: string
+  author: string
+  dateTaken: string
+  image: {
+    url: string
+  }
+  tags: {
+    tagName: string
+  }[]
+}
+
+export default function Gallery() {
+  const [filter, setFilter] = useState<string | null>(null)
 
   const query = gql`
     query Query {
@@ -26,8 +38,14 @@ function Gallery() {
       }
     }
   `
+  interface GalleryData {
+    galleryTags: {
+      tagName: string
+    }[]
+    galleryImages: GalleryImage[]
+  }
 
-  const {loading, error, data} = useQuery(query)
+  const {loading, error, data} = useQuery<GalleryData>(query)
 
   if (loading || error || !data) {
     return null
@@ -44,49 +62,43 @@ function Gallery() {
       </div>
       <div className="flex flex-wrap gap-2 mb-4 items-center">
         {data.galleryTags.map((tag, i) => (
-          <Filter key={i} tag={tag.tagName} filter={filter} callback={filter => setFilter(filter)} />
+          <Filter key={i} tag={tag.tagName} filter={filter} callback={(filter: string) => setFilter(filter)} />
         ))}
       </div>
       <div className="columns-xs gap-4">
         {data.galleryImages
           .filter(image => filter === null || image.tags.map(tag => tag.tagName).includes(filter))
           .map((image, i) => (
-            <GalleryImage
-              key={i}
-              url={image.image.url}
-              caption={image.caption}
-              author={image.author}
-              date={image.dateTaken}
-              tags={image.tags}
-              filter={filter}
-            />
+            <GalleryImage key={i} image={image} filter={filter} />
           ))}
       </div>
     </Page>
   )
 }
 
-function GalleryImage(props) {
+function GalleryImage(props: {image: GalleryImage; filter: string | null}) {
+  const {caption, author, dateTaken, image, tags} = props.image
+
   return (
     <div
       key={props.filter}
       className="flex flex-col mb-4 break-inside-avoid bg-stone-300 rounded overflow-hidden animate-expand"
     >
-      <img src={props.url} alt={props.caption} />
+      <img src={image.url} alt={caption} />
       <div className="px-2 py-4 prose">
         <div className="text-xs flex flex-wrap gap-1">
-          {props.tags.map((tag, i) => (
-            <span className="bg-stone-400 rounded px-1" key={i}>{tag.tagName}</span>
+          {tags.map((tag, i) => (
+            <span className="bg-stone-400 rounded px-1" key={i}>
+              {tag.tagName}
+            </span>
           ))}
         </div>
         <div className="text-md font-bold hyphens-auto break-words" lang="en">
-          {props.caption}
+          {caption}
         </div>
-        <div>{props.author}</div>
-        <div className="text-sm">{new Date(props.date).toLocaleDateString('en-US', {dateStyle: 'long'})}</div>
+        <div>{author}</div>
+        <div className="text-sm">{new Date(dateTaken).toLocaleDateString('en-US', {dateStyle: 'long'})}</div>
       </div>
     </div>
   )
 }
-
-export default Gallery

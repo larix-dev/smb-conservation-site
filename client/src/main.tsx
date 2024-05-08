@@ -26,15 +26,15 @@ import MessagePage from './components/MessagePage'
 
 import './index.css'
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL
+const apiUrl = import.meta.env.VITE_APP_API_URL
 
+axios.defaults.baseURL = apiUrl
 const apollo = new ApolloClient({
-  uri: `${process.env.REACT_APP_API_URL}/api/graphql`,
+  uri: `${apiUrl}/api/graphql`,
   cache: new InMemoryCache()
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ApolloProvider client={apollo}>
       <BrowserRouter>
@@ -52,7 +52,7 @@ root.render(
             <Route path="products-services" element={<ProductsServices />} />
             <Route path="products-services/:id" element={<Product />} />
             <Route path="ecosystem" element={<Ecosystem />} />
-            <Route path="ecosystem/:id" element={<Organism />} />            
+            <Route path="ecosystem/:id" element={<Organism />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
@@ -68,12 +68,12 @@ function Layout() {
     document.documentElement.scrollTo(0, 0)
   }, [location.pathname])
 
-  const [bannerHeight, setBannerHeight] = useState(0)
+  const [bannerHeight, setBannerHeight] = useState<number>(0)
 
   return (
     <>
       <header>
-        <Banner callback={height => setBannerHeight(height)} />
+        <Banner callback={(height: number) => setBannerHeight(height)} />
         <Navbar />
       </header>
       <main className="flex" style={{minHeight: `calc(100vh - 80px - ${bannerHeight}px)`}}>
